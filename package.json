@@ -9,7 +9,9 @@
   "dependencies": {},
   "devDependencies": {
     "@commitlint/cli": "^8.3.5",
-    "@commitlint/config-conventional": "^8.3.4"
+    "@commitlint/config-conventional": "^8.3.4",
+    "@symfony/webpack-encore": "^0.28.2",
+    "webpack-notifier": "^1.6.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,13 +19,10 @@
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }  
+    }
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kirokou/snowtricks.git"
-  },
-  "author": "",
+  "repository": "git+https://github.com/kirokou/snowtricks.git",
+  "author": "kirikou <borgine@hotmail.fr>",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/kirokou/snowtricks/issues"
