@@ -1,0 +1,31 @@
+{
+  "name": "snowtricks",
+  "version": "1.0.0",
+  "description": "[![Codacy Badge](https://api.codacy.com/project/badge/Grade/95d6153ada5e4255a026e33d61a390d5)](https://app.codacy.com/manual/borgine/snowtricks?utm_source=github.com&utm_medium=referral&utm_content=kirokou/snowtricks&utm_campaign=Badge_Grade_Dashboard)",
+  "main": "commitlint.config.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
+    "@symfony/webpack-encore": "^0.28.2",
+    "webpack-notifier": "^1.6.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "repository": "git+https://github.com/kirokou/snowtricks.git",
+  "author": "kirikou <borgine@hotmail.fr>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kirokou/snowtricks/issues"
+  },
+  "homepage": "https://github.com/kirokou/snowtricks#readme"
+}
