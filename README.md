@@ -6,3 +6,7 @@ symfony server:start
 
 ## Make CRUD
 php bin/console make:crud
+
+## Create or finish branc in gitflow
+git flow feature start branchname
+git flow feature finish branchname
