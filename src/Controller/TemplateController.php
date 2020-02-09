@@ -8,16 +8,6 @@ use Symfony\Component\Routing\Annotation\Route;
 class TemplateController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
-     */
-    public function index()
-    {
-        return $this->render('template/index.html.twig', [
-            'controller_name' => 'TemplateController',
-        ]);
-    }
-
-    /**
      * @Route("/template/show", name="Show")
      */
     public function show()
