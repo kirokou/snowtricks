@@ -4,10 +4,14 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping as ORM;
+use Cocur\Slugify\Slugify;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
+ * @ORM\HasLifecycleCallbacks
  */
 class Trick
 {
@@ -63,6 +67,19 @@ class Trick
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+    /**
+    * @ORM\Prepersist
+    * @ORM\Preupdate
+    */
+    public function initializeSlug()
+    {
+        if(empty($this->slug)){
+            $slugify = new Slugify(); // Don't forget to import class
+            $this->slug= $slugify->slugify($this->title);
+        }
+       
+    }
+    
 
     public function __construct()
     {
