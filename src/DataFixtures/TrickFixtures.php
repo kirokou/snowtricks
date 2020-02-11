@@ -15,7 +15,7 @@ class TrickFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getFigureData() as [$name, $description, $videoUrl, $commentContent]) {
+        foreach ($this->getFigureData() as [$name, $description, $videoUrl]) {
             
             $group = new Group();
             $group->setTitle('break');
