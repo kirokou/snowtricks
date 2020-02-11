@@ -10,3 +10,7 @@ php bin/console make:crud
 ## Create or finish branc in gitflow
 git flow feature start branchname
 git flow feature finish branchname
+
+## Les fixtures
+composer require --dev orm-fixtures
+php bin/console doctrine:fixtures:load

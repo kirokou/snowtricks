@@ -24,7 +24,7 @@ class Group
     private $title;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="App\Entity\Trick", mappedBy="category", cascade={"persist", "remove"})
      */
     private $tricks;
 
