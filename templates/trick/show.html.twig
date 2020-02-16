@@ -3,40 +3,116 @@
 {% block title %}Trick{% endblock %}
 
 {% block body %}
-    <h1>Trick</h1>
+    <!-- Full Page Intro -->
+    {% set url = asset('img/' ~ trick.imgs[0].alt ~ trick.imgs[0].ext) %}
+    <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover;"/>
+        <!-- Content -->
+        <div class="container">
+            <!--Grid column-->
+            <div class="col-md-12 mb-4 white-text text-center text-md-left">
+                {{ include('trick/_delete_form.html.twig') }}
+                {{ include('trick/_delete_form.html.twig') }}
+            </div>
+            <!--/Grid column-->
+        </div>
+        <!-- /Content -->
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ trick.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ trick.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ trick.description }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ trick.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
+    <!-- /Full Page Intro -->
+	
+    <!--rest-->
+	<div class="container" style="margin-top:30px">
+		
+         <!-- IMAGES ET VIDEOS-->
+        <div class="row px-1">
+            <!--IMAGES-SLIDER-->
+            <div class="col-md-6 ">
+                <p class="h2 text-center">ILLUSTRATIONS</p>
 
-    <a href="{{ path('trick_index') }}">back to list</a>
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        {% for img in trick.imgs %}
+                            <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %} class="active"{% endif %}></li>
+                        {% endfor%}
+                    </ol>
+                    <div class="carousel-inner">
+                        {% for img in trick.imgs %}
+                            <div class="carousel-item {% if loop.first %}active{% endif %}">
+                                <img src="{{ asset('img/' ~ img.alt ~ img.ext)}}" class="d-block w-100" alt="{{ img.alt }}" width="100%" height="400">
+                            </div>
+                        {% endfor %}
+                    </div>
 
-    <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
 
-    {{ include('trick/_delete_form.html.twig') }}
+            </div>
+
+            <!--VIDEOS-->
+            <div class="col-md-6 mx-auto">
+                <p class="h2 text-center">VIDEO</p>
+                <iframe src="https://www.youtube.com/embed/G9qlTInKbNE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="400" width="100%"></iframe>
+            </div>
+        </div>
+
+        <!-- Description -->
+		<div class="row">
+			<div class="col-xl-12 col-md-12">
+				{{ trick.description }}
+			</div>
+		</div>
+		<!-- /Description -->
+
+		<!-- Badges -->
+		<div class="row">
+			<div class="col-xl-12 col-md-12">
+				<p class="text-center">
+					<span class="btn btn-default">Date de publication: {{ trick.createdAt|date('Y-m-d H:i:s') }} </span>
+					<span class="btn badge-default">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </span>
+					<span class="btn badge-default">Groupe: {{ trick.category.id }}</span>
+				</p>
+			</div>
+		</div>
+		<!-- /.Badges -->
+
+        <!-- new comment -->
+        <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
+        <div class="row">
+            <div align="center" class="col-xl-12 col-md-12">
+                <form method="post" action="">
+                    <textarea></textarea>
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ trick.slug) }}">
+                    <button class="btn">Leave a comment</button>
+                </form>
+            </div>
+        </div>
+        <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
+        <!--/new comment-->
+
+        <!--Old comment-->
+        <div class="row">
+            {% for i in 0..5 %}
+                <div class="col-xl-12 col-md-12" align="center">
+                    <img src="toto.jpg" alt="toto">
+                    <p>lorem commentaire</p>
+                </div>
+            {% endfor %}
+        </div>
+        <!--/.Old comment -->
+
+        <!--load more-->
+        <p class="text-center">
+            <a href="#" class="btn">Load more</a>
+        </p>
+        <!--load more-->
+	</div>	
+    <!--/rest -->
+
 {% endblock %}

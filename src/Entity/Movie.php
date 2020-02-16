@@ -26,10 +26,6 @@ class Movie
      */
     private $src;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Trick", mappedBy="movie", cascade={"persist", "remove"})
-     */
-    private $trick;
 
     public function getId(): ?int
     {
@@ -58,23 +54,5 @@ class Movie
         $this->src = $src;
 
         return $this;
-    }
-
-    public function getTrick(): ?Trick
-    {
-        return $this->trick;
-    }
-
-    public function setTrick(Trick $trick): self
-    {
-        $this->trick = $trick;
-
-        // set the owning side of the relation if necessary
-        if ($trick->getMovie() !== $this) {
-            $trick->setMovie($this);
-        }
-
-        return $this;
-    }
-    
+    }    
 }

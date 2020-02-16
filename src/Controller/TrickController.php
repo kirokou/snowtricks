@@ -16,8 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/", name="trick_index", methods={"GET"})
-     * test ok
+     * @Route("/index", name="trick_index", methods={"GET"})
      */
     public function index(TrickRepository $trickRepository): Response
     {
@@ -25,9 +24,11 @@ class TrickController extends AbstractController
             'tricks' => $trickRepository->findAll(),
         ]);
     }
+    
 
     /**
      * @Route("/new", name="trick_new", methods={"GET","POST"})
+     * // Es-ce qu'il manque le $entityManager ObjectManager en injection de de
      */
     public function new(Request $request): Response
     {
@@ -50,17 +51,21 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_show", methods={"GET"})
+     * @Route("/{slug}", name="trick_show", methods={"GET"})
      */
     public function show(Trick $trick): Response
     {
+        $imgs=$trick->getImgs();
+        dump($imgs);
+        dump($imgs[0]);
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
+     * @Route("/{slug}/edit", name="trick_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Trick $trick): Response
     {
@@ -80,11 +85,11 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="trick_delete", methods={"DELETE"})
+     * @Route("/{slug}", name="trick_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Trick $trick): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$trick->getSlug(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();

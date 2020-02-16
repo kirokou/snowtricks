@@ -39,8 +39,7 @@ class Trick
     private $imgs;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Movie", inversedBy="trick", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Movie", cascade={"persist", "remove"})
      */
     private $movie;
 
@@ -78,9 +77,7 @@ class Trick
             $slugify = new Slugify(); // Don't forget to import class
             $this->slug= $slugify->slugify($this->title);
         }
-       
     }
-    
 
     public function __construct()
     {
