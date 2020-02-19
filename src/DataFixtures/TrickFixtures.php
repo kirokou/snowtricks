@@ -4,7 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Img;
-use App\Entity\Group;
+use App\Entity\Category;
 use App\Entity\Movie;
 use App\Entity\Trick;
 use App\Entity\Comment;
@@ -15,39 +15,37 @@ class TrickFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getFigureData() as [$name, $description, $videoUrl]) {
+        foreach ($this->getFigureData() as [$name, $description, $videoUrl]) 
+        {
+            $category = new Category();
+            $category->setTitle('break');
             
-            $group = new Group();
-            $group->setTitle('break');
-            
-            $figure = new Trick();
-            $figure->setTitle($name);
-            $figure->setDescription($description);
-            $figure->setCategory(null);
-            $figure->setCreatedAt(new \DateTime());
-            $figure->setUpdatedAt(new \DateTime());
-            
+            $trick = new Trick();
+            $trick->setTitle($name);
+            $trick->setDescription($description);
+            $trick->setCategory(null);
+            $trick->setCreatedAt(new \DateTime());
+            $trick->setUpdatedAt(new \DateTime());
 
             //$figure->setSlug((new FigureController())->slugify($figure->getName()));
 
-            $video = new Movie();
-            $video->setTitle($name);
-            $video->setSrc($videoUrl);
-            $figure->setMovie($video);
+            $movie = new Movie();
+            $movie->setTitle($name);
+            $movie->setSrc($videoUrl);
+                $trick->setMovie($video);
 
-            $picture = new Img();
-            $picture->setAlt($videoUrl);
-            $picture->setExt('jpg');
-            //$manager->persist($picture);
-            $figure->addImg($picture);
+            $img = new Img();
+            $img->setAlt($videoUrl);
+            $img->setExt('jpg');
+                //$manager->persist($picture);
+                $trick->addImg($img);
 
             $comment = new Comment();
             $comment->setAuthor($name);
             $comment->setContent($description);
             $comment->setCreatedAt(new \DateTime());
             $comment->setUpdatedAt(new \DateTime());
-
-            $figure->addComment($comment);
+                $trick->addComment($comment);
 
             $manager->persist($figure);
         }

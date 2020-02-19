@@ -9,7 +9,10 @@
 import "../css/app.css";
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to import it.
-// import $ from "jquery";
+//import $ from "jquery";
+var $ = require('jquery');
+require('./trick.js');
+global.$ = global.jQuery = $;
 
 const imagesContext = require.context("../media", true, /\.(png|jpg|jpeg|gif|ico|svg|webp)$/);
 imagesContext.keys().forEach(imagesContext);

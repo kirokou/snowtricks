@@ -2,14 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use App\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Group
+class Category
 {
     /**
      * @ORM\Id()
@@ -28,11 +27,6 @@ class Group
      */
     private $tricks;
 
-    public function __construct()
-    {
-        $this->tricks = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -49,14 +43,7 @@ class Group
 
         return $this;
     }
-
-    /**
-     * @return Collection|Trick[]
-     */
-    public function getTricks(): Collection
-    {
-        return $this->tricks;
-    }
+   
 
     public function addTrick(Trick $trick): self
     {
@@ -80,5 +67,6 @@ class Group
 
         return $this;
     }
-
+    
+    
 }

@@ -39,8 +39,7 @@ class Trick
     private $imgs;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Movie", inversedBy="trick", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity="App\Entity\Movie", cascade={"persist", "remove"})
      */
     private $movie;
 
@@ -50,7 +49,7 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Group", inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="tricks")
      */
     private $category;
 
@@ -78,9 +77,7 @@ class Trick
             $slugify = new Slugify(); // Don't forget to import class
             $this->slug= $slugify->slugify($this->title);
         }
-       
     }
-    
 
     public function __construct()
     {
@@ -191,12 +188,12 @@ class Trick
         return $this;
     }
 
-    public function getCategory(): ?Group
+    public function getCategory(): ?Category
     {
         return $this->category;
     }
 
-    public function setCategory(?Group $category): self
+    public function setCategory(?Category $category): self
     {
         $this->category = $category;
 

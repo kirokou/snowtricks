@@ -5,76 +5,50 @@
         <meta name="viewport" content="">
         <meta name="description" content="">
         <meta name="author" content="">
-
-        {% block stylesheets %}{% endblock %}
-        <title>{% block title %}SSJ-Tricks{% endblock %}</title>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <!-- Bootstrap core CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{asset('build/app.css')}}">
+        <link rel="stylesheet" href="{{asset('build/js/app.css')}}">
+        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}SSJ-Tricks{% endblock %}</title>
         </head>
     <body>
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
             <div class="container">
-
-            <!-- Brand -->
-            <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
-                <strong>MDB</strong>
-            </a>
-
-            <!-- Collapse -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Links -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <!-- Left -->
-                <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                    <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">About MDB</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/getting-started/download/" target="_blank">Free download</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="https://mdbootstrap.com/education/bootstrap/" target="_blank">Free tutorials</a>
-                </li>
-                </ul>
-
-                <!-- Right -->
-                <ul class="navbar-nav nav-flex-icons">
-                <li class="nav-item">
-                    <a href="https://www.facebook.com/mdbootstrap" class="nav-link" target="_blank">
-                    <i class="fab fa-facebook-f"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://twitter.com/MDBootstrap" class="nav-link" target="_blank">
-                    <i class="fab fa-twitter"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded"
-                    target="_blank">
-                    <i class="fab fa-github mr-2"></i>MDB GitHub
-                    </a>
-                </li>
-                </ul>
-
-            </div>
+                <!-- Brand -->
+                <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
+                    <strong>SNOWTRICK</strong>
+                </a>
+                <!-- Collapse -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- Links -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <!-- Right -->
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Tricks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Sign in</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Sign up</a>
+                        </li>
+                    </ul>
+                </div>
 
             </div>
         </nav>
@@ -84,7 +58,7 @@
         {% block body %}{% endblock %}
         <!--/Content-->
 
-       <!--Footer-->
+        <!--Footer-->
         <footer class="page-footer text-center font-small mt-4 wow fadeIn">
 
             <!-- Social icons -->
@@ -92,31 +66,24 @@
                 <a href="https://www.facebook.com/mdbootstrap" target="_blank">
                     <i class="fab fa-facebook-f mr-3"></i>
                 </a>
-
                 <a href="https://twitter.com/MDBootstrap" target="_blank">
                     <i class="fab fa-twitter mr-3"></i>
                 </a>
-
                 <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
                     <i class="fab fa-youtube mr-3"></i>
                 </a>
-
                 <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
                     <i class="fab fa-google-plus-g mr-3"></i>
                 </a>
-
                 <a href="https://dribbble.com/mdbootstrap" target="_blank">
                     <i class="fab fa-dribbble mr-3"></i>
                 </a>
-
                 <a href="https://pinterest.com/mdbootstrap" target="_blank">
                     <i class="fab fa-pinterest mr-3"></i>
                 </a>
-
                 <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
                     <i class="fab fa-github mr-3"></i>
                 </a>
-
                 <a href="http://codepen.io/mdbootstrap/" target="_blank">
                     <i class="fab fa-codepen mr-3"></i>
                 </a>
@@ -129,18 +96,16 @@
             <a href="https://mdbootstrap.com/education/bootstrap/" target="_blank"> MDBootstrap.com </a>
             </div>
             <!--/.Copyright-->
-
         </footer>
         <!--/.Footer-->
 
-        {% block javascripts %}
         <!-- JQuery -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <!-- Bootstrap tooltips -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-            <!-- Bootstrap core JavaScript -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="{{asset('build/app.js')}}"></script>
-        {% endblock %}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!--Bootstrap tooltips-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!--Bootstrap core JavaScript-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{asset('build/js/app.js')}}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>
