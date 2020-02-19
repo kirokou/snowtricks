@@ -14,3 +14,10 @@ git flow feature finish branchname
 ## Les fixtures
 composer require --dev orm-fixtures
 php bin/console doctrine:fixtures:load
+
+## Les migrations
+php bin/console make:migration
+php bin/console doctrine:migrations:migrate
+
+## encore
+yarn run encore dev

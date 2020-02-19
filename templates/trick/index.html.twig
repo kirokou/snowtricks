@@ -3,41 +3,51 @@
 {% block title %}Trick index{% endblock %}
 
 {% block body %}
-    <h1>Trick index</h1>
+    <div class="container mt-5">
+        <!--Titre-->
+        <h1>Liste des figures</h1>
+        <!--Tableau d'affichage-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
+                    <th>Slug</th>
+                    <th>category</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for trick in tricks %}
+                <tr>
+                    <td>{{ trick.id }}</td>
+                    <td>{{ trick.title }}</td>
+                    <td>{{ trick.description }}</td>
+                    <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ trick.slug }}</td>
+                    <td>{{ trick.category.title }}</td>
+                    <td>
+                        <a class="btn" href="{{ path('trick_show', {'slug': trick.slug}) }}">show</a>
+                        <a class="btn" href="{{ path('trick_edit', {'slug': trick.slug}) }}">edit</a>
+                        <!--by form-->
+                        <a class="btn" href="{{ path('trick_edit', {'slug': trick.slug}) }}">delete</a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="7">no records found</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for trick in tricks %}
-            <tr>
-                <td>{{ trick.id }}</td>
-                <td>{{ trick.title }}</td>
-                <td>{{ trick.description }}</td>
-                <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ trick.slug }}</td>
-                <td>
-                    <a href="{{ path('trick_show', {'id': trick.id}) }}">show</a>
-                    <a href="{{ path('trick_edit', {'id': trick.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <a href="{{ path('trick_new') }}">Create new</a>
+    </div>
+    
 
-    <a href="{{ path('trick_new') }}">Create new</a>
+    
 {% endblock %}
