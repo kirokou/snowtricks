@@ -5,42 +5,34 @@
         <meta name="viewport" content="">
         <meta name="description" content="">
         <meta name="author" content="">
-
-        {% block stylesheets %}{% endblock %}
-        <title>{% block title %}SSJ-Tricks{% endblock %}</title>
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <!-- Bootstrap core CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{asset('build/app.css')}}">
+        <link rel="stylesheet" href="{{asset('build/js/app.css')}}">
+        {% block stylesheets %}{% endblock %}
+        <title>{% block title %}SSJ-Tricks{% endblock %}</title>
         </head>
     <body>
 
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
             <div class="container">
-
                 <!-- Brand -->
                 <a class="navbar-brand" href="https://mdbootstrap.com/docs/jquery/" target="_blank">
                     <strong>SNOWTRICK</strong>
                 </a>
-
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <!-- Links -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left -->
-                    <ul class="navbar-nav mr-auto">
-                    </ul>
-
                     <!-- Right -->
-                    <ul class="navbar-nav nav-flex-icons">
+                    <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item active">
                             <a class="nav-link" href="#">Home
                             <span class="sr-only">(current)</span>
@@ -56,7 +48,6 @@
                             <a class="nav-link" href="https://mdbootstrap.com/docs/jquery/" target="_blank">Sign up</a>
                         </li>
                     </ul>
-
                 </div>
 
             </div>
@@ -64,11 +55,7 @@
         <!--/Nav barre-->
 
         <!--Content-->
-
-        {% block body %}
-        
-        {% endblock %}
-
+        {% block body %}{% endblock %}
         <!--/Content-->
 
         <!--Footer-->
@@ -112,14 +99,13 @@
         </footer>
         <!--/.Footer-->
 
-        {% block javascripts %}
         <!-- JQuery -->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-            <!--Bootstrap tooltips-->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
-            <!--Bootstrap core JavaScript-->
-            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-            <script type="text/javascript" src="{{asset('build/app.js')}}"></script>
-        {% endblock %}
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <!--Bootstrap tooltips-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!--Bootstrap core JavaScript-->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="{{asset('build/js/app.js')}}"></script>
+        {% block javascripts %}{% endblock %}
     </body>
 </html>

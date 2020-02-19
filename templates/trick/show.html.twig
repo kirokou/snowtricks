@@ -5,7 +5,7 @@
 {% block body %}
     <!-- Full Page Intro -->
     {% set url = asset('img/' ~ trick.imgs[0].alt ~ trick.imgs[0].ext) %}
-    <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover;"/>
+    <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
         <!-- Content -->
         <div class="container">
             <!--Grid column-->
@@ -58,7 +58,7 @@
             <!--VIDEOS-->
             <div class="col-md-6 mx-auto">
                 <p class="h2 text-center">VIDEO</p>
-                <iframe src="https://www.youtube.com/embed/G9qlTInKbNE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="400" width="100%"></iframe>
+                <iframe src="{{ trick.movie.src }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="400" width="100%"></iframe>
             </div>
         </div>
 
@@ -76,7 +76,7 @@
 				<p class="text-center">
 					<span class="btn btn-default">Date de publication: {{ trick.createdAt|date('Y-m-d H:i:s') }} </span>
 					<span class="btn badge-default">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </span>
-					<span class="btn badge-default">Groupe: {{ trick.category.id }}</span>
+					<span class="btn badge-default">Groupe: {{ trick.category.title }}</span>
 				</p>
 			</div>
 		</div>

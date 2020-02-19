@@ -26,7 +26,6 @@ class Movie
      */
     private $src;
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -40,7 +39,6 @@ class Movie
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -52,7 +50,6 @@ class Movie
     public function setSrc(string $src): self
     {
         $this->src = $src;
-
         return $this;
     }    
 }

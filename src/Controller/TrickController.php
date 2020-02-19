@@ -2,13 +2,14 @@
 
 namespace App\Controller;
 
+use DateTime;
 use App\Entity\Trick;
 use App\Form\TrickType;
 use App\Repository\TrickRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/trick")
@@ -33,11 +34,16 @@ class TrickController extends AbstractController
     public function new(Request $request): Response
     {
         $trick = new Trick();
+        //$img = new Img();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $trick->setCreatedAt(new DateTime('now'));
+            $trick->setUpdatedAt(new DateTime('now'));
+
             $entityManager->persist($trick);
             $entityManager->flush();
 
@@ -55,10 +61,6 @@ class TrickController extends AbstractController
      */
     public function show(Trick $trick): Response
     {
-        $imgs=$trick->getImgs();
-        dump($imgs);
-        dump($imgs[0]);
-
         return $this->render('trick/show.html.twig', [
             'trick' => $trick
         ]);

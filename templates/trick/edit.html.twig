@@ -2,25 +2,44 @@
 
 {% block title %}Edit Trick{% endblock %}
 
+{% form_theme form 'trick/_collection_form.html.twig' %}
+
 {% block body %}
-    <h1>Edit Trick</h1>
-
-    {{ include('trick/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('trick_index') }}">back to list</a>
-
-    {{ include('trick/_delete_form.html.twig') }}
-
-
-    <!-- select group -->
-		<div class="row">
-			<div class="col-xl-12">
-				<select name="" id="">
-					<option value="">1</option>
-					<option value="">2</option>
-					<option value="">3</option>
-				</select>
+	<div class="container mt-5">
+		<h1>Ajouter une nouvelle figure</h1>
+		{{ form_start(form) }}
+			<div>
+				{{ form_row(form.title) }}
 			</div>
-		</div>
-		<!-- /.select group -->
+			<div>
+				{{ form_row(form.description) }}
+			</div>
+			<div>
+				{{ form_row(form.category) }}
+			</div>
+			<div>
+				{{ form_row(form.movie) }}
+			</div>
+			<div class="row">
+				<div class="">
+					<iframe src="{{ trick.movie.src }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="400" width="100%"></iframe>
+				</div>
+			</div>
+
+
+			<div class="carousel-inner">
+				{% for img in trick.imgs %}
+					<div>
+						<img src="{{ asset('img/' ~ img.alt ~ img.ext)}}" class="d-block w-100" alt="{{ img.alt }}" width="100%" height="400">
+					</div>
+				{% endfor %}
+			</div>
+			
+			<button class="btn">{{ button_label|default("Modifier la figure") }}</button>
+		{{ form_end(form) }}
+	</div>
+
+   <p class="text-center">
+		<a href="{{ path('trick_index') }}" class="btn">back to list</a>
+   </p> 
 {% endblock %}

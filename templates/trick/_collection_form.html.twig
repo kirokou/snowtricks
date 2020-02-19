@@ -1,0 +1,54 @@
+{# Affichage du sous-formulaire #}
+{% block _trick_imgs_widget %}
+    {# Le titre #}
+    <p>Ajouter les images</p>
+    {# Le compteur #}
+    <input type="hidden" id="counter" value="0"/> 
+    {# Le form et le button #}
+    {{ form_widget(form) }}
+    <div class="form-group">
+        <button type="button" id="add-img" class="btn btn-primary">Ajouter</button>
+    </div>
+{% endblock %}
+
+{# Redéfinition des row #}
+{% block _trick_imgs_row %} 
+    {{ form_widget(form) }}
+{% endblock %}
+
+{# Redéfinition des row des movies #}
+{% block _trick_movie_row %}
+    <div class="row">
+        <div class="col">
+            {{ form_label(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+        <div class="col">
+            {{ form_label(form.src) }}
+            {{ form_widget(form.src) }}
+        </div>
+    </div>  
+{% endblock %}
+
+{# Affichage des entry #}
+{% block _trick_imgs_entry_widget %}
+<div class="form-group" id="block_{{id}}">
+    <div class="row">
+        <div class="col-11">   
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
+                </div>
+                <div class="custom-file">
+                    {{ form_errors(form.alt, { 'attr': {'class': 'custom-file-input'} }) }}
+                    {{ form_widget(form.alt) }}
+                    <label class="custom-file-label" for="inputGroupFile01">Choisir une image</label>
+                </div>
+            </div>   
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

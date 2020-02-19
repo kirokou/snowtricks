@@ -2,8 +2,6 @@
 
 namespace App\Form;
 
-
-use App\Entity\Group;
 use App\Entity\Trick;
 use App\Form\ImgType;
 use App\Form\MovieType;
@@ -12,14 +10,31 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends AbstractType
 {
+
+    private function getConfiguration($label, $placeholder, $required=true)
+    {
+        return [
+            'label'=> $label,
+            'attr'=> [
+                'placeholder'=>$placeholder
+            ],
+            'required'=>$required
+        ];
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add(
+                'title',
+                TextType::class,
+                $this->getConfiguration("Titre de la figure","Entrez le titre de la figure")
+            )
             ->add('description')
             ->add(
                 'category', //ManytoOne
@@ -28,7 +43,7 @@ class TrickType extends AbstractType
                 'class' => Category::class,
                 'choice_label' => 'title',
                 ]
-            )  
+            )
             ->add(
                 'movie',  //OnetoOne // sans trick au niveau de movie warning
                 MovieType::class, 
@@ -39,11 +54,12 @@ class TrickType extends AbstractType
             )
             ->add(  // OneToMany
                 'imgs', 
-                CollectionType::class, [
-                'entry_type' => ImgType::class
+                CollectionType::class, 
+                [
+                'entry_type' => ImgType::class,
+                'allow_add'=> true,
                 ]
-            )
-           
+            )  
         ;
     }
 

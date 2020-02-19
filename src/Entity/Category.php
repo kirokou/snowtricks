@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,14 +43,7 @@ class Category
 
         return $this;
     }
-
-    /**
-     * @return Collection|Trick[]
-     */
-    public function getTricks(): Collection
-    {
-        return $this->tricks;
-    }
+   
 
     public function addTrick(Trick $trick): self
     {
@@ -73,4 +67,6 @@ class Category
 
         return $this;
     }
+    
+    
 }
