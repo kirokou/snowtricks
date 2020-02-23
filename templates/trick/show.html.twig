@@ -5,18 +5,30 @@
 {% block body %}
     <!-- Full Page Intro -->
     {% set url = asset('img/' ~ trick.imgs[0].alt ~ trick.imgs[0].ext) %}
+
     <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
+
         <!-- Content -->
         <div class="container">
-            <!--Grid column-->
-            <div class="col-md-12 mb-4 white-text text-center text-md-left">
-                {{ include('trick/_delete_form.html.twig') }}
-                {{ include('trick/_delete_form.html.twig') }}
+            <!--edit and delete button-->
+            {{ include('trick/_delete_form.html.twig') }}
+            <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="card-link">
+                <i class="fas fa-pencil-alt"></i>
+            </a>
+            <!--./edit and delete button-->
+
+            <!--Grid row-->
+            <div class="row wow fadeIn">
+                <!--Grid column-->
+                <div class="col-md-12 mb-4 white-text text-center text-md-left">
+                    <h1 class="display-4 font-weight-bold text-center"> {{ trick.title }} </h1>
+                    <hr class="hr-light">
+                </div>
+                <!--/Grid column-->
             </div>
-            <!--/Grid column-->
+            <!--/Grid row-->
         </div>
         <!-- /Content -->
-
     </div>
     <!-- /Full Page Intro -->
 	
@@ -83,6 +95,7 @@
 		<!-- /.Badges -->
 
         <!-- new comment -->
+        <!-- Mettre ici le formulaire du new comment -->
         <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
         <div class="row">
             <div align="center" class="col-xl-12 col-md-12">
@@ -96,16 +109,32 @@
         <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
         <!--/new comment-->
 
-        <!--Old comment-->
-        <div class="row">
-            {% for i in 0..5 %}
-                <div class="col-xl-12 col-md-12" align="center">
-                    <img src="toto.jpg" alt="toto">
-                    <p>lorem commentaire</p>
+        <!--Old comments-->
+        {% for comment in trick.comments %}
+            <div class="row justify-content-center">
+                <div class="col-xl-6 col-md-6 mt-2" align="center">
+                    <!--Comment body-->
+                    <div class="row bg-default">
+                        <!--Mettre l'avars de l'author/l'user-->
+                        <div class="col-lg-1 col-md-1">
+                            <img src="toto.jpg" alt="toto"/>
+                        </div>
+                        <div class="col-lg-11 col-md-11">
+                            {{comment.content}}
+                        </div>
+                    </div>
+                    <!--/Comment body-->
+
+                    <!--Comment footer-->
+                    <div class="row justify-content-center card-footer">
+                        <span> Crée le: {{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</span>  | 
+                        <span> Dernière modification: {{ comment.updatedAt ? comment.updatedAt|date('d-m-Y H:i') : '' }}</span>
+                    </div>
+                    <!--./Comment footer-->    
                 </div>
-            {% endfor %}
-        </div>
-        <!--/.Old comment -->
+            </div>
+        {% endfor %}
+        <!--/.Old comments -->
 
         <!--load more-->
         <p class="text-center">
