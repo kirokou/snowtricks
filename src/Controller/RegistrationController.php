@@ -76,12 +76,12 @@ class RegistrationController extends AbstractController
             // On renvoie une erreur 404
             throw $this->createNotFoundException("Cet utilisateur n'existe pas");
         }
-       
-        // On supprime le token
-        $user->setActivationToken(null);
-            // On attribue un ROLE_USER // Il sera update Admin par l'admin
-        $user->setroles(['ROLE_USER']);
-    
+        else{
+            // On supprime le token
+            $user->setActivationToken(null);
+             // On attribue un ROLE_USER // Il sera update Admin par l'admin
+            $user->setroles(['ROLE_USER']);
+        }
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
