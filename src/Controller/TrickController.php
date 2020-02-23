@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/index", name="trick_index", methods={"GET"})
+     * @Route("/", name="trick_index", methods={"GET"})
      */
     public function index(TrickRepository $trickRepository): Response
     {
@@ -42,6 +42,7 @@ class TrickController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
 
             $trick->setCreatedAt(new DateTime('now'));
+            //passer ce champs en nullabe=true le supprimer
             $trick->setUpdatedAt(new DateTime('now'));
 
             $entityManager->persist($trick);

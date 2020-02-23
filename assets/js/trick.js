@@ -3,6 +3,7 @@ $('#add-img').click(function(){
     const index= +$('#counter').val(); 
     // Récupération du champs image
     const tmpl= $('#trick_imgs').data('prototype').replace(/__name__/g,index);
+    
     //Envoi du template
     $('#trick_imgs').append(tmpl);
     //Incrémentation de la valeur du counteur
