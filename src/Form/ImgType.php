@@ -20,6 +20,7 @@ class ImgType extends AbstractType
                 'alt',
                 FileType::class,
                 [
+                    'label' => false,
                     'mapped' => false,
                     'required' => false,
                     'constraints' => array(

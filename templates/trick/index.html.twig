@@ -10,26 +10,22 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>Id</th>
                     <th>Title</th>
-                    <th>Description</th>
-                    <th>CreatedAt</th>
-                    <th>UpdatedAt</th>
                     <th>Slug</th>
                     <th>category</th>
+                    <th>CreatedAt</th>
+                    <th>UpdatedAt</th>
                     <th>actions</th>
                 </tr>
             </thead>
             <tbody>
             {% for trick in tricks %}
                 <tr>
-                    <td>{{ trick.id }}</td>
                     <td>{{ trick.title }}</td>
-                    <td>{{ trick.description }}</td>
-                    <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ trick.slug }}</td>
                     <td>{{ trick.category.title }}</td>
+                    <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
                         <a class="btn" href="{{ path('trick_show', {'slug': trick.slug}) }}">show</a>
                         <a class="btn" href="{{ path('trick_edit', {'slug': trick.slug}) }}">edit</a>

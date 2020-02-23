@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Comment{% endblock %}
+
+{% block body %}
+    <h1>Bienvenu sur notre site web</h1>
+
+    <p> Votre compte a bien été créé. </p>
+    <p> Vous allez recevoir un mail d'activaton dans quelques instant </p>
+    <p> Vous devez valider votre compte pour accéder a votre compte </p>
+
+    <a href="{{ path('comment_index') }}">back to list</a>
+{% endblock %}
