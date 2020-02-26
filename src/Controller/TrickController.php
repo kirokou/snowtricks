@@ -39,8 +39,19 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
 
+            dump($form->getData());
+            $imagesCollection = $form->getData()->getImgs();
+            dump( $imagesCollection);
+
+            foreach ($imagesCollection as $image)
+            {
+                $image->setTrick($trick);
+                $trick->addImg($image);
+            }
+
+
+            $entityManager = $this->getDoctrine()->getManager();
             $trick->setCreatedAt(new DateTime('now'));
             //passer ce champs en nullabe=true le supprimer
             $trick->setUpdatedAt(new DateTime('now'));
@@ -48,7 +59,7 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
-            return $this->redirectToRoute('trick_index');
+           // return $this->redirectToRoute('trick_index');
         }
 
         return $this->render('trick/new.html.twig', [

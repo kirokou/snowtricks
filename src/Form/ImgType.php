@@ -16,8 +16,10 @@ class ImgType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('file', FileType::class, ['label' => false])
+        /*
             ->add(
-                'alt',
+                'file',
                 FileType::class,
                 [
                     'label' => false,
@@ -27,6 +29,7 @@ class ImgType extends AbstractType
                         new File())
                 ]
             )
+        */
             //->add('ext')
         ;
     }

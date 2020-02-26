@@ -11,11 +11,6 @@
     </div>
 {% endblock %}
 
-{# Redéfinition des row #}
-{% block _trick_imgs_row %} 
-    {{ form_widget(form) }}
-{% endblock %}
-
 {# Redéfinition des row des movies #}
 {% block _trick_movie_row %}
     <div class="row">
@@ -51,4 +46,9 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{# Redéfinition des row #}
+{% block _trick_imgs_row %} 
+    {{ form_widget(form) }}
 {% endblock %}

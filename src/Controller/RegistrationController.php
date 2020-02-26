@@ -69,19 +69,16 @@ class RegistrationController extends AbstractController
     public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler)
     {
         $user = $user->findOneBy(['activation_token' => $token]);
-        dump($token);
-        dump($user);
 
         if(!$user){
             // On renvoie une erreur 404
             throw $this->createNotFoundException("Cet utilisateur n'existe pas");
         }
-        else{
-            // On supprime le token
-            $user->setActivationToken(null);
-             // On attribue un ROLE_USER // Il sera update Admin par l'admin
-            $user->setroles(['ROLE_USER']);
-        }
+      
+        // On supprime le token
+        $user->setActivationToken(null);
+            // On attribue un ROLE_USER // Il sera update Admin par l'admin
+        $user->setroles(['ROLE_USER']);
 
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($user);
