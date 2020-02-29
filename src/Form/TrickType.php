@@ -46,11 +46,7 @@ class TrickType extends AbstractType
             )
             ->add(
                 'movie',  //OnetoOne // sans trick au niveau de movie warning
-                MovieType::class, 
-                [ 
-                'required' => false,
-                'empty_data' => null
-                ]
+                MovieType::class
             )
             ->add(  // OneToMany
                 'imgs', 
@@ -58,6 +54,7 @@ class TrickType extends AbstractType
                 [
                 'entry_type' => ImgType::class,
                 'allow_add'=> true,
+                'allow_delete'=> true,
                 ]
             )  
         ;

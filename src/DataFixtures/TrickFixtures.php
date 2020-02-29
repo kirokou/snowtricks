@@ -4,50 +4,105 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Img;
-use App\Entity\Category;
+use App\Entity\User;
 use App\Entity\Movie;
 use App\Entity\Trick;
 use App\Entity\Comment;
+use App\Entity\Category;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class TrickFixtures extends Fixture
 {
+    const FIXTURES_IMG_DIR_FROM = __DIR__ . '/../../src/DataFixtures/img/';
+    const FIXTURES_IMG_DIR_DEST = __DIR__ . '/../../public/uploads/';
+
+    public function __construct(UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->passwordEncoder = $passwordEncoder;
+    }
+
     public function load(ObjectManager $manager)
     {
-        foreach ($this->getFigureData() as [$name, $description, $videoUrl]) 
+        $faker= Factory::create('FR-fr');
+
+        //User: Admin and simple User
+        for($j=0; $j<=1; $j++)
         {
-            $category = new Category();
-            $category->setTitle('break');
+            $user = new User();
+            if($j==0){
+                $user->setEmail('user@gmail.com');
+                $user->setRoles(['ROLE_USER']);
+            }
+            else{
+                $user->setEmail('admin@gmail.com');
+                $user->setRoles(['ROLE_ADMIN']);
+            }
             
+            $password=$this->passwordEncoder->encodePassword($user,'openclassrooms-P6');
+            $user->setPassword($password);
+            $user->setFirstname($faker->firstName);
+            $user->setLastname($faker->lastName);
+            //I need to persist it because it indep
+            $manager->persist($user);
+        }
+
+        
+
+        foreach ($this->getFigureData() as [$title, $description, $movieUrl, $imgName]) 
+        {
             $trick = new Trick();
-            $trick->setTitle($name);
-            $trick->setDescription($description);
-            $trick->setCategory(null);
-            $trick->setCreatedAt(new \DateTime());
-            $trick->setUpdatedAt(new \DateTime());
+                $trick->setTitle($title);
+                $trick->setDescription($description);
+                $trick->setUser($user);    
+                $trick->setCreatedAt(new \DateTime());
+                    //Movie
+                    $movie= new movie();
+                    $movie->setTitle($title)
+                        ->setSrc($movieUrl);
+                $trick->setMovie($movie);
 
-            //$figure->setSlug((new FigureController())->slugify($figure->getName()));
+                    //Comment
+                    $comment=[];
+                    for($i=0; $i<=3; $i++)
+                    {
+                        $comment[$i]= new comment();
+                        $comment[$i]->setAuthor($faker->name)
+                                    ->setContent($faker->sentence(5))
+                                    ->setCreatedAt(new \DateTime())
+                                    ->setTrick($trick);
+                        $trick->AddComment($comment[$i]);
+                    }
 
-            $movie = new Movie();
-            $movie->setTitle($name);
-            $movie->setSrc($videoUrl);
-                $trick->setMovie($video);
+                    //Category
+                    $arrayCategory=['Slide','Flip','One foot','Old school','Rotation','Grab'];
+                    $category= new Category();
+                    $category->setTitle($arrayCategory[mt_rand(0,5)]);
+                    //I persist it because i need it beford create trick and category is INDEP
+                    $manager->persist($category); 
+                $trick->setCategory($category);
 
-            $img = new Img();
-            $img->setAlt($videoUrl);
-            $img->setExt('jpg');
-                //$manager->persist($picture);
-                $trick->addImg($img);
-
-            $comment = new Comment();
-            $comment->setAuthor($name);
-            $comment->setContent($description);
-            $comment->setCreatedAt(new \DateTime());
-            $comment->setUpdatedAt(new \DateTime());
-                $trick->addComment($comment);
-
-            $manager->persist($figure);
+                    //Img
+                    for($i=1; $i<=3; $i++)
+                    {
+                        $img = new Img();
+                        // set newfileName for file
+                        $oldFileName=$imgName;
+                        $filename = md5(uniqid());
+                        $img->setFileName($filename.'.jpg')
+                            ->setAlt($faker->sentence); 
+                        //try??  que les set se sont bien passer avant le move  
+                        //Make new file and Move the file from my fixtures_img_repository with newfileName
+                        $imgFile = new File(self::FIXTURES_IMG_DIR_FROM . $oldFileName.$i.'.jpg');
+                        $imgFile->move(self::FIXTURES_IMG_DIR_DEST, $filename.'.jpg');
+                        
+                        $img->setTrick($trick);
+                        $trick->addImg($img);
+                    }           
+            $manager->persist($trick);
         }
 
         $manager->flush();
@@ -58,39 +113,40 @@ class TrickFixtures extends Fixture
         return [
             ['Mute',
                 'Saisie de la carre frontside de la planche entre les deux pieds avec la main avant.',
-                'https://www.youtube.com/embed/M5NTCfdObfs',
-                'Premier commentaire de la figure Mute',
-                'mute.jpg'],
+                'M5NTCfdObfs',
+                'mute'
+            ],
             ['Stalefish',
                 'Saisie de la carre backside de la planche entre les deux pieds avec la main arrière.',
-                'https://www.youtube.com/embed/8VsIZiM_Y6c',
-                'Premier commentaire de la figure Stalefish',
-                'stalefish.jpg'],
+                '8VsIZiM_Y6c',
+                'stalefish'
+            ],
             ['Indy',
                 'Saisie de la carre frontside de la planche, entre les deux pieds, avec la main arrière.',
-                'https://www.youtube.com/embed/yoAesRZcVTo',
-                'Premier commentaire de la figure Indy',
-                'indy.jpg'],
+                'yoAesRZcVTo',
+                'indy'
+            ],
             ['Sade',
                 'Saisie de la carre backside de la planche, entre les deux pieds, avec la main avant.',
-                'https://www.youtube.com/embed/KEdFwJ4SWq4',
-                'Premier commentaire de la figure Sade',
-                'sade.jpg'],
+                'KEdFwJ4SWq4',
+                'sade'
+            ],
             ['Japan Air',
                 'Saisie de l\'avant de la planche, avec la main avant, du côté de la carre frontside.',
-                'https://www.youtube.com/embed/jH76540wSqU',
-                'Premier commentaire de la figure Japan Air',
-                'japanair.jpg'],
+                'jH76540wSqU',
+                'japanair'
+            ],
             ['Frontflip',
                 'Un flip est une rotation verticale. On distingue les front flips, rotations en avant, et les back flips, rotations en arrière.',
-                'https://www.youtube.com/embed/yoAesRZcVTo',
-                'Premier commentaire de la figure Frontflip',
-                'frontflip.jpg'],
+                'yoAesRZcVTo',
+                'frontflip'
+            ],
             ['Backflip',
                 'Un flip est une rotation verticale. Les backflips sont des rotations en arrière.',
-                'https://www.youtube.com/embed/Yz4brafqk5A',
-                'Premier commentaire de la figure Backflip',
-                'backflip.jpg'],
+                'Yz4brafqk5A',
+                'backflip'
+            ],
         ];
     }
+
 }

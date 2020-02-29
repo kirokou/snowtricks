@@ -3,9 +3,14 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Movie;
 use App\Entity\Trick;
+use App\Entity\Comment;
 use App\Form\TrickType;
+use App\Form\CommentType;
 use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -31,23 +36,28 @@ class TrickController extends AbstractController
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      * // Es-ce qu'il manque le $entityManager ObjectManager en injection de de
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $trick = new Trick();
-        //$img = new Img();
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            //Manage Img collectionType
+            foreach ($trick->getImgs() as $img)
+            {
+                $img->setTrick($trick);
+                $trick->addImg($img);
+            }
 
             $trick->setCreatedAt(new DateTime('now'));
-            //passer ce champs en nullabe=true le supprimer
-            $trick->setUpdatedAt(new DateTime('now'));
-
+            $trick->setUser($this->getUser());
             $entityManager->persist($trick);
             $entityManager->flush();
 
+            // Message flash
+            $this->addFlash('success',"Super! votre annonce à bien été ajouté.");
             return $this->redirectToRoute('trick_index');
         }
 
@@ -63,21 +73,33 @@ class TrickController extends AbstractController
     public function show(Trick $trick): Response
     {
         return $this->render('trick/show.html.twig', [
-            'trick' => $trick
+            'trick' => $trick,
         ]);
     }
 
     /**
      * @Route("/{slug}/edit", name="trick_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Trick $trick): Response
+    public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($form->isSubmitted() && $form->isValid()) 
+        {
+            //Manage collectionType
+            foreach ($trick->getImgs() as $img)
+            {
+                $img->setTrick($trick);
+                $trick->addImg($img);
+            }
+            $trick->setUpdatedAt(new DateTime('now'));
+            $entityManager->persist($trick);
+            
+            $entityManager->flush();
 
+            // Message flash
+            $this->addFlash('success',"Super! votre annonce à bien été modifié.");
             return $this->redirectToRoute('trick_index');
         }
 

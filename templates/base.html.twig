@@ -11,10 +11,10 @@
         <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="{{asset('build/js/app.css')}}">
+        <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
         {% block stylesheets %}{% endblock %}
-        <title>{% block title %}SSJ-Tricks{% endblock %}</title>
-        </head>
+        <title>SNOWTRICKS{% block title %}{% endblock %}</title>
+    </head>
     <body>
 
         <!-- Navbar -->
@@ -34,23 +34,23 @@
                     <!-- Right -->
                     <ul class="navbar-nav ml-auto nav-flex-icons">
                         <li class="nav-item active">
-                            <a class="nav-link" href="#">Home
+                            <a class="nav-link" href="{{ path('home')}}">Acceuil
                             <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('trick_index')}}">Tricks</a>
+                            <a class="nav-link" href="{{ path('trick_index')}}">Figures</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_login')}}">Sign in</a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_register')}}">Sign up</a>
+                            <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_logout')}}">Logout</a>
+                            <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
                         </li>
                     </ul>
                 </div>
