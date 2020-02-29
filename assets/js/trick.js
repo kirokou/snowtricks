@@ -1,3 +1,4 @@
+//mon ancien Js
 $('#add-img').click(function(){
 
     const index= +$('#counter').val(); 

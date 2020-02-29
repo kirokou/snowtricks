@@ -1,4 +1,8 @@
-{# Affichage du sous-formulaire #}
+{# 
+    section imgs 
+#}
+
+{# Affichage du sous-formulaire imgs #}
 {% block _trick_imgs_widget %}
     {# Le titre #}
     <p>Ajouter les images</p>
@@ -7,14 +11,50 @@
     {# Le form et le button #}
     {{ form_widget(form) }}
     <div class="form-group">
-        <button type="button" id="add-img" class="btn btn-primary">Ajouter</button>
+        <button type="button" id="add-img" class="btn">Ajouter</button>
     </div>
 {% endblock %}
 
-{# Redéfinition des row #}
-{% block _trick_imgs_row %} 
+{# Affichage des entry #}
+{# Affichage des entry #}
+{% block _trick_imgs_entry_widget %}
+<div class="form-group" id="block_{{id}}">
+    <div class="row">
+        {% if form.fileName.vars.data %}
+		<div class="col-1">
+			<div class="input-group">
+				<img src="{{ asset('uploads/' ~ form.fileName.vars.data) }}" alt="Image" width="50">
+            </div> 
+		</div>
+		{% endif %}
+        <div class="col">   
+            <div class="input-group">
+                <div class="custom-file">
+                    {{ form_errors(form.file, { 'attr': {'class': 'custom-file-input'} }) }}
+                    {{ form_widget(form.file) }}
+                    <label class="custom-file-label" for="inputGroupFile01">Choisir une image</label>
+                </div>
+            </div>      
+        </div>
+        <div class="col"> 
+            {{ form_errors(form.alt) }}
+            {{ form_widget(form.alt) }}
+        </div>
+        <div class="col-1">
+            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{# Redéfinition des imgs_entry_row #}
+{% block _trick_imgs_entry_row %} 
     {{ form_widget(form) }}
 {% endblock %}
+
+{# 
+    section movie 
+#}
 
 {# Redéfinition des row des movies #}
 {% block _trick_movie_row %}
@@ -30,25 +70,3 @@
     </div>  
 {% endblock %}
 
-{# Affichage des entry #}
-{% block _trick_imgs_entry_widget %}
-<div class="form-group" id="block_{{id}}">
-    <div class="row">
-        <div class="col-11">   
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text" id="inputGroupFileAddon01">Image</span>
-                </div>
-                <div class="custom-file">
-                    {{ form_errors(form.alt, { 'attr': {'class': 'custom-file-input'} }) }}
-                    {{ form_widget(form.alt) }}
-                    <label class="custom-file-label" for="inputGroupFile01">Choisir une image</label>
-                </div>
-            </div>   
-        </div>
-        <div class="col-1">
-            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
-        </div>
-    </div>
-</div>
-{% endblock %}
