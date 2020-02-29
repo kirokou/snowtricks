@@ -59,7 +59,7 @@ class Trick
     private $createdAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
@@ -103,7 +103,6 @@ class Trick
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -115,7 +114,6 @@ class Trick
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
         return $this;
     }
 

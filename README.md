@@ -21,3 +21,10 @@ php bin/console doctrine:migrations:migrate
 
 ## encore
 yarn run encore dev
+
+## HOW INSTALL THIS PROJECT 
+> clone repo
+> create database
+> make migration
+> load fixtures
+> User and Admin access

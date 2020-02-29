@@ -42,3 +42,7 @@ header,
 /* Footer color for sake of consistency with Navbar */
 .page-footer {
   background-color: #1C2331; }
+
+/**Mine**/
+.mt-container
+{ margin-top: 60px; }
