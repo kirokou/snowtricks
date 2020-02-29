@@ -2,42 +2,34 @@
 
 {% block title %}Edit Trick{% endblock %}
 
+{% form_theme form 'trick/_collection_form.html.twig' %}
+
 {% block body %}
 	<div class="container mt-5">
-		<h1>Ajouter une nouvelle figure</h1>
+		<h1>Modifier l'annonce: {{ trick.title }} </h1>
 		{{ form_start(form) }}
-			<div>
-				{{ form_row(form.title) }}
-			</div>
-			<div>
-				{{ form_row(form.description) }}
-			</div>
+			<div>{{ form_row(form.title) }}</div>
+			<div>{{ form_row(form.description) }}</div>
 			<div>
 				{{ form_row(form.category) }}
 			</div>
 			<div>
 				{{ form_row(form.movie) }}
 			</div>
-			<div class="row">
-				<div class="">
-					<iframe src="{{ form.movie.vars.data.src }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen height="400" width="100%"></iframe>
-				</div>
-			</div>
 
-
-			<div class="carousel-inner">
-				{% for img in trick.imgs %}
-					<div>
-						<img src="{{ asset('img/' ~ img.alt ~ img.ext)}}" class="d-block w-100" alt="{{ img.alt }}" width="100%" height="400">
-					</div>
-				{% endfor %}
+			<!--img-->
+			<div>
+				{{ form_row(form.imgs) }}
 			</div>
-			
-			<button class="btn">{{ button_label|default("Modifier la figure") }}</button>
+			<!--./img-->	
+			<button class="btn btn-primary center">{{ button_label|default("Modifier la figure") }}</button>
 		{{ form_end(form) }}
 	</div>
 
-   <p class="text-center">
-		<a href="{{ path('trick_index') }}" class="btn">back to list</a>
-   </p> 
+{% endblock %}
+
+
+{# javascripts #}
+{% block javascripts %}
+    <script type="text/javascript" src="/js/trick.js"></script>
 {% endblock %}

@@ -2,97 +2,20 @@
 
 {% block title %}New Trick{% endblock %}
 
+{% form_theme form 'trick/_collection_form.html.twig' %}
+
 {% block body %}
 
     <div class="container mt-5">
         <h1>Ajouter une nouvelle figure</h1>
-        {{ form_start(form, {'attr': {'id': 'form'}}) }}
-        <div class="form-row">
-            <div class="col">
-                <!-- First name -->
-                <div class="md-form">
-                    {{ form_widget(form.title, { 'attr': {'class': 'form-control'} }) }}
-                    <label for="register_pseudo">Titre</label>
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col">
-                <!-- First name -->
-                <div class="md-form">
-                    {{ form_widget(form.description, { 'attr': {'class': 'form-control'} }) }}
-                    <label for="register_pseudo">Description</label>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col">
-                <div class="md-form">
-                    {{ form_widget(form.category, { 'attr': {'class': 'form-control'} }) }}
-                </div>
-            </div>
-        </div>
-
-        <div class="form-row">
-            <div class="col-lg-6">
-                {{ form_errors(form.imgs) }}
-                {{ form_label(form.imgs, 'Images', {'label_attr': {'style': 'font-weight: bold'}}) }}
-                {{ form_widget(form.imgs) }}
-                <a href="javascript:void(0)" id="add_image" class="btn btn-default">Ajouter une image</a>
-            </div>
-            <div class="col-lg-6">
-                {{ form_errors(form.movie) }}
-                {{ form_label(form.movie, 'Videos', { 'attr': {'class': 'form-control'} }) }}
-                {{ form_widget(form.movie) }}
-            </div>
-        </div>
-        <button class="btn">{{ button_label|default('Save') }}</button>
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button class="btn">{{ button_label|default('Créer une nouvelle figure') }}</button>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}    
-
 {% endblock %}
 
+{# javascripts #}
 {% block javascripts %}
-{{ parent() }}
-
-<script type="text/javascript">
-$(document).ready(function() {
-    const $containerImg = $('div#trick_imgs');
-    let indexImg = $containerImg.find(':input').length;
-    $('#add_image').click(function(e) {
-        addImage($containerImg);
-        e.preventDefault();
-        return false;
-    });
-    if (indexImg === 0) {
-        addImage($containerImg);
-    } else {
-        $containerImg.children('div').each(function() {
-            addDeleteLink($(this));
-        });
-    }
-    function addImage($containerImg) {
-        const template = $containerImg.attr('data-prototype')
-            .replace(/__name__label__/g, '')
-            .replace(/__name__/g, indexImg);
-
-        const $prototype = $(template);
-        addDeleteLink($prototype);
-        $containerImg.append($prototype);
-        indexImg++;
-    }
-
-    function addDeleteLink($prototype) {
-        const $deleteLink = $('<a href="javascript:void(0)" class="btn btn-danger">Supprimer</a>');
-        $prototype.append($deleteLink);
-        $deleteLink.click(function(e) {
-            $prototype.remove();
-            e.preventDefault();
-            return false;
-        });
-    }
-  
-});
-</script>
+    <script type="text/javascript" src="/js/trick.js"></script>
 {% endblock %}
