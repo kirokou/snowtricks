@@ -135,10 +135,11 @@ class SecurityController extends AbstractController
 
             // On redirige vers la page de connexion
             return $this->redirectToRoute('app_login');
-        }else {
-            // Si on n'a pas reçu les données, on affiche le formulaire
-            return $this->render('security/reset_password.html.twig', ['token' => $token]);
         }
+        // Si on n'a pas reçu les données, on affiche le formulaire
+        return $this->render('security/reset_password.html.twig', ['token' => $token]);
+        
+
 
     }
 
