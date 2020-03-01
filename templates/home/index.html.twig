@@ -47,9 +47,13 @@
                 <div class="col-md-4">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <a href="{{ url }}">
-                                <img style="height: 200px; width: 100%; display: block;" src="http://placehold.it/30x30" alt="Card image">
-                            </a>
+                            {% for img in trick.imgs %}
+                                {% if loop.first %}
+                                    <a href="{{ url }}">
+                                        <img style="height: 200px; width: 100%; display: block;" src="{{ asset('uploads/' ~ trick.imgs[0].fileName) }}" alt="Card image">
+                                    </a>   
+                                {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="card-footer text-muted d-flex justify-content-between">
                             <div>
