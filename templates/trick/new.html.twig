@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'Admin/base.html.twig' %}
 
 {% block title %}New Trick{% endblock %}
 
@@ -6,8 +6,8 @@
 
 {% block body %}
 
-    <div class="container mt-5">
-        <h1>Ajouter une nouvelle figure</h1>
+    <div class="container">
+        <h1>Ajouter un nouveau trick</h1>
         {{ form_start(form) }}
             {{ form_widget(form) }}
             <button class="btn">{{ button_label|default('Créer une nouvelle figure') }}</button>

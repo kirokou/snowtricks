@@ -17,9 +17,9 @@
 
                 <!--Grid column-->
                 <div class="col-md-12 mb-4 white-text text-center text-md-left">
-                    <h1 class="display-4 font-weight-bold text-center">BORN TO </h1>
+                    <h1 class="display-4 font-weight-bold text-center">NÉE POUR </h1>
                     <hr class="hr-light">
-                    <h3 class="text-center"><strong>JUMP</strong></h3>
+                    <h3 class="text-center"><strong>"JUMPER"</strong></h3>
                 </div>
                 <!--/Grid column-->
 
@@ -59,10 +59,12 @@
                             <div>
                                 <a href="{{ url }}">{{trick.title}}</a>
                             </div>
-                            <div>
-                                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="card-link"><i class="fas fa-pencil-alt"></i></a>
-                                <a href="{{ path('trick_delete', {'slug':trick.slug})}}" class="card-link"><i class="fas fa-trash-alt"></i></a>
+                            {% if is_granted('ROLE_ADMIN') %}
+                            <div class="d-flex">
+                                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="card-link"><i class="fas fa-pencil-alt mr-3"></i></a>
+                                {{ include('trick/_delete_form_badge.html.twig') }}
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>

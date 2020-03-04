@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/admin/user")
  */
 class UserController extends AbstractController
 {
@@ -24,14 +24,6 @@ class UserController extends AbstractController
             'users' => $userRepository->findAll(),
         ]);
     }
-
-    //OBJECTIFS
-    // lier le user au trick (Juste ajouter la propriété user au trick + Gestion du formulaire)
-    // crud les entités (comment, img, category)
-
-    // Gestion des images
-    // activation de compte
-    // Recupération de mot pass. 
 
     /**
      * @Route("/new", name="user_new", methods={"GET","POST"})

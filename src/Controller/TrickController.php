@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/trick")
@@ -22,6 +23,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
     /**
+     * IsGranted("ROLE_ADMIN")
      * @Route("/", name="trick_index", methods={"GET"})
      */
     public function index(TrickRepository $trickRepository): Response
@@ -33,8 +35,8 @@ class TrickController extends AbstractController
     
 
     /**
+     * IsGranted("ROLE_ADMIN")
      * @Route("/new", name="trick_new", methods={"GET","POST"})
-     * // Es-ce qu'il manque le $entityManager ObjectManager en injection de de
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -70,14 +72,31 @@ class TrickController extends AbstractController
     /**
      * @Route("/{slug}", name="trick_show", methods={"GET"})
      */
-    public function show(Trick $trick): Response
+    public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setUser($this->getUser());
+            $comment->setTrick($trick);
+            $comment->setCreatedAt(new DateTime('now'));
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
+            'form' => $form->createView()
         ]);
     }
 
     /**
+     * IsGranted("ROLE_ADMIN")
      * @Route("/{slug}/edit", name="trick_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
@@ -110,6 +129,7 @@ class TrickController extends AbstractController
     }
 
     /**
+     * IsGranted("ROLE_ADMIN")
      * @Route("/{slug}", name="trick_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Trick $trick): Response
