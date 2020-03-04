@@ -16,12 +16,13 @@
         <title>SNOWTRICKS{% block title %}{% endblock %}</title>
     </head>
     <body>
+
         <!-- Navbar -->
         <nav class="navbar fixed-top navbar-expand-lg navbar-dark scrolling-navbar">
             <div class="container">
                 <!-- Brand -->
                 <a class="navbar-brand" href="{{path('home')}}">
-                    <strong><i class="fas fa-snowboarding"></i> SNOWTRICK</strong>
+                    <strong>SNOWTRICK Back</strong>
                 </a>
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -38,35 +39,19 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('home')}}">Figures</a>
+                            <a class="nav-link" href="{{ path('trick_index')}}">Figures</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
                         </li>
 
-                        {% if app.user %}
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
-                                    <img src="" class="avatar avatar-mini" alt="">
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item" href="">Mon Compte</a>
-                                    <a class="dropdown-item" href="">Modifier mes données</a>
-                                    <a class="dropdown-item" href="">Modifier mon mot de passe</a>
-                                    {% if is_granted("ROLE_ADMIN") %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="">Ajouter un trick</a>
-                                    {% endif %}
-                                    <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="{{path('app_logout')}}">Se Déconnecter</a>
-                                </div>
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
+                        </li>
 
-                        {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{path('app_login')}}">Connexion</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{path('app_register')}}">Inscription</a>
-                            </li>
-                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -86,9 +71,41 @@
         {% endfor %}
         <!--/.Flash-->
 
-        <!--Content-->
-        {% block body %}{% endblock %}
-        <!--/Content-->
+        {% block backbody %}
+            <div class="container-fluid mt-container mx-0">
+                <div class="row">
+                    <!-- Sidebar -->
+                    <div class="col-3">
+                        <div class="list-group list-group-flush">
+                            <a href="{{path('app_admin')}}" class="list-group-item active waves-effect">
+                                <i class="fa fa-pie-chart mr-3"></i>BACKOFFICE
+                            </a>
+                            <a href="{{path('trick_index')}}" class="list-group-item list-group-item-action waves-effect">
+                                <i class="fas fa-snowboarding mr-3"></i>Tricks</a>
+                            <a href="{{path('category_index')}}" class="list-group-item list-group-item-action waves-effect">
+                                <i class="fas fa-swatchbook mr-3"></i>Categorie</a>
+                            <a href="{{path('user_index')}}" class="list-group-item list-group-item-action waves-effect">
+                                <i class="fa fa-user mr-3"></i>Utilisateurs</a>
+                            <a href="{{path('comment_index')}}" class="list-group-item list-group-item-action waves-effect">
+                                <i class="far fa-comment mr-3"></i>Commentaires</a>
+                         
+                        </div>
+                    </div>
+                    <!--./Sidebar-->
+
+                    <div class="col">
+                        {% block body %}{% endblock %}
+                    </div>
+                </div>
+            </div>
+
+            <!--Main layout-->
+            
+            <!--./Main layout-->
+        
+        {% endblock %}
+
+       
 
         <!--Footer-->
         <footer class="page-footer text-center font-small mt-4 wow fadeIn">

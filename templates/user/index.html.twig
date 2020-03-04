@@ -1,21 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}Utilisateurs {% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1>User index</h1>
+<div class="row">
+    <h1>Liste des utilisateurs</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Email</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
+                <th>Prenom</th>
+                <th>Nom</th>
                 <th>Roles</th>
-                <th>Password</th>
                 <th>Activation token</th>
-                <th>actions</th>
+                <th>Reset token</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,23 +25,27 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
                 <td>{{ user.activationtoken }}</td>
+                <td>{{ user.resettoken }}</td>
                 
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a class="badge badge-primary" href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
+                    <a class="badge badge-warning" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
+                    <a class="badge badge-danger" href="{{ path('user_edit', {'id': user.id}) }}">Supprimer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun utilisateur créé</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}" class="btn btn-primary a-btn-slide-text">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        <span><strong>Nouveau</strong></span>            
+    </a>
 </div>
    
 {% endblock %}

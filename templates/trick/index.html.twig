@@ -1,21 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 
-{% block title %}Trick index{% endblock %}
+{% block title %}Tricks{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="row">
         <!--Titre-->
-        <h1>Liste des figures</h1>
+        <h1>Liste des tricks</h1>
         <!--Tableau d'affichage-->
         <table class="table">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Slug</th>
-                    <th>category</th>
-                    <th>CreatedAt</th>
-                    <th>UpdatedAt</th>
-                    <th>actions</th>
+                    <th>Categorie</th>
+                    <th>Date de création</th>
+                    <th>Date de modification</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,21 +27,21 @@
                     <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                     <td>
-                        <a class="btn" href="{{ path('trick_show', {'slug': trick.slug}) }}">show</a>
-                        <a class="btn" href="{{ path('trick_edit', {'slug': trick.slug}) }}">edit</a>
+                        <a class="badge badge-primary" href="{{ path('trick_show', {'slug': trick.slug}) }}"><i class="far fa-eye"></i> Voir</a>
+                        <a class="badge badge-warning" href="{{ path('trick_edit', {'slug': trick.slug}) }}"> <i class="far fa-edit"></i> Modifier</a>
                         <!--by form-->
-                        <a class="btn" href="{{ path('trick_edit', {'slug': trick.slug}) }}">delete</a>
+                        {{ include('trick/_delete_form_badge.html.twig') }}
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7">no records found</td>
+                    <td colspan="7">Il n'y a aucun trick en ligne</td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
 
-        <a href="{{ path('trick_new') }}">Create new</a>
+        <a class="btn btn-primary" href="{{ path('trick_new') }}"><i class="fas fa-plus"></i></a>
     </div>
     
 

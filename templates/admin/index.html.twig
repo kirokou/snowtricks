@@ -1,20 +1,88 @@
-{% extends 'base.html.twig' %}
+{% extends '/admin/base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Espace administration{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="row">
+    
+        <!-- Tricks card -->
+        <div class="col-lg-4 col-md-12 mb-4">
+          
+          <div class="card mt-3">
+            <div class="">
+              <i class="fas fa-snowboarding primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+              <div class="float-right text-right p-3">
+                <h4 class="font-weight-bold mb-0"> <a href="{{ path('trick_index')}}">Tricks</a></h4>
+              </div>
+            </div>
+            <div class="card-body pt-0">
+              <p class="card-text">Dernière publication: </p>
+            </div>
+            <div class="card-footer pt-0">
+                <a class="badge badge-primary" href="{{ path('trick_index')}}">Voir</a>
+                <a class="badge badge-primary" href="{{ path('trick_new')}}">Nouveau</a>
+            </div>
+          </div>
+          
+        </div>
+        <!-- Tricks card -->
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        <!-- Groups card -->
+        <div class="col-lg-4 col-md-12 mb-4">
+          
+            <div class="card mt-3">
+              <div class="">
+                <i class="far fa-money-bill-alt fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                <div class="float-right text-right p-3">
+                  <h4 class="font-weight-bold mb-0">Categories</h4>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <p class="card-text">Dernière publication: </p>
+              </div>
+            </div>
+            
+        </div>
+        <!-- Groups card -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/Users/berengerbourgine/snowtricks/src/Controller/AdminController.php'|file_link(0) }}">src/Controller/AdminController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/Users/berengerbourgine/snowtricks/templates/admin/index.html.twig'|file_link(0) }}">templates/admin/index.html.twig</a></code></li>
-    </ul>
-</div>
+        <!-- Users card -->
+        <div class="col-lg-4 col-md-12 mb-4">
+          
+            <div class="card mt-3">
+              <div class="">
+                <i class="fas fa-user fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                <div class="float-right text-right p-3">
+                  <h4 class="font-weight-bold mb-0">Utilisateurs</h4>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <p class="card-text">Dernière publication: </p>
+              </div>
+            </div>
+            
+        </div>
+        <!-- ./Users card -->
+
+         <!-- Comment card -->
+         <div class="col-lg-4 col-md-12 mb-4">
+          
+            <div class="card mt-3">
+              <div class="">
+                <i class="far fa-comments fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                <div class="float-right text-right p-3">
+                  <h4 class="font-weight-bold mb-0">Commentaires</h4>
+                </div>
+              </div>
+              <div class="card-body pt-0">
+                <p class="card-text">Dernière publication: </p>
+              </div>
+            </div>
+            
+        </div>
+        <!-- ./Comment card -->
+
+    </div>
+    <!--Grid row-->
+  
+
 {% endblock %}
