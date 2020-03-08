@@ -3,29 +3,32 @@
 {% block title %}Acceuil{% endblock %}
 
 {% block body %}
-<!-- Full Page Intro -->
+        {% set thisbtn = "btn blue-gradient btn-sm" %}
+    <!-- Full Page Intro -->
     <div class="view full-page-intro" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
+
+        <!-- target up cible.-->
+        <div id="up" style="position: relative; top: -10px"></div>
 
         <!-- Mask & flexbox options-->
         <div class="mask rgba-black-light d-flex justify-content-center align-items-center">
-
             <!-- Content -->
             <div class="container">
-
                 <!--Grid row-->
                 <div class="row wow fadeIn">
-
-                <!--Grid column-->
-                <div class="col-md-12 mb-4 white-text text-center text-md-left">
-                    <h1 class="display-4 font-weight-bold text-center">NÉE POUR </h1>
-                    <hr class="hr-light">
-                    <h3 class="text-center"><strong>"JUMPER"</strong></h3>
-                </div>
-                <!--/Grid column-->
-
+                    <!--Grid column-->
+                    <div class="col-md-12 mb-4 white-text text-center text-md-left">
+                        <h1 class="display-4 font-weight-bold text-center">NÉE POUR </h1>
+                        <hr class="hr-light">
+                        <h3 class="text-center"><strong>"JUMPER"</strong></h3>
+                    </div>
+                    <!--/Grid column-->
                 </div>
                 <!--/Grid row-->
 
+                <!-- Le bouton down -->
+                <button id="scrollDown" class="btn blue-gradient btn-sm" style="position: absolute; bottom: 0; z-index: 100;right: 0;"><i class="fas fa-angle-down" style="font-size: 20px"></i></button>
+                <!-- ./Le bouton down -->
             </div>
             <!-- /Content -->
 
@@ -33,12 +36,18 @@
         <!-- /Mask & flexbox options-->
 
     </div>
-<!-- /Full Page Intro -->
 
-<!-- Cards Container -->
-<div class="container">
-  <!--LISTE DES TRICKS-->
-        <div class="row mt-2 mb-2">
+    <!-- Cards Container -->
+    <div class="container">   
+        <!-- target cible.-->
+        <div id="down" style="position: relative; top: -10px"></div>
+        <!-- ./target cible.-->
+
+        <!--LISTE DES TRICKS-->
+        <div id="trick" class="row mt-2 mb-2">
+            {# var #}
+            {% set limit = tricks | length + 3 %}
+
             {% for trick in tricks %}
                 <!--var url-->
                 {% set url = path('trick_show', {'slug':trick.slug}) %}
@@ -71,9 +80,33 @@
             {% endfor %}
         </div>
 
-    </div><!-- /.row -->
-        
-</div>
-  
+        <!-- loadMore -->  
+        <div id="more" class="row"></div>
+        <p class="text-center"> 
+            <a href="{{ path('home', {'limit': limit}) }}#more" class="btn blue-gradient btn-sm card-link">Voir plus de trick</a>
+        </p> 
+        <!-- ./loadMore -->  
+    </div>
+
+    <!-- Le bouton Up -->
+    <button id="scrollUp" class="{{thisbtn}}" style="position:absolute; bottom: 100; z-index: 101;right: 0;"><i class="fas fa-angle-up" style="font-size: 20px"></i></button>
+    <!-- ./Le bouton Up -->
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script>
+    // Au clic du bouton ScrollDown
+    document.getElementById("scrollDown").addEventListener("click", ()=> {
+    document.getElementById("down").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    })
+
+    // Au clic du bouton ScrollUp
+    document.getElementById("scrollUp").addEventListener("click", ()=> {
+        document.getElementById("up").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
+    })
+</script>
+
 {% endblock %}
 

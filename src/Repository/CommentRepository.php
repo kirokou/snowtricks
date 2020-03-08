@@ -19,6 +19,22 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
+    /**
+     * Méthode avec uns limit personnalisé
+     * @param int $offset
+     * @return mixed
+     */
+    public function findAllLimit(int $offset)
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.id')
+            ->setFirstResult( $offset )
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Comment[] Returns an array of Comment objects
     //  */
