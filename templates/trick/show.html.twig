@@ -5,6 +5,8 @@
 {% block body %}
     <!-- Full Page Intro -->
     {% set url = asset('uploads/' ~ trick.imgs[0].fileName) %}
+    {# for load more #}
+    {% set limit = comments | length + 3 %}
 
     <div class="mt-container view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
 
@@ -89,9 +91,9 @@
 		<div class="row">
 			<div class="col-xl-12 col-md-12">
 				<p class="text-center mt-4">
-					<span class="btn btn-primary">Date de publication: {{ trick.createdAt|date('Y-m-d H:i:s') }} </span>
-					<span class="btn badge-primary">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </span>
-					<span class="btn badge-primary">Groupe: {{ trick.category.title }}</span>
+					<span class="btn blue-gradient">Date de publication: {{ trick.createdAt|date('Y-m-d H:i:s') }} </span>
+					<span class="btn blue-gradient">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </span>
+					<span class="btn blue-gradient">Groupe: {{ trick.category.title }}</span>
 				</p>
 			</div>
 		</div>
@@ -101,7 +103,7 @@
         <!-- new comment form -->
         <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
         <div class="row">
-            <div align="center" class="col-xl-12 col-md-12">
+            <div align="center" class="col-xl-8 col-md-8 offset-xl-2 offset-md-2">
                 <h1>Commentaires</h1>
                 
                 {{ include('comment/_form.html.twig') }}
@@ -111,8 +113,9 @@
         <!--/new comment-->
 
         <!--Old comments-->
-        {% if trick.comments | length > 0 %}
-            {% for comment in trick.comments %}
+        {% if comments | length > 0 %}
+            
+            {% for comment in comments %}
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-md-6 mt-2" align="center">
                         <!--Comment head-->
@@ -143,17 +146,46 @@
                     </div>
                 </div>
             {% endfor %}
+            <div id="more"></div>
+
         {% else %}
             <p>Il n'y a aucun commentaire pour cet trick. </p>
         {% endif %}
         <!--/.Old comments -->
 
-        <!--load more-->
-        <p class="text-center">
-            <a href="#" class="btn">Load more</a>
-        </p>
-        <!--load more-->
+        <!-- loadMore -->
+        <p class="text-center"> 
+            <a href="{{ path('trick_show',{'slug':trick.slug, 'limit': limit}) }}#more" class="btn blue-gradient btn-sm card-link">Voir plus de commentaires</a>
+        </p> 
+        <!-- ./loadMore --> 
+
 	</div>	
     <!--/rest -->
 
 {% endblock %}
+
+{# block javascripts 
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+        let count = 0   ;
+        // une <div id="loadmore"> a été créé au dessus afin d'agir au clic.
+        $("#loadmore").on("click", function(){
+            count += 3;
+            $.ajax({
+                url: "{{ path('trick_show', {'slug': trick.slug})}}",
+                type: 'GET',
+                data: { row : count },
+                dataType: "json",
+                success: function (data) {
+                    $("#more").append(data.view);
+                },
+                error : function() {
+                    alert('Un problème est survenu lors du chargement des figures.');
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}
+#}
