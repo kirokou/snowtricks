@@ -83,7 +83,7 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setAuthor($this->getUser()->getFirstname());
+            $comment->setAuthor($this->getUser());
             $comment->setTrick($trick);
             $comment->setCreatedAt(new DateTime('now'));
             $entityManager = $this->getDoctrine()->getManager();
@@ -95,8 +95,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'comments' => $commentRepository->findBy(['trick' => $trick], [] , $limit),
-            //'comments' => $commentRepository->findAllLimit(0),
+            'comments' => $commentRepository->findBy(['trick' => $trick], [] , $limit,0),
             'form' => $form->createView()
         ]);
     }
@@ -120,7 +119,6 @@ class TrickController extends AbstractController
             }
             $trick->setUpdatedAt(new DateTime('now'));
             $entityManager->persist($trick);
-            
             $entityManager->flush();
 
             // Message flash
