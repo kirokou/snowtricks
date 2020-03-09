@@ -118,13 +118,17 @@
                 <div class="row justify-content-center">
                     <div class="col-xl-6 col-md-6 mt-2" align="center">
                         <!--Comment head-->
-                        <div class="row bg-primary justify-content-center">
+                        <div class="row blue-gradient justify-content-center">
                             <!--Mettre l'avars de l'author/l'user-->
                             <div class="col-lg-3 col-md-3">
-                                <img src="toto.jpg" alt="toto"/>
+                                {% if comment.author.avatar is null %}
+                                    <img src="https://eu.ui-avatars.com/api/?name={{comment.author.firstname}}+{{comment.author.lastname}}&rounded=true&color=2D0000&background=FFFFFF"  class="img-responsive" height="32" width="32"/>
+                                {% else %}
+                                    <img src="{{comment.author.avatar}}"  class=" img-circle img-responsive"/>
+                                {% endif %}
                             </div>
-                            <div class="col-lg-9 col-md-9">
-                                {{comment.author.firstname}}
+                            <div class="col-lg-9 col-md-9 text-left">
+                                {{comment.author.firstname}} {{comment.author.lastname}}
                             </div>
                         </div>
                         <!--/Comment head-->
@@ -161,31 +165,4 @@
 
 	</div>	
     <!--/rest -->
-
 {% endblock %}
-
-{# block javascripts 
-{% block javascripts %}
-<script>
-    $(document).ready(function(){
-        let count = 0   ;
-        // une <div id="loadmore"> a été créé au dessus afin d'agir au clic.
-        $("#loadmore").on("click", function(){
-            count += 3;
-            $.ajax({
-                url: "{{ path('trick_show', {'slug': trick.slug})}}",
-                type: 'GET',
-                data: { row : count },
-                dataType: "json",
-                success: function (data) {
-                    $("#more").append(data.view);
-                },
-                error : function() {
-                    alert('Un problème est survenu lors du chargement des figures.');
-                }
-            });
-        });
-    });
-</script>
-{% endblock %}
-#}
