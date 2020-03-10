@@ -16,9 +16,14 @@
               </div>
             </div>
             <div class="card-body pt-0">
-              <p class="card-text">Dernière publication: </p>
+              <p class="card-text"> <strong>Dernière publication: </strong>    
+                {% for trick in tricks %}
+                  {% if loop.last %}{{trick.createdAt|date('d-m-Y H:i:s')}}{% endif %}
+                {% endfor %}
+              </p>
             </div>
             <div class="card-footer pt-0">
+                <span class="badge badge-primary">{{tricks | length}} tricks</span>
                 <a class="badge badge-primary" href="{{ path('trick_index')}}">Voir</a>
                 <a class="badge badge-primary" href="{{ path('trick_new')}}">Nouveau</a>
             </div>
@@ -27,23 +32,23 @@
         </div>
         <!-- Tricks card -->
 
-        <!-- Groups card -->
+        <!-- Categories card -->
         <div class="col-lg-4 col-md-12 mb-4">
           
             <div class="card mt-3">
               <div class="">
-                <i class="far fa-money-bill-alt fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
+                <i class="fas fa-swatchbook fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
                 <div class="float-right text-right p-3">
-                  <h4 class="font-weight-bold mb-0">Categories</h4>
+                  <h4 class="font-weight-bold mb-0"><a href="{{ path('category_index')}}">Categories</a></h4>
                 </div>
               </div>
-              <div class="card-body pt-0">
-                <p class="card-text">Dernière publication: </p>
+              <div class="card-footer pt-0">
+                <a class="badge badge-primary" href="{{ path('category_index')}}">Voir</a>
               </div>
             </div>
             
         </div>
-        <!-- Groups card -->
+        <!-- /.Categories card -->
 
         <!-- Users card -->
         <div class="col-lg-4 col-md-12 mb-4">
@@ -52,11 +57,11 @@
               <div class="">
                 <i class="fas fa-user fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
                 <div class="float-right text-right p-3">
-                  <h4 class="font-weight-bold mb-0">Utilisateurs</h4>
+                  <h4 class="font-weight-bold mb-0"><a href="{{ path('user_index')}}">Utilisateurs</a></h4>
                 </div>
               </div>
-              <div class="card-body pt-0">
-                <p class="card-text">Dernière publication: </p>
+              <div class="card-footer pt-0">
+                <a class="badge badge-primary" href="{{ path('user_index')}}">Voir</a>
               </div>
             </div>
             
@@ -70,11 +75,19 @@
               <div class="">
                 <i class="far fa-comments fa-lg primary-color z-depth-2 p-4 ml-3 mt-n3 rounded text-white"></i>
                 <div class="float-right text-right p-3">
-                  <h4 class="font-weight-bold mb-0">Commentaires</h4>
+                  <h4 class="font-weight-bold mb-0"><a href="{{ path('comment_index')}}">Commentaires</a></h4>
                 </div>
               </div>
               <div class="card-body pt-0">
-                <p class="card-text">Dernière publication: </p>
+                <p class="card-text"> <strong>Dernière publication: </strong>    
+                  {% for comment in comments %}
+                    {% if loop.last %}{{comment.createdAt|date('d-m-Y H:i:s')}}{% endif %}
+                  {% endfor %}
+                </p>
+              </div>
+              <div class="card-footer pt-0">
+                  <span class="badge badge-primary">{{comments | length}} commentaires</span>
+                  <a class="badge badge-primary" href="{{ path('comment_index')}}">Voir</a>
               </div>
             </div>
             

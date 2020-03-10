@@ -20,7 +20,7 @@
         {% for comment in comments %}
             <tr>
                 <td>{{ comment.trick.title }}</td>
-                <td>{{ comment.author }}</td>
+                <td>{{ comment.author.firstname }} {{ comment.author.lastname }} </td>
                 <td>{{ comment.content }}</td>
                 <td>{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ comment.updatedAt ? comment.updatedAt|date('Y-m-d H:i:s') : '' }}</td>

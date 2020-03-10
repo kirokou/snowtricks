@@ -29,7 +29,7 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $trickRepository): Response
     {
-        return $this->render('trick/index.html.twig', [
+        return $this->render('admin/trick/index.html.twig', [
             'tricks' => $trickRepository->findAll(),
         ]);
     }
@@ -70,7 +70,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/{limit?}", name="trick_show", methods={"GET", "POST"})
+     * @Route("/{slug}/{limit<\d+>?}", name="trick_show", methods={"GET", "POST"})
      */
     public function show(Trick $trick, Request $request, CommentRepository $commentRepository, $limit): Response
     {

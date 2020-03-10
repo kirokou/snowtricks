@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Comment;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -17,10 +18,13 @@ class AdminController extends AbstractController
 
         $trickRepository=$entityManager->getRepository(Trick::class);
         $tricks=$trickRepository->findAll();
-        $nombre= count($tricks);
+
+        $commentRepository=$entityManager->getRepository(Comment::class);
+        $comments=$commentRepository->findAll();
 
         return $this->render('admin/index.html.twig',[
-            'nombre'=>$nombre
+            'tricks'=>$tricks,
+            'comments'=>$comments,
         ]);
     }
 }

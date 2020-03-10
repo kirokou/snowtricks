@@ -6,26 +6,15 @@ use App\Entity\Trick;
 use App\Form\ImgType;
 use App\Form\MovieType;
 use App\Entity\Category;
-use Symfony\Component\Form\AbstractType;
+use App\Form\TypeConfig;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
-class TrickType extends AbstractType
+class TrickType extends TypeConfig
 {
-
-    private function getConfiguration($label, $placeholder, $required=true)
-    {
-        return [
-            'label'=> $label,
-            'attr'=> [
-                'placeholder'=>$placeholder
-            ],
-            'required'=>$required
-        ];
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

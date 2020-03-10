@@ -3,16 +3,17 @@
 namespace App\Form;
 
 use App\Entity\Category;
-use Symfony\Component\Form\AbstractType;
+use App\Form\TypeConfig;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class CategoryType extends AbstractType
+class CategoryType extends TypeConfig
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title')
+            ->add('title', TextType::class, $this->getConfiguration("Titre de la catégorie","Entrez le titre de la catégorie"))
         ;
     }
 
