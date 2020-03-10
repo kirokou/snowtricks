@@ -1,42 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User{% endblock %}
+{% block title %} Espace utilisateur{% endblock %}
 
 {% block body %}
-<div class="container mt-5">
-    <h1>User</h1>
+<div class="container mt-container">
+    <div class="col-10 offset-1">
+        <h1>Espace utilisateur: {{ user.firstname }} {{ user.lastname }} 
+            <span>
+                {% if user.avatar is null %}
+                <img src="https://eu.ui-avatars.com/api/?name={{user.firstname}}+{{user.lastname}}&rounded=true&color=2D0000&background=FF5F50"  class="img-responsive" height="48" width="48"/>
+                {% else %}
+                <img src="{{ user.avatar }}"  class=" img-circle img-responsive"/>
+                {% endif %}
+            </span>
+        </h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>Firstname</th>
-                <td>{{ user.firstname }}</td>
-            </tr>
-            <tr>
-                <th>Lastname</th>
-                <td>{{ user.lastname }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+            </tbody>
+        </table>
+    
+        <a class="btn blue-gradient btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">Modifier mes informations</a>
+    </div>
 </div>
 {% endblock %}

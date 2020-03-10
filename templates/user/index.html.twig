@@ -29,8 +29,6 @@
                 <td>{{ user.resettoken }}</td>
                 
                 <td>
-                    <a class="badge badge-primary" href="{{ path('user_show', {'id': user.id}) }}">Voir</a>
-                    <a class="badge badge-warning" href="{{ path('user_edit', {'id': user.id}) }}">Modifier</a>
                     <a class="badge badge-danger" href="{{ path('user_edit', {'id': user.id}) }}">Supprimer</a>
                 </td>
             </tr>
@@ -42,8 +40,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}" class="btn btn-primary a-btn-slide-text">
-        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    <a href="{{ path('user_new') }}" class="btn blue-gradient">
         <span><strong>Nouveau</strong></span>            
     </a>
 </div>

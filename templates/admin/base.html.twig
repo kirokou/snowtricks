@@ -22,7 +22,7 @@
             <div class="container">
                 <!-- Brand -->
                 <a class="navbar-brand" href="{{path('home')}}">
-                    <strong>SNOWTRICK Back</strong>
+                    <strong>SNOWTRICK ADMIN</strong>
                 </a>
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -39,8 +39,24 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{path('app_logout')}}">Déconnexion</a>
+                        <li class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
+                                {% if app.user.avatar is null %}
+                                <img src="https://eu.ui-avatars.com/api/?name={{app.user.firstname}}+{{app.user.lastname}}&rounded=true&color=2D0000&background=FFFFFF"  class="img-responsive" height="32" width="32"/>
+                                {% else %}
+                                <img src="{{app.user.avatar}}"  class=" img-circle img-responsive" height="32" width="32"/>
+                                {% endif %}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item" href="{{ path('user_show', {'id': app.user.id} )}}">Mon Compte</a>
+                                <a class="dropdown-item" href="{{ path('user_edit', {'id': app.user.id} )}}">Modifier mes données</a>
+                                {% if is_granted("ROLE_ADMIN") %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{ path('trick_new', {'id': app.user.id} )}}">Ajouter un trick</a>
+                                {% endif %}
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{{path('app_logout')}}">Se Déconnecter</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -68,12 +84,12 @@
                     <div class="col-3">
                         <div class="list-group list-group-flush">
                             <a href="{{path('app_admin')}}" class="list-group-item active waves-effect">
-                                <i class="fa fa-pie-chart mr-3"></i>BACKOFFICE
+                                <i class="fa fa-pie-chart mr-3"></i>ADMIN
                             </a>
                             <a href="{{path('trick_index')}}" class="list-group-item list-group-item-action waves-effect">
                                 <i class="fas fa-snowboarding mr-3"></i>Tricks</a>
                             <a href="{{path('category_index')}}" class="list-group-item list-group-item-action waves-effect">
-                                <i class="fas fa-swatchbook mr-3"></i>Categorie</a>
+                                <i class="fas fa-swatchbook mr-3"></i>Categories</a>
                             <a href="{{path('user_index')}}" class="list-group-item list-group-item-action waves-effect">
                                 <i class="fa fa-user mr-3"></i>Utilisateurs</a>
                             <a href="{{path('comment_index')}}" class="list-group-item list-group-item-action waves-effect">
