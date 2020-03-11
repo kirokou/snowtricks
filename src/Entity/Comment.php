@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -19,6 +20,11 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * use Symfony\Component\Validator\Constraints as Assert;
+     * @Assert\Length(min=5, max=9000,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $content;
 
