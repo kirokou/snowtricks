@@ -7,12 +7,16 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @ORM\HasLifecycleCallbacks
+ * @UniqueEntity(fields={"title"}, message="Cette figure existe déjà.")
+
  */
 class Trick
 {
@@ -25,26 +29,37 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5, max=255,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(min=25, max=9000,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $description;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Img", mappedBy="trick", orphanRemoval=true, cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $imgs;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Movie", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $movie;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="trick", cascade={"persist", "remove"})
+     * @Assert\Valid()
      */
     private $comments;
 
@@ -72,6 +87,7 @@ class Trick
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="tricks")
      */
     private $user;
+
     /**
     * @ORM\PrePersist
     * @ORM\PreUpdate

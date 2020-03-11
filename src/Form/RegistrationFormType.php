@@ -36,7 +36,8 @@ class RegistrationFormType extends TypeConfig
                 'type' => PasswordType::class,
                 'first_options'  => $this->getConfiguration("Votre mot de passe","Entrez votre mot de passe"),
                 'second_options' => $this->getConfiguration("Confirmez votre mot de passe","Entrez à nouveau votre mot de passe"),
-            ))
+            )
+            )
 
             /*
             ->add('plainPassword', PasswordType::class, [
