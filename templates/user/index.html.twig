@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Utilisateurs {% endblock %}
+{% block title %}Utilisateurs{% endblock %}
 
 {% block body %}
 <div class="row">
@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th>Email</th>
-                <th>Prenom</th>
+                <th>Prénom</th>
                 <th>Nom</th>
                 <th>Roles</th>
                 <th>Activation token</th>
@@ -27,14 +27,11 @@
                 <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
                 <td>{{ user.activationtoken }}</td>
                 <td>{{ user.resettoken }}</td>
-                
-                <td>
-                    <a class="badge badge-danger" href="{{ path('user_edit', {'id': user.id}) }}">Supprimer</a>
-                </td>
+                <td> {{ include('user/_delete_form.html.twig') }}</td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Aucun utilisateur créé</td>
+                <td colspan="7">Aucun utilisateur trouvé.</td>
             </tr>
         {% endfor %}
         </tbody>

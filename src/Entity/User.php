@@ -2,15 +2,17 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @UniqueEntity(fields={"email"}, message="Ce compte existe déjà.")
  */
 class User implements UserInterface
 {
@@ -23,6 +25,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(message = "'{{ value }}' n'est pas un email valide.")
      */
     private $email;
 
@@ -34,16 +37,28 @@ class User implements UserInterface
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
+     * @Assert\Length(min=8, max=255,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $firstname;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $lastname;
 
@@ -64,6 +79,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url(message="Veuillez donner un URL valide pour votre avatar.")
      */
     private $avatar;
 
