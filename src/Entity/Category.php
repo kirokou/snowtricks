@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Trick;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @UniqueEntity(fields={"title"}, message="Cette catégorie existe déjà.")
  */
 class Category
 {
@@ -19,6 +22,10 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=2, max=255,
+     *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
+     *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
+     * )
      */
     private $title;
 
