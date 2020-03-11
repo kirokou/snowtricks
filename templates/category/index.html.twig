@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
                 <td>
                     <a class="badge badge-primary" href="{{ path('category_show', {'id': category.id}) }}">Voir</a>
                     <a class="badge badge-warning" href="{{ path('category_edit', {'id': category.id}) }}">Modifier</a>
-                    <a class="badge badge-danger" href="{{ path('category_edit', {'id': category.id}) }}">Supprimer</a>
+                    <td> {{ include('category/_delete_form.html.twig') }}</td>
                 </td>
             </tr>
         {% else %}
