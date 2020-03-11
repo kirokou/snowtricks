@@ -43,7 +43,6 @@ class Category
 
         return $this;
     }
-   
 
     public function addTrick(Trick $trick): self
     {
