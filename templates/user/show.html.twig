@@ -8,9 +8,9 @@
         <h1>Espace utilisateur: {{ user.firstname }} {{ user.lastname }} 
             <span>
                 {% if user.avatar is null %}
-                <img src="https://eu.ui-avatars.com/api/?name={{user.firstname}}+{{user.lastname}}&rounded=true&color=2D0000&background=FF5F50"  class="img-responsive" height="48" width="48"/>
+                <img src="https://eu.ui-avatars.com/api/?name={{user.firstname}}+{{user.lastname}}&rounded=true&color=2D0000&background=FF5F50"  class="img-responsive" />
                 {% else %}
-                <img src="{{ user.avatar }}"  class=" img-circle img-responsive"/>
+                <img src="{{ user.avatar }}"  class="rounded-circle" height="48" width="48"/>
                 {% endif %}
             </span>
         </h1>

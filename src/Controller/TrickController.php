@@ -8,15 +8,16 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Form\TrickType;
 use App\Form\CommentType;
+use App\Service\Paginator;
 use App\Repository\TrickRepository;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * @Route("/trick")
@@ -25,12 +26,17 @@ class TrickController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="trick_index", methods={"GET"})
+     * @Route("/{page<\d+>?1}", name="trick_index", methods={"GET"})
      */
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository, $page, Paginator $paginator): Response
     {
+        $paginator->setEntityClass(Trick::class)
+                ->setPage($page);
+
         return $this->render('admin/trick/index.html.twig', [
-            'tricks' => $trickRepository->findAll(),
+            'tricks' => $paginator->getData(),
+            'pages' => $paginator->getPages(),
+            'page' => $page
         ]);
     }
 
@@ -70,14 +76,10 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}/{limit<\d+>?}", name="trick_show", methods={"GET", "POST"})
+     * @Route("/{slug}", name="trick_show", methods={"GET", "POST"})
      */
-    public function show(Trick $trick, Request $request, CommentRepository $commentRepository, $limit): Response
+    public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
     {
-        if(!isset($limit)){
-            $limit = 3;
-        }
-
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
@@ -95,7 +97,7 @@ class TrickController extends AbstractController
 
         return $this->render('trick/show.html.twig', [
             'trick' => $trick,
-            'comments' => $commentRepository->findBy(['trick' => $trick], [] , $limit,0),
+            'comments' => $commentRepository->findBy(['trick' => $trick], ['id' => 'DESC']),
             'form' => $form->createView()
         ]);
     }

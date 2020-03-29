@@ -78,7 +78,10 @@
         <!--/.Flash-->
 
         {% block backbody %}
-            <div class="container-fluid mt-container mx-0">
+            <!-- black barre -->
+            <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar" style="height: 100px;"></nav>
+            <!-- ./Black barre -->
+            <div class="container-fluid mt-3 mx-0">
                 <div class="row">
                     <!-- Sidebar -->
                     <div class="col-3">
@@ -94,11 +97,9 @@
                                 <i class="fa fa-user mr-3"></i>Utilisateurs</a>
                             <a href="{{path('comment_index')}}" class="list-group-item list-group-item-action waves-effect">
                                 <i class="far fa-comment mr-3"></i>Commentaires</a>
-                         
                         </div>
                     </div>
                     <!--./Sidebar-->
-
                     <div class="col">
                         {% block body %}{% endblock %}
                     </div>

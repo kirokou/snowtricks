@@ -5,7 +5,11 @@
 {% block body %}
     <div class="row">
         <!--Titre-->
-        <h1>Liste des tricks</h1>
+        <div class="col-12 d-flex justify-content-espace-between">
+            <h1>Liste des tricks</h1>
+            <a class="btn blue-gradient" href="{{ path('trick_new') }}">Nouveau</i></a>
+        </div>
+       
         <!--Tableau d'affichage-->
         <table class="table">
             <thead>
@@ -41,7 +45,26 @@
             </tbody>
         </table>
 
-        <a class="btn blue-gradient" href="{{ path('trick_new') }}">Nouveau</i></a>
+        {% if tricks is not null %}
+            <!--Pagination-->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination pg-blue justify-content-end">
+                    <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                        <a class="page-link" href="{{ path('trick_index', {'page': page - 1}) }}">Précédent</a>
+                    </li>
+                    {% for i in 1..pages %}
+                        <li class="page-item {% if page == i %}active{% endif %}"> 
+                            <a class="page-link" href="{{ path('trick_index', {'page':i}) }}"> {{i}} </a>
+                        </li>
+                    {% endfor %}
+                    
+                    <li class="page-item  {% if page == pages %}disabled{% endif %}">
+                        <a class="page-link" href="{{ path('trick_index', {'page': page + 1}) }}">Suivant</a>
+                    </li>
+                </ul>
+            </nav>
+            <!--Pagination-->
+        {% endif %}
     </div>
     
 

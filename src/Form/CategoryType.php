@@ -13,7 +13,10 @@ class CategoryType extends TypeConfig
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, $this->getConfiguration("Titre de la catégorie","Entrez le titre de la catégorie"))
+            ->add(
+            'title',
+            TextType::class, 
+            $this->getConfiguration("Titre de la catégorie","Entrez le titre de la catégorie"))
         ;
     }
 

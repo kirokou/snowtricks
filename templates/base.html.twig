@@ -21,7 +21,7 @@
             <div class="container">
                 <!-- Brand -->
                 <a class="navbar-brand" href="{{path('home')}}">
-                    <strong><i class="fas fa-snowboarding"></i>SNOWTRICK</strong>
+                    <strong class="shadow"><i class="fas fa-snowboarding"></i> SNOWTRICK</strong>
                 </a>
                 <!-- Collapse -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -32,13 +32,10 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Right -->
                     <ul class="navbar-nav ml-auto nav-flex-icons">
-                        <li class="nav-item active">
-                            <a class="nav-link" href="{{ path('home')}}">Acceuil
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('home')}}">Accueil
                             <span class="sr-only">(current)</span>
                             </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('home')}}">Figures</a>
                         </li>
                         {% if app.user %}
                             {% if is_granted("ROLE_ADMIN") %}
@@ -48,10 +45,11 @@
                             {% endif %}
                             <li class="nav-item dropdown">
                                 <a href="" class="nav-link dropdown-toggle" data-toggle="dropdown" id="accountDropdownLink">
+                                    {{ app.user.lastname}} {{ app.user.firstname}} - 
                                     {% if app.user.avatar is null %}
                                     <img src="https://eu.ui-avatars.com/api/?name={{app.user.firstname}}+{{app.user.lastname}}&rounded=true&color=2D0000&background=FFFFFF"  class="img-responsive" height="32" width="32"/>
                                     {% else %}
-                                    <img src="{{app.user.avatar}}"  class="img-circle img-responsive" height="32" width="32"/>
+                                    <img src="{{app.user.avatar}}"  class="rounded-circle" height="32" width="32"/>
                                     {% endif %}
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
@@ -98,31 +96,18 @@
 
         <!--Footer-->
         <footer class="page-footer text-center font-small mt-4 wow fadeIn">
-
             <!-- Social icons -->
             <div class="pb-4">
-                <a href="https://www.facebook.com/mdbootstrap" target="_blank">
+                <a href="#" target="_blank">
                     <i class="fab fa-facebook-f mr-3"></i>
                 </a>
-                <a href="https://twitter.com/MDBootstrap" target="_blank">
+                <a href="#" target="_blank">
                     <i class="fab fa-twitter mr-3"></i>
                 </a>
-                <a href="https://www.youtube.com/watch?v=7MUISDJ5ZZ4" target="_blank">
+                <a href="#" target="_blank">
                     <i class="fab fa-youtube mr-3"></i>
                 </a>
-                <a href="https://plus.google.com/u/0/b/107863090883699620484" target="_blank">
-                    <i class="fab fa-google-plus-g mr-3"></i>
-                </a>
-                <a href="https://dribbble.com/mdbootstrap" target="_blank">
-                    <i class="fab fa-dribbble mr-3"></i>
-                </a>
-                <a href="https://pinterest.com/mdbootstrap" target="_blank">
-                    <i class="fab fa-pinterest mr-3"></i>
-                </a>
-                <a href="https://github.com/mdbootstrap/bootstrap-material-design" target="_blank">
-                    <i class="fab fa-github mr-3"></i>
-                </a>
-                <a href="http://codepen.io/mdbootstrap/" target="_blank">
+                <a href="#" target="_blank">
                     <i class="fab fa-codepen mr-3"></i>
                 </a>
             </div>

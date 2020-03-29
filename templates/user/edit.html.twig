@@ -7,7 +7,7 @@
     <div class="col-10 offset-1">
         <h1>Modifier mes informations</h1>
         {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
-        <div><a class="btn blue-gradient" href="{{ path('user_show', {'id': app.user.id}) }}"> Annuler</a></div>
+        <div><a class="btn blue-gradient btn-sm" href="{{ path('user_show', {'id': app.user.id}) }}"> Annuler</a></div>
     </div> 
 </div>
 {% endblock %}
