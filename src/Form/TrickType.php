@@ -11,6 +11,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends TypeConfig
@@ -24,12 +25,17 @@ class TrickType extends TypeConfig
                 TextType::class,
                 $this->getConfiguration("Titre de la figure","Entrez le titre de la figure")
             )
-            ->add('description')
+            ->add(
+            'description',
+            TextareaType::class,
+            $this->getConfiguration("Titre de la figure","Entrez le titre de la figure")
+            )
             ->add(
                 'category', //ManytoOne
                 EntityType::class,
                 [
                 'class' => Category::class,
+                'label'=> 'Catégorie',
                 'choice_label' => 'title',
                 ]
             )
@@ -42,6 +48,7 @@ class TrickType extends TypeConfig
                 CollectionType::class, 
                 [
                 'entry_type' => ImgType::class,
+                'label'=> 'Ajouter une ou plusieurs images',
                 'allow_add'=> true,
                 'allow_delete'=> true,
                 ]

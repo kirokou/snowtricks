@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Acceuil{% endblock %}
+{% block title %}Accueil{% endblock %}
 
 {% block body %}
-        {% set thisbtn = "btn blue-gradient btn-sm" %}
+    
     <!-- Full Page Intro -->
-    <div class="view full-page-intro" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/images/78.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="view full-page-intro" style="background-image: url('https://as2.ftcdn.net/jpg/01/16/55/77/500_F_116557709_H9HBItGCiQ5VouiK44v9V2ijtatzAc5I.jpg'); background-repeat: no-repeat; background-size: cover;">
 
         <!-- target up cible.-->
         <div id="up" style="position: relative; top: -10px"></div>
@@ -18,9 +18,9 @@
                 <div class="row wow fadeIn">
                     <!--Grid column-->
                     <div class="col-md-12 mb-4 white-text text-center text-md-left">
-                        <h1 class="display-4 font-weight-bold text-center">NÉE POUR </h1>
+                        <h1 class="display-4 font-weight-bold text-center"> <span style="text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);">NÉE POUR</span></h1>
                         <hr class="hr-light">
-                        <h3 class="text-center"><strong>"JUMPER"</strong></h3>
+                        <h2 class="text-center"><strong style="text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);">"JUMPER"</strong></h2>
                     </div>
                     <!--/Grid column-->
                 </div>
@@ -34,7 +34,6 @@
 
         </div>
         <!-- /Mask & flexbox options-->
-
     </div>
 
     <!-- Cards Container -->
@@ -43,19 +42,23 @@
         <div id="down" style="position: relative; top: -10px"></div>
         <!-- ./target cible.-->
 
+        <!-- Container title-->
+        <div class="row mt-5">
+            <h2 class="h1 mx-auto"> NOS TRICKS </h2>
+        </div>
+        <!-- ./Container title-->
+
         <!--LISTE DES TRICKS-->
-        <div id="trick" class="row mt-2 mb-2">
-            {# var #}
-            {% set limit = tricks | length + 3 %}
+        <div id="trick" class="row mt-5 mb-5">
 
             {% for trick in tricks %}
                 <!--var url-->
                 {% set url = path('trick_show', {'slug':trick.slug}) %}
 
-                <!--card-->
-                <div class="col-md-4">
+                <!--Card-->
+                <div class="col-md-4 grid-item">
                     <div class="card mb-3">
-                        <div class="card-body">
+                        <div class="card-head">
                             {% for img in trick.imgs %}
                                 {% if loop.first %}
                                     <a href="{{ url }}">
@@ -64,9 +67,23 @@
                                 {% endif %}
                             {% endfor %}
                         </div>
+                        <div class="card-body">
+                            <div class="container">
+                                <div class="row my-2">
+                                    <strong class="grey-text mr-2">{{trick.category.title}}</strong>|<span class="ml-2">{{trick.createdAt|date('d M Y')}}</span>  
+                                </div>
+                                <div class="row my-2">
+                                    <h3><a class="text-strong" href="{{ url }}">{{trick.title}}</a></h3>
+                                </div>
+                                <div class="row">
+                                    {{trick.description | raw |truncate(100, true, '...')}}
+                                </div>
+                            </div>   
+                        </div>
                         <div class="card-footer text-muted d-flex justify-content-between">
-                            <div>
-                                <a href="{{ url }}">{{trick.title}}</a>
+                            <div class="row">
+                                <div class="col-18"><i class="fa fa-user mr-2"></i> {{trick.user.firstname}} {{trick.user.lastname}} </div>
+                                <div class="col"> <i class="fa fa-comment mr-2"></i> {{trick.comments|length}}</div>
                             </div>
                             {% if is_granted('ROLE_ADMIN') %}
                             <div class="d-flex">
@@ -80,32 +97,60 @@
             {% endfor %}
         </div>
 
-        <!-- loadMore -->  
-        <div id="more" class="row"></div>
-        <p class="text-center"> 
-            <a href="{{ path('home', {'limit': limit}) }}#more" class="btn blue-gradient btn-sm card-link">Voir plus de trick</a>
-        </p> 
-        <!-- ./loadMore -->  
+        <!-- loadMore/loadLess -->  
+        <div class="row justify-content-center m-5">
+            <a href="#" id="loadMore" class="btn blue-gradient btn-sm"> <i class="fas fa-plus-circle fa-3x"></i></a>
+            <a href="#" id="loadLess" class="btn blue-gradient btn-sm"> <i class="fas fa-minus-circle fa-3x"></i></a>
+        </div>
+        <!-- ./loadMore/loadLess -->  
     </div>
 
     <!-- Le bouton Up -->
-    <button id="scrollUp" class="{{thisbtn}}" style="position:absolute; bottom: 100; z-index: 101;right: 0;"><i class="fas fa-angle-up" style="font-size: 20px"></i></button>
+    <button id="scrollUp" class="btn blue-gradient btn-sm" style="position:absolute; bottom: 100; z-index: 101;right: 0;"><i class="fas fa-angle-up" style="font-size: 20px"></i></button>
     <!-- ./Le bouton Up -->
 {% endblock %}
 
 
 {% block javascripts %}
-
 <script>
+    /**  **/
     // Au clic du bouton ScrollDown
     document.getElementById("scrollDown").addEventListener("click", ()=> {
     document.getElementById("down").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
     })
-
     // Au clic du bouton ScrollUp
     document.getElementById("scrollUp").addEventListener("click", ()=> {
         document.getElementById("up").scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"})
     })
+
+    //Show more tricks on home page */
+    function loadMore()
+    {
+        // Hide trick from trick number 6
+        $(".grid-item").slice(6, $("div.grid-item").length).hide();
+        $("#loadLess").hide();  
+
+        $("#loadMore").on('click', function (e) { e.preventDefault(); 
+            $("div.grid-item:hidden").slice(0, 3).slideDown(); 
+            // Si le nombre de truc caché =0 dc si tout est affiché
+            if ($("div.grid-item:hidden").length == 0){ 
+                //cache le button loadMore
+                $("#loadMore").hide(); 
+                // Affiche le button loadless
+                $("#loadLess").show(); } }); 
+
+                // Si je clique sur le button loadless
+                $("#loadLess").on('click', function (e) { e.preventDefault(); 
+                
+                $("div.grid-item").slice(6, $("div.grid-item").length).slideUp(); 
+                //je cache le button loadless
+                $("#loadLess").hide(); 
+                $("#loadMore").show(); 
+            }
+        ); 
+    } 
+    loadMore();
+    
 </script>
 
 {% endblock %}

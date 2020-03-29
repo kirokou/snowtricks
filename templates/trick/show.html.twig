@@ -5,25 +5,26 @@
 {% block body %}
     <!-- Full Page Intro -->
     {% set url = asset('uploads/' ~ trick.imgs[0].fileName) %}
-    {# for load more #}
-    {% set limit = comments | length + 3 %}
 
-    <div class="mt-container view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
+    <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
 
         <!-- Content -->
         <div class="container">
             <!--edit and delete button-->
-            <div class="row mr-auto">
-                <a class="btn btn-primary" href="{{ path('trick_edit', {'slug': trick.slug}) }}"><i class="fas fa-pencil-alt"></i></a>
-                {{ include('trick/_delete_form_btn.html.twig') }}
-            </div>
+            {% if app.user and is_granted("ROLE_ADMIN") %}
+                <div class="row d-flex mt-container justify-content-end">
+                    <a class="btn blue-gradient" href="{{ path('trick_edit', {'slug': trick.slug}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    {{ include('trick/_delete_form_btn.html.twig') }}
+                </div>  
+            {% endif %}
+            
             <!--./edit and delete button-->
 
             <!--Grid row-->
-            <div class="row wow fadeIn">
+            <div class="row wow fadeIn mt-container d-flex">
                 <!--Grid column-->
-                <div class="col-md-12 mb-4 white-text text-center text-md-left">
-                    <h1 class="display-4 font-weight-bold text-center"> {{ trick.title }} </h1>
+                <div class="col-md-12 mb-4 white-text text-center text-md-left mt-container">
+                    <h1 class="display-4 font-weight-bold text-center"> <span style="text-shadow: 0.075em 0.08em 0.1em rgba(0, 0, 0, 1);"> {{ trick.title }} </span></h1>
                     <hr class="hr-light">
                 </div>
                 <!--/Grid column-->
@@ -66,7 +67,6 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
-
             </div>
             <!--MOVIE-->
             <div class="col-md-6 ">
@@ -91,8 +91,10 @@
 		<div class="row">
 			<div class="col-xl-12 col-md-12">
 				<p class="text-center mt-4">
-					<span class="btn blue-gradient">Date de publication: {{ trick.createdAt|date('Y-m-d H:i:s') }} </span>
-					<span class="btn blue-gradient">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }} </span>
+                    <span class="btn blue-gradient">Date de publication: {{ trick.createdAt|date('d-M-Y H:i:s') }} </span>
+                    {% if trick.updatedAt is not null %}
+                        <span class="btn blue-gradient btn-sm">Date de modification: {{ trick.updatedAt ? trick.updatedAt|date('d-M-Y H:i:s') : '' }} </span>
+                    {% endif %}
 					<span class="btn blue-gradient">Groupe: {{ trick.category.title }}</span>
 				</p>
 			</div>
@@ -100,14 +102,24 @@
 		<!-- /.Badges -->
 
         <!-- new comment -->
+        <h2 class="text-center mt-5">COMMENTAIRES</h2>
         <!-- new comment form -->
         <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
-        <div class="row">
-            <div align="center" class="col-xl-8 col-md-8 offset-xl-2 offset-md-2">
-                <h1>Commentaires</h1>
-                {{ include('comment/_form.html.twig') }}
+        {% if app.user %}
+            <div class="row">
+                <div align="center" class="col-xl-8 col-md-8 offset-xl-2 offset-md-2">
+                    {{ include('comment/_form.html.twig') }}
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row">
+                <div class="col-12  d-flex justify-content-center">
+                    <p>Vous devez vous connectez pour ajouter un commentaire.</p>
+                    <a class="btn blue-gradient btn-sm" href="{{ path('app_login')}}">Connexion</a>
+                </div>
+            </div>
+        {% endif %}
+       
         <hr class="col-lg-6 col-md-6" style="width:100%; background-color:black;"/>
         <!--/new comment-->
 
@@ -115,7 +127,7 @@
         {% if comments | length > 0 %}
             
             {% for comment in comments %}
-                <div class="row justify-content-center">
+                <div class="row justify-content-center grid-item">
                     <div class="col-xl-6 col-md-6 mt-2" align="center">
                         <!--Comment head-->
                         <div class="row blue-gradient justify-content-center">
@@ -141,28 +153,71 @@
                         <!--/Comment body-->
                         <!--Comment footer-->
                         <div class="row justify-content-center card-footer">
-                            <span> Crée le: {{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</span> 
-                            {% if comment.updatedAt is not null %}
-                            | <span> Dernière modification: {{ comment.updatedAt ? comment.updatedAt|date('d-m-Y H:i') : '' }}</span>
-                            {% endif %} 
+                            <div class="col-6">
+                                <span> Crée le: {{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</span> 
+                                {% if comment.updatedAt is not null %}
+                                | <span> Dernière modification: {{ comment.updatedAt ? comment.updatedAt|date('d-m-Y H:i') : '' }}</span>
+                                {% endif %}
+                            </div>
+                
+                            <div class="col-6">
+                                {% if app.user.firstname is same as (comment.author.firstname) %}
+                                <div class="d-flex justify-content-end">
+                                    <a class="badge badge-warning" href="{{ path('comment_edit', {'id': comment.id}) }}"> <i class="far fa-edit"></i> </a>
+                                    {{ include('comment/_delete_form.html.twig') }}
+                                </div> 
+                                {% endif %}
+                            </div>
                         </div>
                         <!--./Comment footer-->    
                     </div>
                 </div>
             {% endfor %}
-            <div id="more"></div>
 
         {% else %}
             <p>Il n'y a aucun commentaire pour cet trick. </p>
         {% endif %}
         <!--/.Old comments -->
 
-        <!-- loadMore -->
-        <p class="text-center"> 
-            <a href="{{ path('trick_show',{'slug':trick.slug, 'limit': limit}) }}#more" class="btn blue-gradient btn-sm card-link">Voir plus de commentaires</a>
-        </p> 
-        <!-- ./loadMore --> 
+         <!-- loadMore/loadLess -->  
+         <div class="row justify-content-center m-5">
+            <a href="#" id="loadMore" class="btn blue-gradient btn-sm"> <i class="fas fa-plus-circle fa-3x"></i></a>
+            <a href="#" id="loadLess" class="btn blue-gradient btn-sm"> <i class="fas fa-minus-circle fa-3x"></i></a>
+        </div>
+        <!-- ./loadMore/loadLess --> 
 
 	</div>	
     <!--/rest -->
+{% endblock %}
+
+{% block javascripts %}
+<script>
+//Show more tricks on home page */
+    function loadMore()
+    {
+        // Hide trick from trick number 6
+        $(".grid-item").slice(3, $("div.grid-item").length).hide();
+        $("#loadLess").hide();  
+
+        $("#loadMore").on('click', function (e) { e.preventDefault(); 
+            $("div.grid-item:hidden").slice(0, 3).slideDown(); 
+            // Si le nombre de truc caché =0 dc si tout est affiché
+            if ($("div.grid-item:hidden").length == 0){ 
+                //cache le button loadMore
+                $("#loadMore").hide(); 
+                // Affiche le button loadless
+                $("#loadLess").show(); } }); 
+
+                // Si je clique sur le button loadless
+                $("#loadLess").on('click', function (e) { e.preventDefault(); 
+                
+                $("div.grid-item").slice(3, $("div.grid-item").length).slideUp(); 
+                //je cache le button loadless
+                $("#loadLess").hide(); 
+                $("#loadMore").show(); 
+            }
+        ); 
+    } 
+    loadMore();
+</script>
 {% endblock %}

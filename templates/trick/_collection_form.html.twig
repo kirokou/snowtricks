@@ -1,32 +1,31 @@
-{# 
+{#################### 
     section imgs 
-#}
+####################}
 
 {# Affichage du sous-formulaire imgs #}
 {% block _trick_imgs_widget %}
-    {# Le titre #}
-    <p>Ajouter les images</p>
     {# Le compteur #}
     <input type="hidden" id="counter" value="0"/> 
     {# Le form et le button #}
     {{ form_widget(form) }}
     <div class="form-group">
-        <button type="button" id="add-img" class="btn">Ajouter</button>
+        <button type="button" id="add-img" class="btn blue-gradient btn-sm"><i class="fas fa-plus-circle fa-3x"></i></button>
     </div>
 {% endblock %}
 
-{# Affichage des entry #}
-{# Affichage des entry #}
+{# Affichage des entry imgs #}
 {% block _trick_imgs_entry_widget %}
 <div class="form-group" id="block_{{id}}">
     <div class="row">
+        {# if img exist #}
         {% if form.fileName.vars.data %}
 		<div class="col-1">
 			<div class="input-group">
 				<img src="{{ asset('uploads/' ~ form.fileName.vars.data) }}" alt="Image" width="50">
             </div> 
 		</div>
-		{% endif %}
+        {% endif %}
+        {# input type file #}
         <div class="col">   
             <div class="input-group">
                 <div class="custom-file">
@@ -52,9 +51,9 @@
     {{ form_widget(form) }}
 {% endblock %}
 
-{# 
+{#################### 
     section movie 
-#}
+#####################}
 
 {# Redéfinition des row des movies #}
 {% block _trick_movie_row %}

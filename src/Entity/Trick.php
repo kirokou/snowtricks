@@ -16,7 +16,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @ORM\HasLifecycleCallbacks
  * @UniqueEntity(fields={"title"}, message="Cette figure existe déjà.")
-
  */
 class Trick
 {
