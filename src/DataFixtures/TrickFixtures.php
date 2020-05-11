@@ -40,7 +40,6 @@ class TrickFixtures extends Fixture
                 $user->setEmail('admin@gmail.com');
                 $user->setRoles(['ROLE_ADMIN']);
             
-            
             $password=$this->passwordEncoder->encodePassword($user,'openclassrooms-P6');
             $user->setPassword($password);
             $user->setFirstname($faker->firstName);
