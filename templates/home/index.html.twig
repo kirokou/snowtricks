@@ -3,7 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-    
+   
     <!-- Full Page Intro -->
     <div class="view full-page-intro" style="background-image: url('https://as2.ftcdn.net/jpg/01/16/55/77/500_F_116557709_H9HBItGCiQ5VouiK44v9V2ijtatzAc5I.jpg'); background-repeat: no-repeat; background-size: cover;">
 
@@ -70,8 +70,9 @@
                         <div class="card-body">
                             <div class="container">
                                 <div class="row my-2">
-                                    <strong class="grey-text mr-2">{{trick.category.title}}</strong>|<span class="ml-2">{{trick.createdAt|date('d M Y')}}</span>  
+                                    <strong class="grey-text mr-2">{{trick.category.title}}</strong>|<span class="ml-2">{{trick.createdAt|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</span>  
                                 </div>
+            
                                 <div class="row my-2">
                                     <h3><a class="text-strong" href="{{ url }}">{{trick.title}}</a></h3>
                                 </div>

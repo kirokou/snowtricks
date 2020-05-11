@@ -44,7 +44,7 @@
                                 {% if app.user.avatar is null %}
                                 <img src="https://eu.ui-avatars.com/api/?name={{app.user.firstname}}+{{app.user.lastname}}&rounded=true&color=2D0000&background=FFFFFF"  class="img-responsive" height="32" width="32"/>
                                 {% else %}
-                                <img src="{{app.user.avatar}}"  class=" img-circle img-responsive" height="32" width="32"/>
+                                <img src="{{app.user.avatar}}"  class="rounded-circle" height="32" width="32"/>
                                 {% endif %}
                             </a>
                             <div class="dropdown-menu dropdown-menu-right">
