@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -51,23 +52,23 @@ class UserController extends AbstractController
     }
 
     /**
+     * @Security("is_granted('ROLE_USER') and user == currentUser or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accéder à cette page.")
      * @Route("/{id}", name="user_show", methods={"GET"})
-     * @IsGranted({"ROLE_USER", "ROLE_ADMIN"})
      */
-    public function show(User $user): Response
+    public function show(User $currentUser): Response
     {
         return $this->render('user/show.html.twig', [
-            'user' => $user,
+            'user' => $currentUser,
         ]);
     }
 
     /**
+     * @Security("is_granted('ROLE_USER') and user == currentUser or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accéder à cette page.")
      * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
-     * @IsGranted({"ROLE_USER", "ROLE_ADMIN"})
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $currentUser): Response
     {
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $currentUser);
         
         $form->handleRequest($request);
 
@@ -82,7 +83,7 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/edit.html.twig', [
-            'user' => $user,
+            'user' => $currentUser,
             'form' => $form->createView(),
         ]);
     }

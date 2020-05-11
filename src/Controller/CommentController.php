@@ -9,6 +9,7 @@ use App\Repository\CommentRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -34,6 +35,7 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @IsGranted({"ROLE_ADMIN","ROLE_USER"})
      * @Route("/new", name="comment_new", methods={"GET","POST"})
      */
     public function new(Request $request): Response
@@ -67,7 +69,7 @@ class CommentController extends AbstractController
     }
 
     /**
-     * 
+     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') and user == comment.author ", message="Vous ne pouvez pas modifier ce commentaire.")
      * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Comment $comment): Response
@@ -88,6 +90,7 @@ class CommentController extends AbstractController
     }
 
     /**
+     * @Security("is_granted('ROLE_USER') and user == comment.author or is_granted('ROLE_ADMIN')", message="Vous ne pouvez pas supprimer ce commentaire.")
      * @Route("/{id}", name="comment_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Comment $comment): Response
