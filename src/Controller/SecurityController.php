@@ -46,9 +46,12 @@ class SecurityController extends AbstractController
     /**
     * @Route("/forgot_pass", name="app_forgotten_password")
     */
-    public function forgotten_password(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
-    ): Response
-    {
+    public function forgotten_password(
+        Request $request,
+        UserRepository $user,
+        \Swift_Mailer $mailer,
+        TokenGeneratorInterface $tokenGenerator
+    ): Response {
         $form = $this->createForm(ResetPassType::class);
         $form->handleRequest($request);
 
@@ -60,7 +63,7 @@ class SecurityController extends AbstractController
 
             // if $user is null
             if ($user === null) {
-                $this->addFlash('danger', 'Cette adresse e-mail est inconnue');   
+                $this->addFlash('danger', 'Cette adresse e-mail est inconnue');
                 return $this->redirectToRoute('app_login');
             }
 
@@ -68,7 +71,7 @@ class SecurityController extends AbstractController
             $token = $tokenGenerator->generateToken();
 
             // On essaie d'écrire le token en base de données
-            try{
+            try {
                 $user->setResetToken($token);
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
@@ -84,7 +87,8 @@ class SecurityController extends AbstractController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'emails/forgotten_password.html.twig', ['token' => $token]
+                        'emails/forgotten_password.html.twig',
+                        ['token' => $token]
                     ),
                     'text/html'
                 )
@@ -99,7 +103,7 @@ class SecurityController extends AbstractController
         }
 
         // On envoie le formulaire à la vue
-        return $this->render('security/forgotten_password.html.twig',['emailForm' => $form->createView()]);
+        return $this->render('security/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
     }
 
     /**
@@ -137,9 +141,6 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('app_login');
         }
         // Si on n'a pas reçu les données, on affiche le formulaire
-        return $this->render('security/reset_password.html.twig', ['token' => $token]);   
+        return $this->render('security/reset_password.html.twig', ['token' => $token]);
     }
-
-    
-
 }

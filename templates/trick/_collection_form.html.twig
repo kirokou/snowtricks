@@ -23,8 +23,12 @@
 			<div class="input-group">
 				<img src="{{ asset('uploads/' ~ form.fileName.vars.data) }}" alt="Image" width="50">
             </div> 
-		</div>
-        {% endif %}
+        </div>
+        
+        <div class="col-1">
+            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
+        </div>
+        {% else %}
         {# input type file #}
 
         <div class="col">
@@ -40,6 +44,7 @@
         <div class="col-1">
             <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
         </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}

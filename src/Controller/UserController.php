@@ -75,8 +75,7 @@ class UserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            if($this->isGranted('ROLE_USER'))
-            {
+            if ($this->isGranted('ROLE_USER')) {
                 return $this->redirectToRoute('user_show', ['id' => $this->getUser()->getId()]);
             }
             return $this->redirectToRoute('user_index');

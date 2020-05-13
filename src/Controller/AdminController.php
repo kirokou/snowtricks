@@ -16,13 +16,13 @@ class AdminController extends AbstractController
     {
         $entityManager = $this->getDoctrine()->getManager();
 
-        $trickRepository=$entityManager->getRepository(Trick::class);
-        $tricks=$trickRepository->findAll();
+        $trickRepository = $entityManager->getRepository(Trick::class);
+        $tricks = $trickRepository->findAll();
 
         $commentRepository=$entityManager->getRepository(Comment::class);
         $comments=$commentRepository->findAll();
 
-        return $this->render('admin/index.html.twig',[
+        return $this->render('admin/index.html.twig', [
             'tricks'=>$tricks,
             'comments'=>$comments,
         ]);

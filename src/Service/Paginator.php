@@ -2,7 +2,6 @@
 
 namespace App\Service;
 
-
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Config\Definition\Exception\Exception;
 
@@ -63,7 +62,7 @@ class Paginator
        $offset = $this->currentPage * $this->limit - $this->limit;
 
        // 2) Demander au repository de trouver les éléments à partir d'un offset et 
-       return $this->manager->getRepository($this->entityClass)->findBy([], [], $this->limit, $offset);
+       return $this->manager->getRepository($this->entityClass)->findBy([], ["id"=>"DESC"], $this->limit, $offset);
    }
 
    /**

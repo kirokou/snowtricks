@@ -13,7 +13,7 @@
             <!--edit and delete button-->
             {% if app.user and is_granted("ROLE_ADMIN") %}
                 <div class="row d-flex mt-container justify-content-end">
-                    <a class="btn blue-gradient" href="{{ path('trick_edit', {'slug': trick.slug}) }}"><i class="fas fa-pencil-alt"></i></a>
+                    <a class="btn blue-gradient" href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
                     {{ include('trick/_delete_form_btn.html.twig') }}
                 </div>  
             {% endif %}

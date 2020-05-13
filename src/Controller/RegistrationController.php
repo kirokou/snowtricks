@@ -46,7 +46,8 @@ class RegistrationController extends AbstractController
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
-                        'emails/activation.html.twig', ['token' => $user->getActivationToken()]
+                        'emails/activation.html.twig',
+                        ['token' => $user->getActivationToken()]
                     ),
                     'text/html'
                 )
@@ -54,7 +55,7 @@ class RegistrationController extends AbstractController
             $mailer->send($message);
 
             // On génère un message et en envoi la page de bienvenue
-            return $this->render('registration/welcome.html.twig');          
+            return $this->render('registration/welcome.html.twig');
         }
 
         return $this->render('registration/register.html.twig', [
@@ -70,14 +71,14 @@ class RegistrationController extends AbstractController
     {
         $user = $user->findOneBy(['activation_token' => $token]);
 
-        if(!$user){
+        if (!$user) {
             // On renvoie une erreur 404
             throw $this->createNotFoundException("Cet utilisateur n'existe pas");
         }
       
         // On supprime le token
         $user->setActivationToken(null);
-            // On attribue un ROLE_USER // Il sera update Admin par l'admin
+        // On attribue un ROLE_USER // Il sera update Admin par l'admin
         $user->setroles(['ROLE_USER']);
 
         $entityManager = $this->getDoctrine()->getManager();
