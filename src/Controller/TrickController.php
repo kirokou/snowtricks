@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Img;
 use App\Entity\Movie;
 use App\Entity\Trick;
+use App\Form\ImgType;
 use App\Entity\Comment;
 use App\Form\TrickType;
 use App\Form\CommentType;
@@ -17,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 
 /**
  * @Route("/trick")
@@ -50,11 +51,9 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             //Manage Img collectionType
-            foreach ($trick->getImgs() as $img)
-            {
+            foreach ($trick->getImgs() as $img) {
                 $img->setTrick($trick);
                 $trick->addImg($img);
             }
@@ -65,7 +64,7 @@ class TrickController extends AbstractController
             $entityManager->flush();
 
             // Message flash
-            $this->addFlash('success',"Super! votre annonce à bien été ajouté.");
+            $this->addFlash('success', "Super! votre annonce à bien été ajouté.");
             return $this->redirectToRoute('trick_index');
         }
 
@@ -76,8 +75,8 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/{slug}", name="trick_show", methods={"GET", "POST"})
-     */
+    * @Route("/{id}/show", name="trick_show", methods={"GET", "POST"})
+    */
     public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
     {
         $comment = new Comment();
@@ -92,7 +91,7 @@ class TrickController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+            return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
         }
 
         return $this->render('trick/show.html.twig', [
@@ -102,29 +101,30 @@ class TrickController extends AbstractController
         ]);
     }
 
+
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/{slug}/edit", name="trick_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) 
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
+
             //Manage collectionType
-            foreach ($trick->getImgs() as $img)
-            {
+            foreach ($trick->getImgs() as $img) {
                 $img->setTrick($trick);
                 $trick->addImg($img);
             }
+            
             $trick->setUpdatedAt(new DateTime('now'));
             $entityManager->persist($trick);
             $entityManager->flush();
 
             // Message flash
-            $this->addFlash('success',"Super! votre annonce à bien été modifié.");
+            $this->addFlash('success', "Super! votre annonce à bien été modifié.");
             return $this->redirectToRoute('trick_index');
         }
 
@@ -136,11 +136,11 @@ class TrickController extends AbstractController
 
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/{slug}", name="trick_delete", methods={"DELETE"})
+     * @Route("/{id}", name="trick_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Trick $trick): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$trick->getSlug(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($trick);
             $entityManager->flush();

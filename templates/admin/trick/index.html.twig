@@ -7,15 +7,15 @@
         <!--Titre-->
         <div class="col-12 d-flex justify-content-espace-between">
             <h1>Liste des tricks</h1>
-            <a class="btn blue-gradient" href="{{ path('trick_new') }}">Nouveau</i></a>
+            <a class="btn blue-gradient" href="{{ path('trick_new') }}">+</i></a>
         </div>
        
         <!--Tableau d'affichage-->
         <table class="table">
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Title</th>
-                    <th>Slug</th>
                     <th>Categorie</th>
                     <th>Date de création</th>
                     <th>Date de modification</th>
@@ -25,21 +25,21 @@
             <tbody>
             {% for trick in tricks %}
                 <tr>
+                    <td>{{ trick.id }}</td>
                     <td>{{ trick.title }}</td>
-                    <td>{{ trick.slug }}</td>
                     <td>{{ trick.category.title }}</td>
-                    <td>{{ trick.createdAt ? trick.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                    <td>{{ trick.updatedAt ? trick.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                    <td>{{ trick.createdAt|date('d/m/Y H:i') }}</td>
+                    <td>{{ trick.updatedAt|date('d/m/Y H:i') }}</td>
                     <td>
-                        <a class="badge badge-primary" href="{{ path('trick_show', {'slug': trick.slug}) }}"><i class="far fa-eye"></i> Voir</a>
-                        <a class="badge badge-warning" href="{{ path('trick_edit', {'slug': trick.slug}) }}"> <i class="far fa-edit"></i> Modifier</a>
+                        <a class="badge badge-primary" href="{{ path('trick_show', {'id': trick.id}) }}"><i class="far fa-eye"></i> Voir</a>
+                        <a class="badge badge-warning" href="{{ path('trick_edit', {'id': trick.id}) }}"> <i class="far fa-edit"></i> Modifier</a>
                         <!--by form-->
                         {{ include('trick/_delete_form_badge.html.twig') }}
                     </td>
                 </tr>
             {% else %}
                 <tr>
-                    <td colspan="7">Il n'y a aucun trick en ligne</td>
+                    <td colspan="7">Il n'y a aucun trick en ligne.</td>
                 </tr>
             {% endfor %}
             </tbody>

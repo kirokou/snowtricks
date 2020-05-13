@@ -6,7 +6,12 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
-{
+{    
+    /**
+     * @param  mixed $manager
+     * 
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         // $product = new Product();

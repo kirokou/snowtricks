@@ -53,7 +53,7 @@
 
             {% for trick in tricks %}
                 <!--var url-->
-                {% set url = path('trick_show', {'slug':trick.slug}) %}
+                {% set url = path('trick_show', {'id':trick.id}) %}
 
                 <!--Card-->
                 <div class="col-md-4 grid-item">
@@ -88,7 +88,7 @@
                             </div>
                             {% if is_granted('ROLE_ADMIN') %}
                             <div class="d-flex">
-                                <a href="{{ path('trick_edit', {'slug':trick.slug}) }}" class="card-link"><i class="fas fa-pencil-alt mr-3"></i></a>
+                                <a href="{{ path('trick_edit', {'id':trick.id}) }}" class="card-link"><i class="fas fa-pencil-alt mr-3"></i></a>
                                 {{ include('trick/_delete_form_badge.html.twig') }}
                             </div>
                             {% endif %}

@@ -4,78 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c917e69da3696fd00b335bdf46307aef",
+    "content-hash": "3e9df5014b205579c6329415e78acafa",
     "packages": [
-        {
-            "name": "cocur/slugify",
-            "version": "v4.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/cocur/slugify.git",
-                "reference": "3f1ffc300f164f23abe8b64ffb3f92d35cec8307"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/cocur/slugify/zipball/3f1ffc300f164f23abe8b64ffb3f92d35cec8307",
-                "reference": "3f1ffc300f164f23abe8b64ffb3f92d35cec8307",
-                "shasum": ""
-            },
-            "require": {
-                "ext-mbstring": "*",
-                "php": ">=7.0"
-            },
-            "conflict": {
-                "symfony/config": "<3.4 || >=4,<4.3",
-                "symfony/dependency-injection": "<3.4 || >=4,<4.3",
-                "symfony/http-kernel": "<3.4 || >=4,<4.3",
-                "twig/twig": "<2.12.1"
-            },
-            "require-dev": {
-                "laravel/framework": "~5.1",
-                "latte/latte": "~2.2",
-                "league/container": "^2.2.0",
-                "mikey179/vfsstream": "~1.6.8",
-                "mockery/mockery": "^1.3",
-                "nette/di": "~2.4",
-                "phpunit/phpunit": "^5.7.27",
-                "pimple/pimple": "~1.1",
-                "plumphp/plum": "~0.1",
-                "symfony/config": "^3.4 || ^4.3 || ^5.0",
-                "symfony/dependency-injection": "^3.4 || ^4.3 || ^5.0",
-                "symfony/http-kernel": "^3.4 || ^4.3 || ^5.0",
-                "twig/twig": "^2.12.1 || ~3.0",
-                "zendframework/zend-modulemanager": "~2.2",
-                "zendframework/zend-servicemanager": "~2.2",
-                "zendframework/zend-view": "~2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Cocur\\Slugify\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Florian Eckerstorfer",
-                    "email": "florian@eckerstorfer.co",
-                    "homepage": "https://florian.ec"
-                },
-                {
-                    "name": "Ivo Bathke",
-                    "email": "ivo.bathke@gmail.com"
-                }
-            ],
-            "description": "Converts a string into a slug.",
-            "keywords": [
-                "slug",
-                "slugify"
-            ],
-            "time": "2019-12-14T13:04:14+00:00"
-        },
         {
             "name": "doctrine/annotations",
             "version": "1.10.2",
@@ -2398,9 +2328,7 @@
         },
         {
             "name": "symfony/debug",
-
             "version": "v4.4.8",
-
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
@@ -2680,9 +2608,7 @@
         },
         {
             "name": "symfony/error-handler",
-
             "version": "v4.4.8",
-
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/error-handler.git",
@@ -2738,9 +2664,7 @@
         },
         {
             "name": "symfony/event-dispatcher",
-
             "version": "v4.4.8",
-
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
@@ -3407,7 +3331,6 @@
         },
         {
             "name": "symfony/http-foundation",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -3418,7 +3341,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-foundation/zipball/ec5bd254c223786f5fa2bb49a1e705c1b8e7cee2",
                 "reference": "ec5bd254c223786f5fa2bb49a1e705c1b8e7cee2",
-
                 "shasum": ""
             },
             "require": {
@@ -3460,7 +3382,6 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-
             "time": "2020-04-18T20:40:08+00:00"
         },
         {
@@ -3475,7 +3396,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/http-kernel/zipball/1799a6c01f0db5851f399151abdb5d6393fec277",
                 "reference": "1799a6c01f0db5851f399151abdb5d6393fec277",
-
                 "shasum": ""
             },
             "require": {
@@ -3552,13 +3472,11 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-
             "time": "2020-04-28T18:47:42+00:00"
         },
         {
             "name": "symfony/inflector",
             "version": "v4.4.8",
-
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/inflector.git",
@@ -3759,7 +3677,6 @@
         },
         {
             "name": "symfony/mime",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -3770,7 +3687,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/mime/zipball/7a583ffb6c7dd5aabb5db920817a3cc39261c517",
                 "reference": "7a583ffb6c7dd5aabb5db920817a3cc39261c517",
-
                 "shasum": ""
             },
             "require": {
@@ -3819,9 +3735,7 @@
                 "mime",
                 "mime-type"
             ],
-
             "time": "2020-04-16T14:49:30+00:00"
-
         },
         {
             "name": "symfony/monolog-bridge",
@@ -4094,7 +4008,6 @@
         },
         {
             "name": "symfony/polyfill-intl-idn",
-
             "version": "v1.16.0",
             "source": {
                 "type": "git",
@@ -4105,7 +4018,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-intl-idn/zipball/ab0af41deab94ec8dceb3d1fb408bdd038eba4dc",
                 "reference": "ab0af41deab94ec8dceb3d1fb408bdd038eba4dc",
-
                 "shasum": ""
             },
             "require": {
@@ -4119,9 +4031,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-
                     "dev-master": "1.16-dev"
-
                 }
             },
             "autoload": {
@@ -4156,7 +4066,6 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2020-05-08T16:50:20+00:00"
         },
         {
@@ -4171,7 +4080,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/a54881ec0ab3b2005c406aed0023c062879031e7",
                 "reference": "a54881ec0ab3b2005c406aed0023c062879031e7",
-
                 "shasum": ""
             },
             "require": {
@@ -4183,9 +4091,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-
                     "dev-master": "1.16-dev"
-
                 }
             },
             "autoload": {
@@ -4219,7 +4125,6 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2020-05-08T16:50:20+00:00"
         },
         {
@@ -4234,7 +4139,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/42fda6d7380e5c940d7f68341ccae89d5ab9963b",
                 "reference": "42fda6d7380e5c940d7f68341ccae89d5ab9963b",
-
                 "shasum": ""
             },
             "require": {
@@ -4243,9 +4147,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-
                     "dev-master": "1.16-dev"
-
                 }
             },
             "autoload": {
@@ -4278,7 +4180,6 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2020-05-08T17:28:34+00:00"
         },
         {
@@ -4293,7 +4194,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php73/zipball/7e95fe59d12169fcf4041487e4bf34fca37ee0ed",
                 "reference": "7e95fe59d12169fcf4041487e4bf34fca37ee0ed",
-
                 "shasum": ""
             },
             "require": {
@@ -4302,9 +4202,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-
                     "dev-master": "1.16-dev"
-
                 }
             },
             "autoload": {
@@ -4340,9 +4238,7 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2020-05-02T14:56:09+00:00"
-
         },
         {
             "name": "symfony/process",
@@ -4395,7 +4291,6 @@
         },
         {
             "name": "symfony/property-access",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -4406,7 +4301,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/property-access/zipball/f6a51bd76a3a5c36c57221a4f491b9cf02663672",
                 "reference": "f6a51bd76a3a5c36c57221a4f491b9cf02663672",
-
                 "shasum": ""
             },
             "require": {
@@ -4460,9 +4354,7 @@
                 "property path",
                 "reflection"
             ],
-
             "time": "2020-04-15T15:55:41+00:00"
-
         },
         {
             "name": "symfony/property-info",
@@ -4701,7 +4593,6 @@
         },
         {
             "name": "symfony/security-core",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -4712,7 +4603,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/security-core/zipball/fc84e9481e5bd9d80f70c0d8151601211377a5dc",
                 "reference": "fc84e9481e5bd9d80f70c0d8151601211377a5dc",
-
                 "shasum": ""
             },
             "require": {
@@ -4772,9 +4662,7 @@
             ],
             "description": "Symfony Security Component - Core Library",
             "homepage": "https://symfony.com",
-
             "time": "2020-04-21T21:19:23+00:00"
-
         },
         {
             "name": "symfony/security-csrf",
@@ -4891,7 +4779,6 @@
         },
         {
             "name": "symfony/security-http",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -4902,7 +4789,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/security-http/zipball/055a4f4fe58ab19515fa573919bf7ebd114f4aa7",
                 "reference": "055a4f4fe58ab19515fa573919bf7ebd114f4aa7",
-
                 "shasum": ""
             },
             "require": {
@@ -4910,9 +4796,7 @@
                 "symfony/http-foundation": "^3.4.40|^4.4.7|^5.0.7",
                 "symfony/http-kernel": "^4.4",
                 "symfony/property-access": "^3.4|^4.0|^5.0",
-
                 "symfony/security-core": "^4.4.8"
-
             },
             "conflict": {
                 "symfony/event-dispatcher": ">=5",
@@ -4957,9 +4841,7 @@
             ],
             "description": "Symfony Security Component - HTTP Integration",
             "homepage": "https://symfony.com",
-
             "time": "2020-04-03T17:46:33+00:00"
-
         },
         {
             "name": "symfony/serializer",
@@ -5680,7 +5562,6 @@
         },
         {
             "name": "symfony/var-dumper",
-
             "version": "v4.4.8",
             "source": {
                 "type": "git",
@@ -5691,7 +5572,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/var-dumper/zipball/c587e04ce5d1aa62d534a038f574d9a709e814cf",
                 "reference": "c587e04ce5d1aa62d534a038f574d9a709e814cf",
-
                 "shasum": ""
             },
             "require": {
@@ -5754,9 +5634,7 @@
                 "debug",
                 "dump"
             ],
-
             "time": "2020-04-12T16:14:02+00:00"
-
         },
         {
             "name": "symfony/var-exporter",
@@ -6531,9 +6409,7 @@
                 "Fixture",
                 "persistence"
             ],
-
             "time": "2020-04-02T16:40:37+00:00"
-
         },
         {
             "name": "nikic/php-parser",

@@ -20,92 +20,99 @@ class TrickFixtures extends Fixture
     const FIXTURES_IMG_DIR_FROM = __DIR__ . '/../../src/DataFixtures/img/';
     const FIXTURES_IMG_DIR_DEST = __DIR__ . '/../../public/uploads/';
 
+    /**
+     * 
+     */
     public function __construct(UserPasswordEncoderInterface $passwordEncoder)
     {
         $this->passwordEncoder = $passwordEncoder;
     }
 
+    /**
+     * 
+     */
     public function load(ObjectManager $manager)
     {
         $faker= Factory::create('FR-fr');
 
-        //User: Admin and simple User
-        for($j=0; $j<=1; $j++)
-        {
+        /**** User: Admin and simple User ****/
+        for ($j = 0; $j <=1; $j++) {
             $user = new User();
-            if($j==0){
+            if ($j == 0) {
                 $user->setEmail('user@gmail.com');
                 $user->setRoles(['ROLE_USER']);
-            }
+            } else {
                 $user->setEmail('admin@gmail.com');
                 $user->setRoles(['ROLE_ADMIN']);
+            }
             
-            $password=$this->passwordEncoder->encodePassword($user,'openclassrooms-P6');
+            $password = $this->passwordEncoder->encodePassword($user, 'openclassrooms-P6');
             $user->setPassword($password);
             $user->setFirstname($faker->firstName);
             $user->setLastname($faker->lastName);
-            //I need to persist it because it indep
             $manager->persist($user);
         }
 
-        
+        /**** Category ****/
+        $arrayCategoryTitle = ['Slide','Flip','One foot','Old school','Rotation','Grab'];
+        foreach ($arrayCategoryTitle as $categoryTitle) {
+            $category = new Category();
+            $category->setTitle($categoryTitle);
+            $manager->persist($category);
+        }
 
-        foreach ($this->getFigureData() as [$title, $description, $movieUrl, $imgName]) 
-        {
+        foreach ($this->getFigureData() as [$title, $description, $movieUrl, $imgName]) {
             $trick = new Trick();
-                $trick->setTitle($title);
-                $trick->setDescription($description);
-                $trick->setUser($user);    
-                $trick->setCreatedAt(new \DateTime());
-                    //Movie
-                    $movie= new movie();
-                    $movie->setTitle($title)
-                        ->setSrc($movieUrl);
-                $trick->setMovie($movie);
+            $trick->setTitle($title);
+            $trick->setDescription($description);
+            $trick->setCategory($category);
+            $trick->setUser($user);
+            $trick->setCreatedAt(new \DateTime());
+            
+                /*** Movie ***/
+                $movie = new movie();
+                $movie->setTitle($title)
+                    ->setSrc($movieUrl);
 
-                    //Comment
-                    $comment=[];
-                    for($i=0; $i<=3; $i++)
-                    {
-                        $comment[$i]= new comment();
-                        $comment[$i]->setAuthor($faker->name)
-                                    ->setContent($faker->sentence(5))
-                                    ->setCreatedAt(new \DateTime())
-                                    ->setTrick($trick);
-                        $trick->AddComment($comment[$i]);
-                    }
+            $trick->setMovie($movie);
 
-                    //Category
-                    $arrayCategory=['Slide','Flip','One foot','Old school','Rotation','Grab'];
-                    $category= new Category();
-                    $category->setTitle($arrayCategory[mt_rand(0,5)]);
-                    //I persist it because i need it beford create trick and category is INDEP
-                    $manager->persist($category); 
-                $trick->setCategory($category);
+                /*** Comment ***/
+                $comment = [];
+                for ($i=0; $i<=3; $i++) {
+                    $comment[$i] = new comment();
+                    $comment[$i]->setAuthor($user)
+                                ->setContent($faker->sentence(5))
+                                ->setCreatedAt(new \DateTime())
+                                ->setTrick($trick);
+                    $trick->AddComment($comment[$i]);
+                }
 
-                    //Img
-                    for($i=1; $i<=3; $i++)
-                    {
-                        $img = new Img();
-                        // set newfileName for file
-                        $oldFileName=$imgName;
-                        $filename = md5(uniqid());
-                        $img->setFileName($filename.'.jpg')
-                            ->setAlt($faker->sentence); 
-                        //try??  que les set se sont bien passer avant le move  
-                        //Make new file and Move the file from my fixtures_img_repository with newfileName
-                        $imgFile = new File(self::FIXTURES_IMG_DIR_FROM . $oldFileName.$i.'.jpg');
-                        $imgFile->move(self::FIXTURES_IMG_DIR_DEST, $filename.'.jpg');
-                        
-                        $img->setTrick($trick);
-                        $trick->addImg($img);
-                    }           
+                //Img
+                for ($i = 1; $i <= 3; $i++) {
+                    $img = new Img();
+                    // set newfileName for file
+                    $oldFileName = $imgName;
+                    $filename = md5(uniqid());
+                    $img->setFileName($filename.'.jpg')
+                        ->setAlt($faker->sentence);
+
+                    $imgFile = new File(self::FIXTURES_IMG_DIR_FROM . $oldFileName.$i.'.jpg');
+                    $imgFile->move(self::FIXTURES_IMG_DIR_DEST, $filename.'.jpg');
+                            
+                    $img->setTrick($trick);
+                    $trick->addImg($img);
+                }
+
             $manager->persist($trick);
         }
 
         $manager->flush();
     }
 
+
+    /**
+     * @return array
+     */
     private function getFigureData(): array
     {
         return [
@@ -146,5 +153,4 @@ class TrickFixtures extends Fixture
             ],
         ];
     }
-
 }

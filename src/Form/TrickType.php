@@ -16,22 +16,21 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class TrickType extends TypeConfig
 {
-
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add(
                 'title',
                 TextType::class,
-                $this->getConfiguration("Titre de la figure","Entrez le titre de la figure")
+                $this->getConfiguration("Titre de la figure", "Entrez le titre de la figure.")
             )
             ->add(
-            'description',
-            TextareaType::class,
-            $this->getConfiguration("Titre de la figure","Entrez le titre de la figure")
+                'description',
+                TextareaType::class,
+                $this->getConfiguration("Description de la figure", "Entrez la description de la figure.")
             )
             ->add(
-                'category', //ManytoOne
+                'category',
                 EntityType::class,
                 [
                 'class' => Category::class,
@@ -40,19 +39,19 @@ class TrickType extends TypeConfig
                 ]
             )
             ->add(
-                'movie',  //OnetoOne // sans trick au niveau de movie warning
+                'movie',
                 MovieType::class
             )
-            ->add(  // OneToMany
-                'imgs', 
-                CollectionType::class, 
+            ->add(
+                'imgs',
+                CollectionType::class,
                 [
                 'entry_type' => ImgType::class,
                 'label'=> 'Ajouter une ou plusieurs images',
                 'allow_add'=> true,
                 'allow_delete'=> true,
                 ]
-            )  
+            )
         ;
     }
 

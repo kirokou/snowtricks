@@ -19,10 +19,13 @@ class TrickRepository extends ServiceEntityRepository
         parent::__construct($registry, Trick::class);
     }
 
+    public function findAll()
+    {
+        return $this->findBy(array(), array('id' => 'DESC'));
+    }
 
-    // TrickRepository avec la nouvelle requete findAll + limit
     /**
-     * Méthode avec uns limit personnalisé
+     * Method avec uns limit personnalisé
      * @param int $offset
      * @return mixed
      */
@@ -36,6 +39,7 @@ class TrickRepository extends ServiceEntityRepository
             ->getResult()
             ;
     }
+
 
     // /**
     //  * @return Trick[] Returns an array of Trick objects
