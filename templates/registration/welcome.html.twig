@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Comment{% endblock %}
+{% block title %}Activation{% endblock %}
 
 {% block body %}
-    <h1>Bienvenu sur notre site web</h1>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6 mt-5 mx-auto">
+            <h1>Bienvenu sur SnowTrick</h1>
+            <h4> Votre compte a bien été créé. </h4>
+            <p> Vous allez recevoir un mail d'activaton dans quelques instants. </p>
+            <p> Vous devez valider votre compte pour accéder automatiquement à votre compte. </p>
+        </div>
+    </div>
+   
+</div>
 
-    <p> Votre compte a bien été créé. </p>
-    <p> Vous allez recevoir un mail d'activaton dans quelques instant </p>
-    <p> Vous devez valider votre compte pour accéder a votre compte </p>
-
-    <a href="{{ path('comment_index') }}">back to list</a>
 {% endblock %}

@@ -54,7 +54,6 @@ class RegistrationController extends AbstractController
             ;
             $mailer->send($message);
 
-            // On génère un message et en envoi la page de bienvenue
             return $this->render('registration/welcome.html.twig');
         }
 
@@ -63,22 +62,19 @@ class RegistrationController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/activation/{token}", name="activation")
      */
-    public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler)
+    public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
     {
         $user = $user->findOneBy(['activation_token' => $token]);
 
         if (!$user) {
-            // On renvoie une erreur 404
-            throw $this->createNotFoundException("Cet utilisateur n'existe pas");
+            throw $this->createNotFoundException("Ce token n'est pas valide ou a déjà été utilisé. <br/> Connectez-vous à votre compte si vous n'y arrivez pas contactez le support. ");
         }
       
         // On supprime le token
         $user->setActivationToken(null);
-        // On attribue un ROLE_USER // Il sera update Admin par l'admin
         $user->setroles(['ROLE_USER']);
 
         $entityManager = $this->getDoctrine()->getManager();
@@ -93,10 +89,8 @@ class RegistrationController extends AbstractController
             'main' // firewall name in security.yaml
         );
 
-        // On génère un message
         $this->addFlash('success', "Votre compte a bien été activée.");
 
-        //Faire une condition sur la page qui sera retourner à l'utilisateur selon son role
         // On retourne à l'accueil
         return $this->redirectToRoute('home');
     }

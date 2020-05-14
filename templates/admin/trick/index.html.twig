@@ -28,8 +28,8 @@
                     <td>{{ trick.id }}</td>
                     <td>{{ trick.title }}</td>
                     <td>{{ trick.category.title }}</td>
-                    <td>{{ trick.createdAt|date('d/m/Y H:i') }}</td>
-                    <td>{{ trick.updatedAt|date('d/m/Y H:i') }}</td>
+                    <td>{{ trick.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                    <td>{{ trick.updatedAt ? trick.updatedAt|date('d/m/Y H:i', 'Europe/Paris') : '' }}</td>                   
                     <td>
                         <a class="badge badge-primary" href="{{ path('trick_show', {'id': trick.id}) }}"><i class="far fa-eye"></i> Voir</a>
                         <a class="badge badge-warning" href="{{ path('trick_edit', {'id': trick.id}) }}"> <i class="far fa-edit"></i> Modifier</a>
@@ -45,7 +45,7 @@
             </tbody>
         </table>
 
-        {% if tricks is not null %}
+        {% if tricks is not empty %}
             <!--Pagination-->
             <nav aria-label="Page navigation example">
                 <ul class="pagination pg-blue justify-content-end">

@@ -6,27 +6,45 @@
 
 {% block body %}
 	<div class="container">
-		<h1>Modifier le Trick: {{ trick.title }} </h1>
-		{{ form_start(form) }}
-			<div>{{ form_row(form.title) }}</div>
-			<div>{{ form_row(form.description) }}</div>
-			<div>
-				{{ form_row(form.category) }}
+		<div class="row">
+			<h1>Modifier le Trick: {{ trick.title }} </h1>
+			<div class="col-12">
+				{{ form_start(form, {'action': path('trick_edit', {'id': trick.id})}) }}
+				<div>{{ form_row(form.title) }}</div>
+				<div>{{ form_row(form.description) }}</div>
+				<div>
+					{{ form_row(form.category) }}
+				</div>
+				<div>
+					{{ form_row(form.movie) }}
+				</div>
+				<div>
+					{{ form_row(form.imgs) }}
+				</div>
+				<button class="btn blue-gradient center">{{ button_label|default("Modifier la figure") }}</button>
+				{{ form_end(form) }}
 			</div>
-			<div>
-				{{ form_row(form.movie) }}
-			</div>
+		</div>
 
-			<div>
-				{{ form_row(form.imgs) }}
-			</div>
+			<hr>
 
-			<button class="btn blue-gradient center">{{ button_label|default("Modifier la figure") }}</button>
-		{{ form_end(form) }}
+		<div class="row mt-5">
+			<h1>Supprimer les images. </h1>
+			{% if form.vars.data.imgs is not empty %}
+					<div class="col-12">
+					{% for img in form.vars.data.imgs %}	
+						<div class="col-3">
+							<img src="{{ asset('uploads/' ~ img.filename) }}" alt="Image" width="50">
+							<a class="btn btn-danger" href="{{ path('img_delete', {'id': img.id}) }}">X</a>
+						</div>	
+					{% endfor %}
+				</div>	
+			{% else %}
+				<p> Aucune image pour ce trick.</p>
+			{% endif %}
+		</div>	
 	</div>
-
 {% endblock %}
-
 
 {# javascripts #}
 {% block javascripts %}
