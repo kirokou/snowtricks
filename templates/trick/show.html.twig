@@ -3,9 +3,16 @@
 {% block title %}Trick{% endblock %}
 
 {% block body %}
-    <!-- Full Page Intro -->
-    {% set url = asset('uploads/' ~ trick.imgs[0].fileName) %}
+    
+    {% if trick.imgs[0] is defined %}
+        {% set url = asset('uploads/' ~ trick.imgs[0].fileName) %}
+    {% else %} 
+        {% set url = 'https://as2.ftcdn.net/jpg/01/16/55/77/500_F_116557709_H9HBItGCiQ5VouiK44v9V2ijtatzAc5I.jpg' %}
+    {% endif %} 
 
+
+
+    <!-- Full Page Intro -->
     <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
 
         <!-- Content -->

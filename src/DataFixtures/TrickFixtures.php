@@ -28,8 +28,11 @@ class TrickFixtures extends Fixture
         $this->passwordEncoder = $passwordEncoder;
     }
 
+        
     /**
+     * @param  mixed $manager
      * 
+     * @return void
      */
     public function load(ObjectManager $manager)
     {
@@ -109,8 +112,10 @@ class TrickFixtures extends Fixture
         $manager->flush();
     }
 
-
+        
     /**
+     * getFigureData
+     *
      * @return array
      */
     private function getFigureData(): array

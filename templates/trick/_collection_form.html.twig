@@ -19,31 +19,21 @@
     <div class="row">
         {# if img exist #}
         {% if form.fileName.vars.data %}
-		<div class="col-1">
-			<div class="input-group">
-				<img src="{{ asset('uploads/' ~ form.fileName.vars.data) }}" alt="Image" width="50">
-            </div> 
-        </div>
-        
-        <div class="col-1">
-            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
-        </div>
+
         {% else %}
-        {# input type file #}
+            <div class="col">
+                {{ form_errors(form.file) }}
+                {{ form_widget(form.file) }}
+            </div>
 
-        <div class="col">
-            {{ form_errors(form.file) }}
-            {{ form_widget(form.file) }}
-        </div>
+            <div class="col"> 
+                {{ form_errors(form.alt) }}
+                {{ form_widget(form.alt) }}
+            </div>
 
-        <div class="col"> 
-            {{ form_errors(form.alt) }}
-            {{ form_widget(form.alt) }}
-        </div>
-
-        <div class="col-1">
-            <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
-        </div>
+            <div class="col-1">
+                <button type="button" class="btn btn-danger" data-action="delete" data-target="#block_{{ id }}">X</button>
+            </div>
         {% endif %}
     </div>
 </div>

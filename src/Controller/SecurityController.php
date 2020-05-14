@@ -46,11 +46,7 @@ class SecurityController extends AbstractController
     /**
     * @Route("/forgot_pass", name="app_forgotten_password")
     */
-    public function forgotten_password(
-        Request $request,
-        UserRepository $user,
-        \Swift_Mailer $mailer,
-        TokenGeneratorInterface $tokenGenerator
+    public function forgotten_password(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
     ): Response {
         $form = $this->createForm(ResetPassType::class);
         $form->handleRequest($request);
@@ -61,13 +57,11 @@ class SecurityController extends AbstractController
             // On cherche un utilisateur ayant cet e-mail
             $user = $user->findOneByEmail($data['email']);
 
-            // if $user is null
             if ($user === null) {
                 $this->addFlash('danger', 'Cette adresse e-mail est inconnue');
                 return $this->redirectToRoute('app_login');
             }
 
-            // Generate token
             $token = $tokenGenerator->generateToken();
 
             // On essaie d'écrire le token en base de données
@@ -94,53 +88,39 @@ class SecurityController extends AbstractController
                 )
             ;
             $mailer->send($message);
-
-            // On crée le message flash de confirmation
             $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
-
-            // On redirige vers la page de login
             return $this->redirectToRoute('app_login');
         }
 
-        // On envoie le formulaire à la vue
         return $this->render('security/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
     }
 
     /**
      * @Route("/reset_pass/{token}", name="app_reset_password")
      */
-    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder): Response
     {
         // On cherche un utilisateur avec le token donné
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
 
         // Si l'utilisateur n'existe pas
         if ($user === null) {
-            // On affiche une erreur
             $this->addFlash('danger', 'Token Inconnu');
             return $this->redirectToRoute('app_login');
         }
 
-        // Si le formulaire est envoyé en méthode post
         if ($request->isMethod('POST')) {
-            // On supprime le token
             $user->setResetToken(null);
-
-            // On chiffre le mot de passe
             $user->setPassword($passwordEncoder->encodePassword($user, $request->request->get('password')));
 
-            // On stocke
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            // On crée le message flash
             $this->addFlash('success', 'Mot de passe mis à jour');
-
-            // On redirige vers la page de connexion
             return $this->redirectToRoute('app_login');
         }
-        // Si on n'a pas reçu les données, on affiche le formulaire
+        
         return $this->render('security/reset_password.html.twig', ['token' => $token]);
     }
 }
