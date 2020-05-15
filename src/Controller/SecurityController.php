@@ -54,17 +54,14 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
-            // On cherche un utilisateur ayant cet e-mail
             $user = $user->findOneByEmail($data['email']);
-
             if ($user === null) {
                 $this->addFlash('danger', 'Cette adresse e-mail est inconnue');
-                return $this->redirectToRoute('app_login');
+
+                return $this->redirectToRoute('app_forgotten_password');
             }
 
             $token = $tokenGenerator->generateToken();
-
-            // On essaie d'écrire le token en base de données
             try {
                 $user->setResetToken($token);
                 $entityManager = $this->getDoctrine()->getManager();
@@ -72,12 +69,13 @@ class SecurityController extends AbstractController
                 $entityManager->flush();
             } catch (\Exception $e) {
                 $this->addFlash('warning', $e->getMessage());
+
                 return $this->redirectToRoute('app_login');
             }
 
             // On génère l'e-mail
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('votre@adresse.fr')
+                ->setFrom('borgine@toto.fr')
                 ->setTo($user->getEmail())
                 ->setBody(
                     $this->renderView(
@@ -88,8 +86,10 @@ class SecurityController extends AbstractController
                 )
             ;
             $mailer->send($message);
-            $this->addFlash('message', 'E-mail de réinitialisation du mot de passe envoyé !');
-            return $this->redirectToRoute('app_login');
+
+            $this->addFlash('success', 'E-mail de réinitialisation du mot de passe envoyé !');
+
+            return $this->redirectToRoute('app_forgotten_password');
         }
 
         return $this->render('security/forgotten_password.html.twig', ['emailForm' => $form->createView()]);
@@ -102,10 +102,10 @@ class SecurityController extends AbstractController
     {
         // On cherche un utilisateur avec le token donné
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['reset_token' => $token]);
-
         // Si l'utilisateur n'existe pas
         if ($user === null) {
             $this->addFlash('danger', 'Token Inconnu');
+            
             return $this->redirectToRoute('app_login');
         }
 
@@ -118,6 +118,7 @@ class SecurityController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', 'Mot de passe mis à jour');
+
             return $this->redirectToRoute('app_login');
         }
         
