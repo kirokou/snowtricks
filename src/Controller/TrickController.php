@@ -123,6 +123,7 @@ class TrickController extends AbstractController
             $entityManager->flush();
 
             $this->addFlash('success', "Super! votre annonce à bien été modifié.");
+
             return $this->redirectToRoute('trick_index');
         }
 
@@ -143,6 +144,7 @@ class TrickController extends AbstractController
             $entityManager->remove($trick);
             $entityManager->flush();
         }
+        
         return $this->redirectToRoute('trick_index');
     }
 }

@@ -104,4 +104,4 @@ https://getcomposer.org/download/
 </table>
 
 # UML DIAGRAMM
-<a href="/diagrammes">click here</a>
+<a href="public/diagrammes">click here</a>

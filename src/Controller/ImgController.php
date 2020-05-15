@@ -24,13 +24,9 @@ class ImgController extends AbstractController
     {
         $img = new Img();
         $img  = $imgRepository->find($id);
-
-
-        // Supprimer l'image de la table image
         $entityManager->remove($img);
         $entityManager->flush();
 
-        //Appeller le update du trick avec son id
         $trick = $trickRepository->find($img->getTrick());
         $form = $this->createForm(TrickType::class, $trick);
 

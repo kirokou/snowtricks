@@ -69,15 +69,14 @@ class UserController extends AbstractController
     public function edit(Request $request, User $currentUser): Response
     {
         $form = $this->createForm(UserType::class, $currentUser);
-        
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
             if ($this->isGranted('ROLE_USER')) {
                 return $this->redirectToRoute('user_show', ['id' => $this->getUser()->getId()]);
             }
+
             return $this->redirectToRoute('user_index');
         }
 
@@ -98,6 +97,7 @@ class UserController extends AbstractController
             $entityManager->remove($user);
             $entityManager->flush();
         }
+        
         return $this->redirectToRoute('user_index');
     }
 }
