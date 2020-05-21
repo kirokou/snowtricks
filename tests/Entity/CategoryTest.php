@@ -7,19 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class CategoryTest extends KernelTestCase
 {
-    /**
-     * @param  mixed $category
-     * @param  mixed $number
-     * 
-     * @return void
-     */
-    private function assertHasErrors(Category $category, int $number=0): void
-    {
-        self::bootKernel();
-        $error = self::$container->get('validator')->validate($category);
-        $this->assertCount($number,$error);
-    }
-
+   
     public function testTitleFieldsValid(): void
     {
         $category = new Category();
@@ -34,7 +22,20 @@ class CategoryTest extends KernelTestCase
 
         $this->assertHasErrors($category->setTitle('t'), 1);
         $this->assertHasErrors($category->setTitle('title'));
-        //$this->assertHasErrors($category->setTitle(''), 1);
+        $this->assertHasErrors($category->setTitle(''), 2); //pour le empty false et le lenght
     }
 
+
+     /**
+     * @param  mixed $category
+     * @param  mixed $number
+     * 
+     * @return void
+     */
+    private function assertHasErrors(Category $category, int $number=0): void
+    {
+        self::bootKernel();
+        $error = self::$container->get('validator')->validate($category);
+        $this->assertCount($number,$error);
+    }
 }
