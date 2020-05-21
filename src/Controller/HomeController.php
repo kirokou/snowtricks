@@ -6,7 +6,6 @@ use App\Repository\TrickRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Twig\Extra\Intl\IntlExtension;
 
 class HomeController extends AbstractController
 {

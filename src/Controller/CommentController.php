@@ -69,27 +69,6 @@ class CommentController extends AbstractController
     }
 
     /**
-     * @Security("is_granted('ROLE_USER') or is_granted('ROLE_ADMIN') and user == comment.author ", message="Vous ne pouvez pas modifier ce commentaire.")
-     * @Route("/{id}/edit", name="comment_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Comment $comment): Response
-    {
-        $form = $this->createForm(CommentType::class, $comment);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('comment_index');
-        }
-
-        return $this->render('comment/edit.html.twig', [
-            'comment' => $comment,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
      * @Security("is_granted('ROLE_USER') and user == comment.author or is_granted('ROLE_ADMIN')", message="Vous ne pouvez pas supprimer ce commentaire.")
      * @Route("/{id}", name="comment_delete", methods={"DELETE"})
      */
