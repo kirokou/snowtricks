@@ -6,7 +6,6 @@ use DateTime;
 use App\Entity\Img;
 use App\Entity\Movie;
 use App\Entity\Trick;
-use App\Form\ImgType;
 use App\Entity\Comment;
 use App\Form\TrickType;
 use App\Form\CommentType;

@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Img;
 use App\Form\TrickType;
 use App\Repository\ImgRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -24,7 +22,6 @@ class ImgController extends AbstractController
      */
     public function delete(ImgRepository $imgRepository, TrickRepository $trickRepository,  $id, EntityManagerInterface $entityManager): Response
     {
-        // $img = new Img();
         $img = $imgRepository->find($id);
         $entityManager->remove($img);
         $entityManager->flush();

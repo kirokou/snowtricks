@@ -56,7 +56,7 @@ class SecurityController extends AbstractController
 
             $user = $user->findOneByEmail($data['email']);
             if ($user === null) {
-                $this->addFlash('danger', 'Cette adresse e-mail est inconnue');
+                $this->addFlash('danger', 'Cette adresse e-mail est inconnue.');
 
                 return $this->redirectToRoute('app_forgotten_password');
             }

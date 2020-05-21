@@ -3,11 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Img;
-use App\Form\TypeConfig;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -17,9 +14,7 @@ class ImgType extends TypeConfig
     {
         $builder
             ->add('file', FileType::class, ['label' => false, 'required' => false])
-        
             ->add('alt', TextType::class, ['label' => false])
-
             ->add('fileName', TextType::class, ['required' => true])
         ;
     }

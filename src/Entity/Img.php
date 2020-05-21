@@ -12,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Img
 {
+    const IMG_DIR_FROM = __DIR__ . '/../../public/uploads/';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -58,6 +60,7 @@ class Img
 
     /**
      * @param mixed $file
+     *
      * @return Img
      */
     public function setFile(UploadedFile $file)
@@ -90,6 +93,7 @@ class Img
     public function setFileName($fileName)
     {
         $this->fileName = $fileName;
+
         return $this;
     }
 
@@ -102,6 +106,7 @@ class Img
     public function setAlt(string $alt): self
     {
         $this->alt = $alt;
+
         return $this;
     }
 
@@ -117,24 +122,19 @@ class Img
         return $this;
     }
 
-/*********** EVENTS *************/
     /**
      * @ORM\PrePersist
      * @ORM\PreUpdate
      */
     public function preUpload()
     {
-        //echo '<pre>';
-        //var_dump($this->file);
-        //die();
-        if ($this->file === null){
+        if ($this->file === null) {
+
             return;
         }
 
-        //$this->alt = md5(uniqid());
         $this->ext = $this->file->guessExtension();
         $this->fileName=md5(uniqid()).'.'.$this->ext;
-        
     }
 
      /**
@@ -143,20 +143,20 @@ class Img
      */
     public function upload()
     {
-        if(null === $this->file){
+        if (null === $this->file) {
+
             return;
         }
-        //if isset $this->file
 
         // Si on avait un ancien fichier, on le supprime
         if (isset($this->tempFileName)) {
-            $oldFile = $this->getUploadRootDir().'/'.$this->tempFileName;
+            $oldFile = self::IMG_DIR_FROM.'/'.$this->tempFileName;
             if (file_exists($oldFile)) {
                 unlink($oldFile);
             }
         }
         // On déplace le fichier envoyé dans le répertoire de notre choix
-        $this->file->move($this->getUploadRootDir(),$this->fileName);
+        $this->file->move(self::IMG_DIR_FROM,$this->fileName);
     }
 
     /**
@@ -165,7 +165,7 @@ class Img
     public function preRemoveUpload()
     {
         // On sauvegarde temporairement le nom du fichier, car il dépend de l'id
-        $this->tempFileName = $this->getUploadRootDir().$this->fileName;
+        $this->tempFileName = self::IMG_DIR_FROM.$this->fileName;
     }
 
     /**
@@ -175,14 +175,12 @@ class Img
     {
         // En PostRemove, on n'a pas accès à l'id, on utilise notre nom sauvegardé
         if (file_exists($this->tempFileName)) {
-            // On supprime le fichier
             unlink($this->tempFileName);
         }
     }
 
     /**
      * @return string
-     * Le virer.
      */
     protected function getUploadRootDir()
     {
