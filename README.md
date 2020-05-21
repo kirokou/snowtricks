@@ -103,10 +103,11 @@ https://getcomposer.org/download/
     </tbody>
 </table>
 
-## Step 11: Security
+## Step 11: Security in Prod
 > Htacces
 
-> 
+> Generate new keygen for APP_SECRET:
+Randomkeygen.com
 
 # UML DIAGRAMM
 <a href="public/diagrammes">click here</a>
