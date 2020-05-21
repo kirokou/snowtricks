@@ -11,7 +11,7 @@ use Twig\Extra\Intl\IntlExtension;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/", name="home", methods={"GET"})
      */
     public function index(TrickRepository $trickRepository): Response
     {

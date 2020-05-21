@@ -63,7 +63,7 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
-            $this->addFlash('success', "Super! votre annonce à bien été ajouté.");
+            $this->addFlash('success', 'Super! votre annonce à bien été ajouté.');
             return $this->redirectToRoute('trick_index');
         }
 
@@ -122,7 +122,7 @@ class TrickController extends AbstractController
             $entityManager->persist($trick);
             $entityManager->flush();
 
-            $this->addFlash('success', "Super! votre annonce à bien été modifié.");
+            $this->addFlash('success', 'Super! votre annonce à bien été modifié.');
 
             return $this->redirectToRoute('trick_index');
         }

@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -18,12 +19,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ImgController extends AbstractController
 {
     /**
+     * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="img_delete")
      */
     public function delete(ImgRepository $imgRepository, TrickRepository $trickRepository,  $id, EntityManagerInterface $entityManager): Response
     {
-        $img = new Img();
-        $img  = $imgRepository->find($id);
+        // $img = new Img();
+        $img = $imgRepository->find($id);
         $entityManager->remove($img);
         $entityManager->flush();
 

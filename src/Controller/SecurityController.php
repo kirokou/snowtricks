@@ -44,8 +44,8 @@ class SecurityController extends AbstractController
 
 
     /**
-    * @Route("/forgot_pass", name="app_forgotten_password")
-    */
+     * @Route("/forgot_pass", name="app_forgotten_password", methods={"GET","POST"})
+     */
     public function forgotten_password(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
     ): Response {
         $form = $this->createForm(ResetPassType::class);

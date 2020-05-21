@@ -37,7 +37,7 @@ class Img
      */
     private $trick;
 
-        /**
+    /**
      * Object File with setter and getter
      */
     private $file; 
@@ -76,8 +76,8 @@ class Img
 
    /**
     * warning 
-     * I delete type (string) for update
-     */
+    * I delete type (string) for update
+    */
     public function getFileName()
     {
         return $this->fileName;

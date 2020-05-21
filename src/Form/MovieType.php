@@ -13,9 +13,9 @@ class MovieType extends TypeConfig
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', TextType::class, $this->getConfiguration("Titre de la vidéo","Ajouter le titre de la vidéo")
+            ->add('title', TextType::class, $this->getConfiguration('Titre de la vidéo','Ajouter le titre de la vidéo')
             )
-            ->add('src', TextType::class, $this->getConfiguration("Lien de la vidéo","Ajouter le lien de la vidéo")
+            ->add('src', TextType::class, $this->getConfiguration('Lien de la vidéo','Ajouter le lien de la vidéo')
             )
         ;
     }

@@ -13,7 +13,7 @@ class CommentType extends TypeConfig
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('content', TextType::class, $this->getConfiguration("Votre commentaire","Ecrivez votre commentaire ici"))  
+            ->add('content', TextType::class, $this->getConfiguration('Votre commentaire','Ecrivez votre commentaire ici'))  
         ;
     }
 

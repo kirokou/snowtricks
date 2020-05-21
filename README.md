@@ -103,5 +103,10 @@ https://getcomposer.org/download/
     </tbody>
 </table>
 
+## Step 11: Security
+> Htacces
+
+> 
+
 # UML DIAGRAMM
 <a href="public/diagrammes">click here</a>

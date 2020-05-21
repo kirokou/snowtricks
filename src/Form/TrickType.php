@@ -22,12 +22,12 @@ class TrickType extends TypeConfig
             ->add(
                 'title',
                 TextType::class,
-                $this->getConfiguration("Titre de la figure", "Entrez le titre de la figure.")
+                $this->getConfiguration('Titre de la figure', 'Entrez le titre de la figure.')
             )
             ->add(
                 'description',
                 TextareaType::class,
-                $this->getConfiguration("Description de la figure", "Entrez la description de la figure.")
+                $this->getConfiguration('Description de la figure', 'Entrez la description de la figure.')
             )
             ->add(
                 'category',
@@ -42,7 +42,7 @@ class TrickType extends TypeConfig
                 'movie',
                 MovieType::class
             )
-            ->add(
+           ->add(
                 'imgs',
                 CollectionType::class,
                 [
@@ -52,6 +52,16 @@ class TrickType extends TypeConfig
                 'allow_delete'=> true,
                 ]
             )
+        /*
+            ->add(
+                'imgs',
+                FileType::class,
+                [
+                    'multipe' => true, 
+                    'mapped' => false
+                ]
+            )
+        */
         ;
     }
 

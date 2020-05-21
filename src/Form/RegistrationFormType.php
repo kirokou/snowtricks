@@ -20,9 +20,9 @@ class RegistrationFormType extends TypeConfig
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, $this->getConfiguration("Votre adresse mail","Ecrivez votre adresse mail"))
-            ->add('firstname', TextType::class, $this->getConfiguration("Votre prénom","Ecrivez votre Prénom"))
-            ->add('lastname', TextType::class, $this->getConfiguration("Votre nom","Ecrivez votre nom"))
+            ->add('email', EmailType::class, $this->getConfiguration('Votre adresse mail','Ecrivez votre adresse mail'))
+            ->add('firstname', TextType::class, $this->getConfiguration('Votre prénom','Ecrivez votre Prénom'))
+            ->add('lastname', TextType::class, $this->getConfiguration('Votre nom','Ecrivez votre nom'))
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label'=> 'J\'accepte la conservation de mes données personnelles dans le respect de la RGPD',
@@ -34,8 +34,8 @@ class RegistrationFormType extends TypeConfig
             ])
             ->add('password', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options'  => $this->getConfiguration("Votre mot de passe","Entrez votre mot de passe"),
-                'second_options' => $this->getConfiguration("Confirmez votre mot de passe","Entrez à nouveau votre mot de passe"),
+                'first_options'  => $this->getConfiguration('Votre mot de passe','Entrez votre mot de passe'),
+                'second_options' => $this->getConfiguration('Confirmez votre mot de passe','Entrez à nouveau votre mot de passe'),
             )
             )
 
