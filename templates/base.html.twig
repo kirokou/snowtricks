@@ -85,11 +85,13 @@
         {% for label, messages in app.flashes %}
             <div class="container mt-5">
                 <div class="row mt-4"> 
-                    {% for message in messages %}
+                    <div class="col-md-8 mx-auto mt-4">
+                        {% for message in messages %}
                         <div class="alert alert-{{ label }}">
                             <p> {{ message | raw}} </p>
                         </div>
-                    {% endfor %}  
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
         {% endfor %}
