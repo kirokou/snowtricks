@@ -15,10 +15,10 @@ class UserType extends TypeConfig
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, $this->getConfiguration("Votre email", "Ecrivez votre adresse mail"))
-            ->add('firstname', TextType::class, $this->getConfiguration("Votre prénom","Ecrivez votre prénom"))
-            ->add('lastname', TextType::class, $this->getConfiguration("Votre nom"," Ecrivez votre nom"))
-            ->add('avatar', UrlType::class, $this->getConfiguration("URL de votre avatar","Ecrivez l'URL de votre avatar",false))
+            ->add('email', EmailType::class, $this->getConfiguration('Votre email', 'Ecrivez votre adresse mail'))
+            ->add('firstname', TextType::class, $this->getConfiguration('Votre prénom','Ecrivez votre prénom'))
+            ->add('lastname', TextType::class, $this->getConfiguration('Votre nom',' Ecrivez votre nom'))
+            ->add('avatar', UrlType::class, $this->getConfiguration('URL de votre avatar','Ecrivez l\'URL de votre avatar',false))
         ;
     }
 

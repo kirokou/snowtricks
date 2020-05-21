@@ -20,7 +20,7 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
-     * use Symfony\Component\Validator\Constraints as Assert;
+     * @Assert\NotBlank()
      * @Assert\Length(min=5, max=9000,
      *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
      *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    

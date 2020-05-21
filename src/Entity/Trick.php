@@ -27,6 +27,7 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min=5, max=255,
      *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
      *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
@@ -36,6 +37,7 @@ class Trick
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      * @Assert\Length(min=25, max=9000,
      *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
      *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    

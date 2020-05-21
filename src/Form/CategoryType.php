@@ -16,7 +16,7 @@ class CategoryType extends TypeConfig
             ->add(
             'title',
             TextType::class, 
-            $this->getConfiguration("Titre de la catégorie","Entrez le titre de la catégorie"))
+            $this->getConfiguration('Titre de la catégorie','Entrez le titre de la catégorie'))
         ;
     }
 

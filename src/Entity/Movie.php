@@ -19,6 +19,7 @@ class Movie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min=5, max=255,
      *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
      *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    
@@ -28,6 +29,7 @@ class Movie
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(min=5, max=255,
      *     minMessage = "Ce champs doit avoir au moins {{ limit }} caractères.",
      *     maxMessage = "Ce champs ne doit pas dépasser {{ limit }} caractères."    

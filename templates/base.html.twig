@@ -12,7 +12,9 @@
         <!-- Material Design Bootstrap -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.10.1/css/mdb.min.css" rel="stylesheet">
         <link rel="stylesheet" href="{{asset('build/css/app.css')}}">
+        
         {% block stylesheets %}{% endblock %}
+
         <title>SNOWTRICKS {% block title %}{% endblock %}</title>
 
     </head>
@@ -81,12 +83,14 @@
 
         <!--Flash-->
         {% for label, messages in app.flashes %}
-            <div class="container">
-                {% for message in messages %}
-                    <div class="alert alert-{{ label }}">
-                        <p> {{ message | raw}} </p>
-                    </div>
-                {% endfor %}  
+            <div class="container mt-5">
+                <div class="row mt-4"> 
+                    {% for message in messages %}
+                        <div class="alert alert-{{ label }}">
+                            <p> {{ message | raw}} </p>
+                        </div>
+                    {% endfor %}  
+                </div>
             </div>
         {% endfor %}
         <!--/.Flash-->
@@ -123,6 +127,15 @@
         <!--Bootstrap core JavaScript-->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="{{asset('build/js/app.js')}}"></script>
+        <script>
+            $('input[type="file"]').on('change',function(){
+                alert('toto2');
+                var fileName = $(this).val();
+                //replace the "Choose a file" label
+                $(this).next('.custom-file-label').html(fileName);
+            })
+        </script>
+
         {% block javascripts %}{% endblock %}
     </body>
 </html>

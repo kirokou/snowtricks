@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class AdminController extends AbstractController
 {
     /**
-     * @Route("/admin", name="app_admin")
+     * @Route("/admin", name="app_admin", methods={"GET"})
      */
     public function index(): Response
     {
@@ -20,12 +20,12 @@ class AdminController extends AbstractController
         $trickRepository = $entityManager->getRepository(Trick::class);
         $tricks = $trickRepository->findAll();
 
-        $commentRepository=$entityManager->getRepository(Comment::class);
-        $comments=$commentRepository->findAll();
+        $commentRepository = $entityManager->getRepository(Comment::class);
+        $comments = $commentRepository->findAll();
 
         return $this->render('admin/index.html.twig', [
-            'tricks'=>$tricks,
-            'comments'=>$comments,
+            'tricks' => $tricks,
+            'comments' => $comments,
         ]);
     }
 }

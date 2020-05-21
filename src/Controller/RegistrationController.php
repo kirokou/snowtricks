@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class RegistrationController extends AbstractController
 {
     /**
-     * @Route("/sign-up", name="app_register")
+     * @Route("/sign-up", name="app_register", methods={"GET","POST"})
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer): Response
     {
@@ -62,7 +62,7 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * @Route("/activation/{token}", name="activation")
+     * @Route("/activation/{token}", name="activation", methods={"GET"})
      */
     public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
     {
