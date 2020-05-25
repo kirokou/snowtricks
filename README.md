@@ -38,15 +38,13 @@ Lien vers les analyses SensioLabsInsight, Codacy ou Codeclimate (via une médail
 
 > Database => MySQL 5.7.25
 
-> Web Server => Apache 2.2.34
+> Web Server 
 
-> Symfony => 4.14.4
+> Symfony 
 
-> Bootstrap => 4
+> Composer 
 
-> Composer => 1.8.5 
-
-> Yarn => 1.22.4
+> Yarn
 
 ## Step 1: clone the projet
     git clone https://github.com/kirokou/snowtricks.git
@@ -58,12 +56,9 @@ https://getcomposer.org/download/
     composer install
 
 ## Step 4: webpack encore
-    composer require webpack-bundle
     yarn install
 
 ## Step 5: config .env
-    For macOs: DATABASE_URL=mysql://root:root@127.0.0.1:8889/snowtricks
-    For Others: DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/snowtricks
 
 ## Step 6: create DB
     php bin/console d:d:c
@@ -75,6 +70,8 @@ https://getcomposer.org/download/
     php bin/console doctrine:migrations:migrate
 
 ## Step 8: load fixtures
+> Avant de lancer une fixtures vérifier bien que les images sont dans le dossiers DataFixtures/img. Sinon, Déplacer les images qui sont dans le dossier DataFixtures/img-Save vers DataFixtures/img.
+
     php bin/console do:fi:lo  
 
 ## Step 9: start server

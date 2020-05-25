@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Repository\UserRepository;
 use App\Security\LoginFormAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +19,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/sign-up", name="app_register", methods={"GET","POST"})
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer): Response
+    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, \Swift_Mailer $mailer, EntityManagerInterface $em): Response
     {
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
@@ -35,9 +36,8 @@ class RegistrationController extends AbstractController
             // Make and set token to user
             $user->setActivationToken(md5(uniqid()));
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
+            $em->persist($user);
+            $em->flush();
 
             // On crée le message
             $message = (new \Swift_Message('Nouveau compte'))
@@ -64,7 +64,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/activation/{token}", name="activation", methods={"GET"})
      */
-    public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler): Response
+    public function activation($token, UserRepository $user, Request $request, LoginFormAuthenticator $authenticator, GuardAuthenticatorHandler $guardHandler, EntityManagerInterface $em): Response
     {
         $user = $user->findOneBy(['activation_token' => $token]);
 
@@ -73,12 +73,11 @@ class RegistrationController extends AbstractController
         }
       
         // On supprime le token
-        $user->setActivationToken(null);
-        $user->setroles(['ROLE_USER']);
+        $user->setActivationToken(null)
+            ->setroles(['ROLE_USER']);
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $em->persist($user);
+        $em->flush();
 
         // On authentififie l'utilisateur
         return $guardHandler->authenticateUserAndHandleSuccess(

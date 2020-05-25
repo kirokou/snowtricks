@@ -10,8 +10,6 @@ use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 trait NeedLogin
 {    
     /**
-     * logIn
-     *
      * @param  mixed $client
      * @param  mixed $user
      * 

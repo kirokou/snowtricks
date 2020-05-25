@@ -9,8 +9,6 @@ class CommentTest extends KernelTestCase
 {
 
     /**
-     * getComment
-     *
      * @return Comment
      */
     private function getComment(): Comment

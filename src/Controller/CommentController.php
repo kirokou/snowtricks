@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Service\Paginator;
 use App\Repository\CommentRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,6 +19,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class CommentController extends AbstractController
 {
+    private $em;
+
+    /**
+     * @param  mixed $em
+     * @return void
+     */
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     /**
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{page<\d+>?1}", name="comment_index", methods={"GET"})
@@ -45,9 +57,8 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            $this->em->persist($comment);
+            $this->em->flush();
 
             return $this->redirectToRoute('comment_index');
         }
@@ -75,9 +86,8 @@ class CommentController extends AbstractController
     public function delete(Request $request, Comment $comment): Response
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($comment);
-            $entityManager->flush();
+           $this->em->remove($comment);
+           $this->em->flush();
         }
 
         return $this->redirectToRoute('comment_index');

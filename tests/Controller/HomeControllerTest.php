@@ -9,7 +9,7 @@ class HomeControllerTest extends WebTestCase
     public function testHomeControllerRoute()
     {
         $client = static::createClient();
-        $crawler = $client->request('GET', '/');
+        $client->request('GET', '/');
 
         $this->assertResponseIsSuccessful();
     }

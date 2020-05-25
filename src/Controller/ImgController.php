@@ -20,11 +20,11 @@ class ImgController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="img_delete")
      */
-    public function delete(ImgRepository $imgRepository, TrickRepository $trickRepository,  $id, EntityManagerInterface $entityManager): Response
+    public function delete(ImgRepository $imgRepository, TrickRepository $trickRepository,  $id, EntityManagerInterface $em): Response
     {
         $img = $imgRepository->find($id);
-        $entityManager->remove($img);
-        $entityManager->flush();
+        $em->remove($img);
+        $em->flush();
 
         $trick = $trickRepository->find($img->getTrick());
         $form = $this->createForm(TrickType::class, $trick);
