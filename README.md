@@ -100,7 +100,7 @@ https://getcomposer.org/download/
     </tbody>
 </table>
 
-## Step 11: Security in Prod
+## Step 11: Security in Production
 > Htacces
 
 > Generate new keygen for APP_SECRET:
