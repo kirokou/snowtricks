@@ -57,3 +57,22 @@ header,
 .to{
   margin-top: 100px !important;
 }
+
+/* See media Management */
+#see-medias
+{ display: none;}
+
+@media (max-width: 800px) {
+  #see-medias
+  { display: inline;}
+
+  #medias{
+    display: none;
+  }
+
+  #medias:target {
+    display: block !important;
+  }
+
+}
+

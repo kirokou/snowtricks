@@ -22,8 +22,7 @@ class AdminControllerTest extends WebTestCase
 
     public function testAdminIndexProtectedRouteAndRedirect()
     {
-        $crawler = $this->client->request('GET', '/admin');
-
+       $this->client->request('GET', '/admin');
        $this->assertResponseRedirects('/login');
        $this->client->followRedirect();
     }

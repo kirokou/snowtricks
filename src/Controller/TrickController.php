@@ -44,7 +44,7 @@ class TrickController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $em): Response
     {
         $trick = new Trick();
         $form = $this->createForm(TrickType::class, $trick);
@@ -57,10 +57,11 @@ class TrickController extends AbstractController
                 $trick->addImg($img);
             }
 
-            $trick->setCreatedAt(new DateTime('now'));
-            $trick->setUser($this->getUser());
-            $entityManager->persist($trick);
-            $entityManager->flush();
+            $trick->setCreatedAt(new DateTime('now'))
+                ->setUser($this->getUser());
+
+            $em->persist($trick);
+            $em->flush();
 
             $this->addFlash('success', 'Super! votre annonce à bien été ajouté.');
             return $this->redirectToRoute('trick_index');
@@ -75,19 +76,19 @@ class TrickController extends AbstractController
     /**
     * @Route("/{id}/show", name="trick_show", methods={"GET", "POST"})
     */
-    public function show(Trick $trick, Request $request, CommentRepository $commentRepository): Response
+    public function show(Trick $trick, Request $request, CommentRepository $commentRepository, EntityManagerInterface $em): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setAuthor($this->getUser());
-            $comment->setTrick($trick);
-            $comment->setCreatedAt(new DateTime('now'));
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
+            $comment->setAuthor($this->getUser())
+                ->setTrick($trick)
+                ->setCreatedAt(new DateTime('now'));
+          
+            $em->persist($comment);
+            $em->flush();
 
             return $this->redirectToRoute('trick_show', ['id' => $trick->getId()]);
         }
@@ -104,7 +105,7 @@ class TrickController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Trick $trick, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Trick $trick, EntityManagerInterface $em): Response
     {
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
@@ -118,8 +119,8 @@ class TrickController extends AbstractController
             }
             
             $trick->setUpdatedAt(new DateTime('now'));
-            $entityManager->persist($trick);
-            $entityManager->flush();
+            $em->persist($trick);
+            $em->flush();
 
             $this->addFlash('success', 'Super! votre annonce à bien été modifié.');
 
@@ -136,12 +137,11 @@ class TrickController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      * @Route("/{id}", name="trick_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Trick $trick): Response
+    public function delete(Request $request, Trick $trick, EntityManagerInterface $em): Response
     {
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($trick);
-            $entityManager->flush();
+            $em->remove($trick);
+            $em->flush();
         }
         
         return $this->redirectToRoute('trick_index');
