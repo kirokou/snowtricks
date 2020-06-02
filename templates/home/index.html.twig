@@ -85,7 +85,7 @@
                                 <div class="col-18"><i class="fa fa-user mr-2"></i> {{trick.user.firstname}} {{trick.user.lastname}} </div>
                                 <div class="col"> <i class="fa fa-comment mr-2"></i> {{trick.comments|length}}</div>
                             </div>
-                            {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == trick.user.id)%}
                             <div class="d-flex">
                                 <a href="{{ path('trick_edit', {'id':trick.id}) }}" class="card-link"><i class="fas fa-pencil-alt mr-3"></i></a>
                                 {{ include('trick/_delete_form_badge.html.twig') }}

@@ -3,8 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Trick;
 use App\Form\UserType;
+use App\Service\Paginator;
 use App\Repository\UserRepository;
+use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -53,12 +57,21 @@ class UserController extends AbstractController
 
     /**
      * @Security("is_granted('ROLE_USER') and user == currentUser or is_granted('ROLE_ADMIN')", message="Vous n'avez pas le droit d'accéder à cette page.")
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/{id}/{page<\d+>?1}", name="user_show", methods={"GET"})
      */
-    public function show(User $currentUser): Response
+    public function show(User $currentUser, TrickRepository $trickRepository, CommentRepository $commentRepository, $page, Paginator $paginator): Response
     {
+        $paginator->setEntityClass(Trick::class)
+                ->setPage($page);
+
         return $this->render('user/show.html.twig', [
             'user' => $currentUser,
+            'tricks' => $paginator->getData(['user'=>$this->getUser()]),
+            'pages' => $paginator->getPages(['user'=>$this->getUser()]),
+            'page' => $page
+
+           // 'tricks' => $trickRepository->findByUser($this->getUser()),
+           // 'comments' => $commentRepository->findByAuthor($this->getUser()),
         ]);
     }
 
@@ -73,6 +86,8 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
+
+            $this->addFlash('success', 'Super! votre profil à bien été modifié.');
 
             if ($this->isGranted('ROLE_USER')) {
                 return $this->redirectToRoute('user_show', ['id' => $this->getUser()->getId()]);
@@ -93,6 +108,8 @@ class UserController extends AbstractController
      */
     public function delete(Request $request, User $user, EntityManagerInterface $em): Response
     {
+
+        
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $em->remove($user);
             $em->flush();
