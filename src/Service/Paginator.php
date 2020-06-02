@@ -38,13 +38,13 @@ class Paginator
     * @throws Exception si la propriété $entityClass n'est pas configurée
     * @return int
     */
-    public function getPages(): int {
+    public function getPages($arraySeach=[]): int {
        if(empty($this->entityClass)) {
            throw new \Exception("Vous n'avez pas spécifié l'entité sur laquelle nous devons paginer ! Utilisez la méthode setEntityClass() de votre objet PaginationService !");
        }
 
        // 1) Connaitre le total des enregistrements de la table
-       $total = count($this->manager->getRepository($this->entityClass)->findAll());
+       $total = count($this->manager->getRepository($this->entityClass)->findBy($arraySeach,[]));
 
        // 2) Faire la division, l'arrondi et le renvoyer
        return ceil($total / $this->limit);
@@ -54,7 +54,7 @@ class Paginator
     * @throws Exception si la propriété $entityClass n'est pas définie
     * @return array
     */
-   public function getData() {
+   public function getData($arraySeach=[]) {
        if(empty($this->entityClass)) {
            throw new \Exception("Vous n'avez pas spécifié l'entité sur laquelle nous devons paginer ! Utilisez la méthode setEntityClass() de votre objet PaginationService !");
        }
@@ -62,7 +62,7 @@ class Paginator
        $offset = $this->currentPage * $this->limit - $this->limit;
 
        // 2) Demander au repository de trouver les éléments à partir d'un offset et 
-       return $this->manager->getRepository($this->entityClass)->findBy([], ["id"=>"DESC"], $this->limit, $offset);
+       return $this->manager->getRepository($this->entityClass)->findBy($arraySeach, ["id"=>"DESC"], $this->limit, $offset);
    }
 
    /**

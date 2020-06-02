@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Espace utilisateur{% endblock %}
+
+{% block body %}
+<div class="container mt-container">
+
+    <div class="row mt-5">
+        <div class="col-10">
+            <h1>Modifier un commentaire</h1>
+            {{ include('comment/_form.html.twig', {'button_label': 'Modifier'}) }} 
+        </div>
+    </div>
+
+</div>
+{% endblock %}

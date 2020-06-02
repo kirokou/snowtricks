@@ -10,14 +10,13 @@
         {% set url = 'https://as2.ftcdn.net/jpg/01/16/55/77/500_F_116557709_H9HBItGCiQ5VouiK44v9V2ijtatzAc5I.jpg' %}
     {% endif %} 
 
-
     <!-- Full Page Intro -->
     <div class="view full-page-intro" style="background-image: url('{{ url }}'); background-repeat: no-repeat; background-size:cover; background-position:center center">
 
         <!-- Content -->
         <div class="container">
             <!--edit and delete button-->
-            {% if app.user and is_granted("ROLE_ADMIN") %}
+            {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and app.user.id == trick.user.id)%}
                 <div class="row d-flex mt-container justify-content-end">
                     <a class="btn blue-gradient" href="{{ path('trick_edit', {'id': trick.id}) }}"><i class="fas fa-pencil-alt"></i></a>
                     {{ include('trick/_delete_form_btn.html.twig') }}
@@ -163,13 +162,19 @@
                         <!--/Comment body-->
                         <!--Comment footer-->
                         <div class="row justify-content-center card-footer">
-                            <div class="col-6">
+                            <div class="col-9">
                                 <span> Crée le: {{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i') : '' }}</span> 
                                 {% if comment.updatedAt is not null %}
                                 | <span> Dernière modification: {{ comment.updatedAt ? comment.updatedAt|date('d-m-Y H:i') : '' }}</span>
                                 {% endif %}
                             </div>
 
+                            {% if (is_granted('ROLE_USER') and app.user.id == comment.author.id)%}
+                                <div class="col-3 d-flex">
+                                    <a href="{{ path('comment_edit', {'id':comment.id}) }}" class="card-link"><i class="fas fa-pencil-alt mr-3"></i></a>
+                                    {{ include('comment/_delete_form_badge.html.twig') }}
+                                </div>    
+                            {% endif %}
                         </div>
                         <!--./Comment footer-->    
                     </div>

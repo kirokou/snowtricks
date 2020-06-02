@@ -17,6 +17,7 @@
                     <th>ID</th>
                     <th>Title</th>
                     <th>Categorie</th>
+                    <th>Auteur</th>
                     <th>Date de création</th>
                     <th>Date de modification</th>
                     <th>Actions</th>
@@ -28,6 +29,7 @@
                     <td>{{ trick.id }}</td>
                     <td>{{ trick.title }}</td>
                     <td>{{ trick.category.title }}</td>
+                    <td>{{ trick.user.firstname }} {{ trick.user.lastname }}</td>
                     <td>{{ trick.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
                     <td>{{ trick.updatedAt ? trick.updatedAt|date('d/m/Y H:i', 'Europe/Paris') : '' }}</td>                   
                     <td>

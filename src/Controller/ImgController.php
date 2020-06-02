@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ImgController extends AbstractController
 {
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted({"ROLE_ADMIN","ROLE_USER"})
      * @Route("/{id}", name="img_delete")
      */
     public function delete(ImgRepository $imgRepository, TrickRepository $trickRepository,  $id, EntityManagerInterface $em): Response
