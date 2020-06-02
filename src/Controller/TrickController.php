@@ -41,7 +41,7 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted({"ROLE_ADMIN","ROLE_USER"})
      * @Route("/new", name="trick_new", methods={"GET","POST"})
      */
     public function new(Request $request, EntityManagerInterface $em): Response
@@ -64,6 +64,11 @@ class TrickController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Super! votre annonce à bien été ajouté.');
+
+            if ($this->getUser()->getRoles() !== 'ROLE_ADMIN') {
+                return $this->redirectToRoute('user_show', ['id'=>$this->getUser()->getId()]);
+            }
+            
             return $this->redirectToRoute('trick_index');
         }
 
@@ -100,13 +105,17 @@ class TrickController extends AbstractController
         ]);
     }
 
-
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted({"ROLE_ADMIN","ROLE_USER"})
      * @Route("/{id}/edit", name="trick_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Trick $trick, EntityManagerInterface $em): Response
     {
+        //Check if trick is this current simple_user's trick
+        if ($this->getUser()->getRoles() !== 'ROLE_ADMIN' && $trick->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createNotFoundException('Vous ne disposez pas des droits nécessaires pour la modification de ce trick.');
+        }
+
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
 
@@ -124,6 +133,10 @@ class TrickController extends AbstractController
 
             $this->addFlash('success', 'Super! votre annonce à bien été modifié.');
 
+            if ($this->getUser()->getRoles() !== 'ROLE_ADMIN') {
+                return $this->redirectToRoute('user_show', ['id'=>$this->getUser()->getId()]);
+            }
+
             return $this->redirectToRoute('trick_index');
         }
 
@@ -134,16 +147,26 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted({"ROLE_ADMIN","ROLE_USER"})
      * @Route("/{id}", name="trick_delete", methods={"DELETE"})
      */
     public function delete(Request $request, Trick $trick, EntityManagerInterface $em): Response
     {
+        if ($this->getUser()->getRoles() !== 'ROLE_ADMIN' && $trick->getUser()->getId() !== $this->getUser()->getId()) {
+            throw $this->createNotFoundException('Vous ne disposez pas des droits nécessaires pour supprimer ce trick.');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$trick->getId(), $request->request->get('_token'))) {
             $em->remove($trick);
             $em->flush();
         }
         
+        $this->addFlash('success', 'Vous avez malheureusement supprimer un trick. Pensez à en ajouter d\'autres.');
+
+        if ($this->getUser()->getRoles() !== 'ROLE_ADMIN') {
+            return $this->redirectToRoute('user_show', ['id'=>$this->getUser()->getId()]);
+        }
+
         return $this->redirectToRoute('trick_index');
     }
 }

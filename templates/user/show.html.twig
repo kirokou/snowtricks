@@ -4,27 +4,92 @@
 
 {% block body %}
 <div class="container mt-container">
-    <div class="col-10 offset-1 mt-5">
-        <h1>Espace utilisateur: {{ user.firstname }} {{ user.lastname }} 
-            <span>
-                {% if user.avatar is null %}
-                <img src="https://eu.ui-avatars.com/api/?name={{user.firstname}}+{{user.lastname}}&rounded=true&color=2D0000&background=FF5F50"  class="img-responsive" />
-                {% else %}
-                <img src="{{ user.avatar }}"  class="rounded-circle" height="48" width="48"/>
-                {% endif %}
-            </span>
-        </h1>
 
-        <table class="table">
-            <tbody>
-                <tr>
-                    <th>Email</th>
-                    <td>{{ user.email }}</td>
-                </tr>
-            </tbody>
-        </table>
-    
-        <a class="btn blue-gradient btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">Modifier mes informations</a>
+    <div class="row mt-5">
+        <!--**Column de droit**-->
+        <div class="col-4 mt-5">
+            <h3>ESPACE UTILISATEUR</h3>
+            <h5> {{ user.firstname }} {{ user.lastname }} </h4>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a class="btn blue-gradient btn-sm" href="{{ path('user_edit', {'id': user.id}) }}">Modifier mes informations</a>
+        </div>
+        <!--**/Column de droit**-->
+
+        <!--**Column de gauche**-->
+        <div class="col-8 mt-5">
+            <div class="row">
+            <!--Titre-->
+            <div class="col-12 d-flex justify-content-espace-between">
+                <h1>Liste des tricks</h1>
+                <a class="btn blue-gradient" href="{{ path('trick_new') }}">+</i></a>
+            </div>
+       
+            <!--Tableau d'affichage-->
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Categorie</th>
+                        <th>Date de création</th>
+                        <th>Date de modification</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for trick in tricks %}
+                    <tr>
+                        <td>{{ trick.id }}</td>
+                        <td>{{ trick.title }}</td>
+                        <td>{{ trick.category.title }}</td>
+                        <td>{{ trick.createdAt|date('d/m/Y H:i', 'Europe/Paris') }}</td>
+                        <td>{{ trick.updatedAt ? trick.updatedAt|date('d/m/Y H:i', 'Europe/Paris') : '' }}</td>                   
+                        <td>
+                            <a class="badge badge-primary" href="{{ path('trick_show', {'id': trick.id}) }}"><i class="far fa-eye"></i> Voir</a>
+                            <a class="badge badge-warning" href="{{ path('trick_edit', {'id': trick.id}) }}"> <i class="far fa-edit"></i> Modifier</a>
+                            <!--by form-->
+                            {{ include('trick/_delete_form_badge.html.twig') }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">Vous n'avez pas encore ajouté de trick sur notre site. N'hésitez pas à contribuer en ajoutant vos tricks.</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <!--Pagination-->
+            {% if tricks is not empty %}
+               
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pg-blue justify-content-end">
+                        <li class="page-item {% if page == 1 %}disabled{% endif %}">
+                            <a class="page-link" href="{{ path('user_show', {'id':user.id,'page': page - 1}) }}">Précédent</a>
+                        </li>
+                        {% for i in 1..pages %}
+                            <li class="page-item {% if page == i %}active{% endif %}"> 
+                                <a class="page-link" href="{{ path('user_show', {'id':user.id,'page':i}) }}"> {{i}} </a>
+                            </li>
+                        {% endfor %}
+                        
+                        <li class="page-item  {% if page == pages %}disabled{% endif %}">
+                            <a class="page-link" href="{{ path('user_show', {'id':user.id,'page': page + 1}) }}">Suivant</a>
+                        </li>
+                    </ul>
+                </nav>
+            {% endif %}
+             <!--Pagination-->
+    </div>
+        </div>
+        
     </div>
 </div>
 {% endblock %}
