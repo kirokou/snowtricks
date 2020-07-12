@@ -23,10 +23,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addStyleEntry("css/app", "./assets/css/app.css")
+    //.addStyleEntry("css/app", "./assets/css/app.css")
 
-    .addEntry("js/app", "./assets/js/app.js")
-    .addEntry("js/trick", "./assets/js/trick.js")
+    .addEntry("app", "./assets/js/app.js")
+    //.addEntry("js/trick", "./assets/js/trick.js")
     // .addStyleEntry("media-slide-1", "./assets/media/slide-1.jpg")
     // .addStyleEntry("media-slide-2", "./assets/media/slide-2.jpg")
     // .addStyleEntry("media-slide-3", "./assets/media/slide-3.jpg")
